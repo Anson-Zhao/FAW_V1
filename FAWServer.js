@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs'); // set up ejs for templating
-
+app.use("/css",express.static(__dirname + "/css"));
 // required for passport
 var options = {
     host: '10.11.4.36',

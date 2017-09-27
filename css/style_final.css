@@ -118,6 +118,12 @@ input[type='number']{
     margin-left: 30px;
 }
 
+input[type='date']{
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 30px;
+}
+
 input[type='radio']{
     color: #5A5A5A;
     font: inherit;
@@ -176,11 +182,6 @@ h1 {
     letter-spacing: 7px;
     text-align: center;
     text-transform: uppercase;
-}
-
-input[type='text']:focus, [type='email']:focus, textarea:focus {
-    outline: none;
-    padding: 0 0 0.875em 0;
 }
 
 select {
