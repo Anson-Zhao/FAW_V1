@@ -1,0 +1,191 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+
+h3 {
+    margin: 30px;
+}
+
+/*.input {
+    margin: 30px;
+}
+
+input {
+    line-height: normal;
+}
+option {
+    margin: 30px;
+}
+
+textarea {
+    overflow: auto;
+}
+
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+
+
+.button {
+
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+*/
+
+
+html {
+    font-family: 'Montserrat', Arial, sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: #F2F3EB;
+}
+
+select {
+    text-transform: none;
+}
+
+img {
+    border-style: solid;
+    color: #5A5A5A;
+    font: inherit;
+    margin-top: 10px;
+    margin-left: 30px;
+    max-height: 300px;
+    max-width: 950px;
+    width: auto;
+    display: none;
+}
+
+input[type='button']:hover{
+    background-color: #b2b2b2;
+    color: #40473b;
+}
+
+input[type="button"]:disabled {
+    background: #dd7777;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+
+}
+
+input[type='button']{
+    background-color: #e3e4dc;
+    border-radius: 4px;
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 65%;
+    margin-bottom: 30px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+input[type='file']{
+    background-color: #e3e4dc;
+    border-radius: 4px;
+    color: #5A5A5A;
+    font: inherit;
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+
+}
+
+input[type='submit']{
+    background-color: #e3e4dc;
+    border-radius: 4px;
+    color: #5A5A5A;
+    font: inherit;
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+
+}
+
+input[type='number']{
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 30px;
+}
+
+input[type='radio']{
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 30px;
+}
+
+#fieldSizeDecimal {
+
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 0;
+}
+
+#amountOfPesticideDecimal {
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 0;
+}
+
+input[type='number']{
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 30px;
+}
+
+input[type='text'], select {
+    color: #5A5A5A;
+    font: inherit;
+    margin-left: 5%;
+    margin-top: 10px;
+    background: none;
+    border: none;
+    border-bottom: solid 2px #474544;
+    font-size: 1.000em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding: 0 0 0.875em 0;
+    text-transform: uppercase;
+    position: center;
+    width: 90%;
+}
+
+
+#container {
+    border: solid 3px #474544;
+    max-width: 50%;
+    margin: 60px auto;
+    position: relative;
+
+}
+
+h1 {
+    color: #474544;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 7px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+input[type='text']:focus, [type='email']:focus, textarea:focus {
+    outline: none;
+    padding: 0 0 0.875em 0;
+}
+
+select {
+    background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png') no-repeat right;
+    outline: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
