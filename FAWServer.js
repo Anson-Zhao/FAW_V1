@@ -23,6 +23,7 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use("/css", express.static(__dirname + "/css"));
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
