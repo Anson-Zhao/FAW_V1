@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app      = express();
 var port     = process.env.PORT || 9088;
-
+var path    = require('path');
 var passport = require('passport');
 var flash    = require('connect-flash');
 
@@ -23,12 +23,16 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use("/css", express.static(__dirname + "/css"));
 
-app.set('view engine', 'ejs'); // set up ejs for templating
-app.use("/css",express.static(__dirname + "/css"));
+app.set('views', path.join(__dirname, './', 'views'));
+app.engine('ejs', require('ejs').renderFile);
+
+//app.set('view engine', 'ejs'); // set up ejs for templating
+
 // required for passport
 var options = {
-    host: '10.11.4.36',
+    host: '127.0.0.1',
     port: 3306,
     user: 'SessionManager',
     password: 'SManager$44',

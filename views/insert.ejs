@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>FAW Project</title>
+	<title>FAW Project -  Data Entry</title>
 	<meta charset="UTF-8">
 
 	<link rel="stylesheet" href="../css/style_final.css" type="text/css"/>
@@ -22,7 +22,8 @@
 
 	<div class="page-header text-center">
 		<h1><span class="fa fa-anchor"></span> Data Insert</h1>
-		<a href="/profile" class="btn btn-default btn-sm">Data Query</a>
+		<a href="/profile" class="btn btn-default btn-sm">User Home</a>
+		<a href="/dataQuery" class="btn btn-default btn-sm">Data Query</a>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
 
@@ -82,10 +83,10 @@
 		<form id = "uploadForm" enctype = "multipart/form-data" action = "http://localhost:9088/upload" method = "post">
 			<h3>Photos of pest at different stages: &nbsp;&nbsp;&nbsp;</h3><input id="photoOfPest" type="file" name="photoOfPest" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfPestImage" src="" alt="Image preview..."><br>
 			<h3>Photos maize at all stages of damage: &nbsp;&nbsp;&nbsp;</h3><input id="photoOfDamage" type="file" name="photoOfDamage" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfDamageImage" src="" alt="Image preview..."><br><br>
-			<input onclick="undisableBtn()" type="submit" value="Upload Images">
+			<input type="submit" value="Submit the Form">
 		</form>
+		<!--<input type="button" value="Submit the Form" onclick="submit()">-->
 	</div>
-	<input id="myBtn" type="button" value="Submit the Form" onclick="submit()" disabled>
 
 </div>
 <script>
@@ -276,8 +277,6 @@
             var file = document.getElementById("photoOfPest").files[0];
             var reader = new FileReader();
 
-            alert(file);
-
             reader.addEventListener("load", function () {
                 preview.src = reader.result;
             }, false);
@@ -437,14 +436,24 @@
         //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.');
 
         if (!responseText.error) {
-            alert(responseText.message);
-            alert("No error!");
+            //alert(responseText.message);
+            //alert("No error!");
+            info[18] = "";
+            info[19] = "";
+            var names = responseText.message.split(",");
 
-            //info[18] = ;
-            //info[19] = ;
-
+            for (var i = 0; i < names.length; i++) {
+                if (names[i].substring(0,11) === "photoOfPest") {
+                    info[18] += names[i] + ",";
+                } else if (names[i].substring(0,13) === "photoOfDamage") {
+                    info[19] += names[i] + ",";
+                }
+            }
+            info[18] = info[18].substring(0, info[18].length - 1);
+            info[19] = info[19].substring(0, info[19].length - 1);
+            alert(info[18].length + " " + info[19].length);
+            var insertStatement = "";
             for (var i = 0; i < info.length; i++) {
-                var insertStatement = "";
                 if (info[i] === "NULL"){
                     insertStatement += info[i] + ', '
                 } else {
@@ -452,13 +461,15 @@
                 }
             }
             insertStatement = insertStatement.substring(0, insertStatement.length - 2);
+            alert(insertStatement);
+            insert(insertStatement)
         } else {
             alert(responseText.message);
             alert("There is an error!");
         }
     }
 
-    var insert = function () {
+    var insert = function (insertStatement) {
         var ajaxRequest;
         try{
             // Opera 8.0+, Firefox, Safari
@@ -536,11 +547,7 @@
         var querystring = "?statement=" + insertStatement;
         ajaxRequest.open("GET", "//10.11.4.90:9088/insert" + querystring, true);
         ajaxRequest.send(querystring);
-    };
-    function undisableBtn() {
-        document.getElementById("myBtn").disabled = false;
     }
-
 </script>
 
 </body>

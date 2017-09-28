@@ -4,6 +4,9 @@ var dbconfig = require('../config/database');
 var connection = mysql.createConnection(dbconfig.connection);
 var upload = require('../config/upload');
 
+var fileUpload = upload.function;
+var filePathName = upload.fileName;
+
 module.exports = function(app, passport) {
 
 	// =====================================
@@ -67,12 +70,6 @@ module.exports = function(app, passport) {
 		});
 	});
 
-    app.get('/pageA', isLoggedIn, function(req, res) {
-        res.render('insert.ejs', {
-            user : req.user // get the user out of session and pass to template
-        });
-    });
-
 	// =====================================
 	// LOGOUT ==============================
 	// =====================================
@@ -81,18 +78,21 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
-    app.post('/upload', upload, function(req,res){
+    app.post('/upload', fileUpload, function(req,res){
         var origin = req.headers.origin;
         res.setHeader("Access-Control-Allow-Origin", origin);
 
-        upload(req,res,function(err) {
+        fileUpload(req,res,function(err) {
             if(err) {
                 console.log(err);
                 res.json({"error": true, "message": "Fail"});
+                filePathName = "";
                 //res.send("Error uploading file.");
             } else {
                 console.log("success");
-                res.json({"error": false, "message": "Success"});
+                console.log(filePathName);
+                res.json({"error": false, "message": filePathName});
+                filePathName = "";
                 //res.send("File is uploaded");
             }
         });
