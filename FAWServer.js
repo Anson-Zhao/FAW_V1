@@ -1,5 +1,6 @@
 // set up ======================================================================
 // get all the tools we need
+var dbconfig = require('./config/database');
 var express  = require('express');
 var session  = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
@@ -7,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app      = express();
-var port     = process.env.PORT || 9088;
+var port     = process.env.PORT || dbconfig.Server_Port;
 var path    = require('path');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -32,11 +33,11 @@ app.engine('ejs', require('ejs').renderFile);
 
 // required for passport
 var options = {
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'SessionManager',
-    password: 'SManager$44',
-    database: 'session_DB',
+    host: dbconfig.session_connection.host,
+    port: dbconfig.session_connection.port,
+    user: dbconfig.session_connection.user,
+    password: dbconfig.session_connection.password,
+    database: dbconfig.Session_db,
     checkExpirationInterval: 60000,// How frequently expired sessions will be cleared; milliseconds.
     expiration: 300000,// The maximum age of a valid session; milliseconds.
     createDatabaseTable: true,// Whether or not to create the sessions database table, if one does not already exist.
@@ -50,6 +51,7 @@ var options = {
         }
     }
 };
+
 
 var sessionStore = new MySQLStore(options);
 

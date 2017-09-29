@@ -1,6 +1,37 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 
+h3 {
+    margin: 30px;
+}
+
+/*.input {
+    margin: 30px;
+}
+input {
+    line-height: normal;
+}
+option {
+    margin: 30px;
+}
+textarea {
+    overflow: auto;
+}
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+.button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+*/
 
 
 html {
@@ -9,9 +40,9 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-/*body {*/
-    /*background: #F2F3EB;*/
-/*}*/
+body {
+    background: #F2F3EB;
+}
 
 select {
     text-transform: none;
@@ -41,37 +72,40 @@ input[type="button"]:disabled {
 
 }
 
-input[type='file']{
-    font-size: inherit;
-    background-color: #ffffff;
+input[type='button']{
+    background-color: #e3e4dc;
     border-radius: 4px;
     color: #5A5A5A;
+    font: inherit;
+    margin-left: 65%;
+    margin-bottom: 30px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+input[type='file']{
+    background-color: #e3e4dc;
+    border-radius: 4px;
+    color: #5A5A5A;
+    font: inherit;
     margin-top: 10px;
+    margin-left: 30px;
     margin-bottom: 30px;
 
 }
 
 input[type='submit']{
-    padding: 10px;
-    background-color: #daf3ca;
-    border-radius: 10px;
-    color: #507d6a;
+    background-color: #e3e4dc;
+    border-radius: 4px;
+    color: #5A5A5A;
     font: inherit;
     margin-top: 10px;
-    margin-left: 80%;
+    margin-left: 30px;
+    margin-bottom: 30px;
+
 }
 
 input[type='number']{
-    color: #5A5A5A;
-    font: inherit;
-}
-
-input[type='date']{
-    color: #5A5A5A;
-    font: inherit;
-}
-
-input[type='date']{
     color: #5A5A5A;
     font: inherit;
     margin-left: 30px;
@@ -80,6 +114,7 @@ input[type='date']{
 input[type='radio']{
     color: #5A5A5A;
     font: inherit;
+    margin-left: 30px;
 }
 
 #fieldSizeDecimal {
@@ -98,17 +133,14 @@ input[type='radio']{
 input[type='number']{
     color: #5A5A5A;
     font: inherit;
-}
-
-option {
-    margin-top: 10px;
+    margin-left: 30px;
 }
 
 input[type='text'], select {
     color: #5A5A5A;
     font: inherit;
-    /*margin-left: 5%;*/
-    margin-top: 0px;
+    margin-left: 5%;
+    margin-top: 10px;
     background: none;
     border: none;
     border-bottom: solid 2px #474544;
@@ -118,20 +150,19 @@ input[type='text'], select {
     padding: 0 0 0.875em 0;
     text-transform: uppercase;
     position: center;
-    width: 100%;
+    width: 90%;
 }
 
 
 #container {
     border: solid 3px #474544;
-    max-width: 80%;
+    max-width: 50%;
     margin: 60px auto;
     position: relative;
-    padding: 50px;
 
 }
 
-#title {
+h1 {
     color: #474544;
     font-size: 32px;
     font-weight: 700;
@@ -140,59 +171,14 @@ input[type='text'], select {
     text-transform: uppercase;
 }
 
+input[type='text']:focus, [type='email']:focus, textarea:focus {
+    outline: none;
+    padding: 0 0 0.875em 0;
+}
+
 select {
     background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png') no-repeat right;
     outline: none;
     -moz-appearance: none;
     -webkit-appearance: none;
 }
-/*h4 {*/
-/*margin-top: 30px;*/
-/*margin-left: 30px;*/
-/*}*/
-
-/*.input {
-    margin: 30px;
-}
-
-input {
-    line-height: normal;
-}
-option {
-    margin: 30px;
-}
-
-textarea {
-    overflow: auto;
-}
-
-    float: none;
-    display: inline-block;
-    vertical-align: middle;
-
-
-.button {
-
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-input[type='button']{
-    background-color: #e3e4dc;
-border-radius: 4px;
-color: #5A5A5A;
-font: inherit;
-margin-left: 65%;
-margin-bottom: 30px;
--webkit-transition-duration: 0.4s;
-transition-duration: 0.4s;
-}
-
-*/

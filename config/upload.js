@@ -4,7 +4,7 @@ var filePathName = "";
 
 var storage =   multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, '/Users/imacbig04/Desktop/Test');
+        callback(null, '/Users/ftaaworldbridgelab/Desktop/Test');
     },
     filename: function (req, file, callback) {
         //console.log(file.fieldname + " " + file.originalname);
