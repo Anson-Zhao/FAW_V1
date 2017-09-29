@@ -1,7 +1,7 @@
 // app/routes.js
 var mysql = require('mysql');
 var dbconfig = require('../config/database');
-var connection = mysql.createConnection(dbconfig.connection);
+var connection = mysql.createConnection(dbconfig.commondb_connection);
 var upload = require('../config/upload');
 
 var fileUpload = upload.function;
@@ -33,7 +33,7 @@ module.exports = function(app, passport) {
             failureFlash : true // allow flash messages
 		}),
         function(req, res) {
-            console.log("hello");
+            //console.log("hello");
 
             if (req.body.remember) {
               req.session.cookie.maxAge = 1000 * 60 * 3;
@@ -79,8 +79,14 @@ module.exports = function(app, passport) {
 	});
 
     app.post('/upload', fileUpload, function(req,res){
+        // var allowedOrigins = ['http://localhost:9088', 'http://faw.aworldbridgelabs.com:9088'];
+        // var origin = req.headers.origin;
+        // if(allowedOrigins.indexOf(origin) > -1){
+        //     res.setHeader('Access-Control-Allow-Origin', origin);
+        // }
         var origin = req.headers.origin;
-        res.setHeader("Access-Control-Allow-Origin", origin);
+        console.log(origin);
+        res.setHeader("Access-Control-Allow-Origin", "*");
 
         fileUpload(req,res,function(err) {
             if(err) {
@@ -89,8 +95,8 @@ module.exports = function(app, passport) {
                 filePathName = "";
                 //res.send("Error uploading file.");
             } else {
-                console.log("success");
-                console.log(filePathName);
+                // console.log("success");
+                // console.log(filePathName);
                 res.json({"error": false, "message": filePathName});
                 filePathName = "";
                 //res.send("File is uploaded");
@@ -109,15 +115,11 @@ module.exports = function(app, passport) {
     app.get('/insert', function (req, res) {
         connection.query('USE ' + dbconfig.Upload_db);
         var insertInfo = req.query.statement;
-        console.log(insertInfo);
+        //console.log(insertInfo);
 
         var insertStatement = "INSERT INTO FAW_Data_Entry VALUES (" + insertInfo + ");";
-        console.log(insertStatement);
 
-        var origin = req.headers.origin;
-        res.setHeader("Access-Control-Allow-Origin", origin);
-
-        console.log(req.files);
+        res.setHeader("Access-Control-Allow-Origin", "*");
 
         connection.query(insertStatement, function(err, results, fields) {
             if (err) {
@@ -141,14 +143,13 @@ module.exports = function(app, passport) {
 
     app.get('/query', function (req, res) {
         connection.query('USE ' + dbconfig.Upload_db);
-        var date = req.query.date;
-        console.log(date);
+        var startDate = req.query.startDate;
+        var endDate = req.query.endDate;
+        //console.log(startDate + "  " + endDate);
 
-        var queryStatement = "SELECT * FROM FAW_Data_Entry WHERE Date = '" + date + "';";
-        console.log(queryStatement);
+        var queryStatement = "SELECT * FROM FAW_Data_Entry WHERE Date >= '" + startDate + "' AND Date <= '" + endDate + "' ORDER BY Date;";
 
-        var origin = req.headers.origin;
-        res.setHeader("Access-Control-Allow-Origin", origin);
+        res.setHeader("Access-Control-Allow-Origin", "*");
 
         connection.query(queryStatement, function(err, results, fields) {
             //console.log(results);
