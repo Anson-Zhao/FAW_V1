@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
     <script src="https://unpkg.com/flatpickr"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+    <!--<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>-->
     <!-- If you want to use jquery 2+: https://code.jquery.com/jquery-2.1.0.min.js -->
 </head>
 <body>
@@ -57,18 +57,19 @@
         </div>
     </div>
 <div class="containerBox">
-    <h4>Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <h4>Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-    <input type="button" onclick="query()" value="Click here to continue">
+    <h4 class="floatingBox">Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h4 class="floatingBox">Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+    <input type="submit" onclick="query()" value="Click here to continue">
     <div id=dataDisplayDiv class='container'>
         <div id="dvData">
             <table>
             </table>
         </div>
-        <br/>
+        <br>
         <div class='button'>
             <a href="#" id ="export" role='button'>Click On This Link To Export The Table Data into a CSV File
             </a>
+
         </div>
     </div>
 </div>
@@ -262,7 +263,9 @@
                 var $cols = $row.find('td');
                 if(!$cols.length) $cols = $row.find('th');
 
-                return $cols.map(grabCol)
+                var ee = $cols.length - 2;
+                alert("ee:" + ee);
+                return $cols.map(grabCol(ee))
                     .get().join(tmpColDelim);
             }
             // Grab and format a column from the table
