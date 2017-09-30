@@ -416,7 +416,7 @@
 
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
-                alert("info[" + i + "] value missing!");
+                alert(info[i] + "value missing!");
                 return false;
                 break
             } else {
@@ -461,14 +461,14 @@
 
             for (var i = 0; i < names.length; i++) {
                 if (names[i].substring(0,11) === "photoOfPest") {
-                    info[18] += names[i] + ",";
+                    info[18] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
                 } else if (names[i].substring(0,13) === "photoOfDamage") {
-                    info[19] += names[i] + ",";
+                    info[19] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
                 }
             }
             info[18] = info[18].substring(0, info[18].length - 1);
             info[19] = info[19].substring(0, info[19].length - 1);
-            //alert(info[18].length + " " + info[19].length);
+            //alert(info[18].length + " , " + info[19].length);
             var insertStatement = "";
             for (var i = 0; i < info.length; i++) {
                 if (info[i] === "NULL"){
@@ -477,6 +477,7 @@
                     insertStatement += '"' + info[i] + '", ';
                 }
             }
+            //alert(info[18] + " , " + info[19]);
             insertStatement = insertStatement.substring(0, insertStatement.length - 2);
             //alert(insertStatement);
             insert(insertStatement)

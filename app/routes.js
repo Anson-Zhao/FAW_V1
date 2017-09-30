@@ -1,11 +1,25 @@
 // app/routes.js
+var multer = require('multer');
 var mysql = require('mysql');
-var dbconfig = require('../config/database');
-var connection = mysql.createConnection(dbconfig.commondb_connection);
-var upload = require('../config/upload');
+var config = require('../config/mainconf');
+var connection = mysql.createConnection(config.commondb_connection);
+var uploadPath = config.Upload_Path;
 
-var fileUpload = upload.function;
-var filePathName = upload.fileName;
+var filePathName = "";
+
+var storage =   multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, uploadPath);
+    },
+    filename: function (req, file, callback) {
+        //console.log(file.fieldname + " " + file.originalname);
+        filePathName += file.fieldname + '-' + file.originalname + ",";
+        console.log(filePathName);
+        callback(null, file.fieldname + '-' + file.originalname);
+    }
+});
+
+var fileUpload = multer({ storage : storage}).any();
 
 module.exports = function(app, passport) {
 
@@ -79,13 +93,7 @@ module.exports = function(app, passport) {
 	});
 
     app.post('/upload', fileUpload, function(req,res){
-        // var allowedOrigins = ['http://localhost:9088', 'http://faw.aworldbridgelabs.com:9088'];
-        // var origin = req.headers.origin;
-        // if(allowedOrigins.indexOf(origin) > -1){
-        //     res.setHeader('Access-Control-Allow-Origin', origin);
-        // }
-        var origin = req.headers.origin;
-        console.log(origin);
+        console.log(req.headers.origin);
         res.setHeader("Access-Control-Allow-Origin", "*");
 
         fileUpload(req,res,function(err) {
@@ -95,8 +103,7 @@ module.exports = function(app, passport) {
                 filePathName = "";
                 //res.send("Error uploading file.");
             } else {
-                // console.log("success");
-                // console.log(filePathName);
+                console.log("Success:" + filePathName);
                 res.json({"error": false, "message": filePathName});
                 filePathName = "";
                 //res.send("File is uploaded");
@@ -113,7 +120,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/insert', function (req, res) {
-        connection.query('USE ' + dbconfig.Upload_db);
+        connection.query('USE ' + config.Upload_db);
         var insertInfo = req.query.statement;
         //console.log(insertInfo);
 
@@ -142,7 +149,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/query', function (req, res) {
-        connection.query('USE ' + dbconfig.Upload_db);
+        connection.query('USE ' + config.Upload_db);
         var startDate = req.query.startDate;
         var endDate = req.query.endDate;
         //console.log(startDate + "  " + endDate);

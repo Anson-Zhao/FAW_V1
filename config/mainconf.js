@@ -22,6 +22,8 @@ module.exports = {
     'Login_table': 'users',
     'Upload_db': 'FAO',
 
-    'Server_Port': 9088
+    'Server_Port': 9088,
+
+    'Upload_Path': '/Users/ftaaworldbridgelab/Desktop/Test'
 
 };
