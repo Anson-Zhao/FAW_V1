@@ -13,37 +13,21 @@
     <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
     <script src="https://unpkg.com/flatpickr"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+    <!--<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>-->
     <!-- If you want to use jquery 2+: https://code.jquery.com/jquery-2.1.0.min.js -->
 </head>
 <body>
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> FAW Project -  Data Query </h1>
+		<h1><span class="fa fa-anchor"></span> FAW Project -  Data Query </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
 		<a href="/profile" class="btn btn-default btn-sm"> User Home </a>
 		<a href="/dataEntry" class="btn btn-default btn-sm"> Data Entry </a>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
 
-	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-
-					<p>
-						<strong>username</strong>: <%= user.username %><br>
-					</p>
-
-			</div>
-		</div>
-
-	</div>
-
     <div id="modal" class="modal">
-        <!-- Modal content -->
+         Modal content
         <div id="modal-content">
             <div id="modal-header">
                 <span id="close"></span>
@@ -57,18 +41,19 @@
         </div>
     </div>
 <div class="containerBox">
-    <h4>Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <h4>Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-    <input type="button" onclick="query()" value="Click here to continue">
+    <h4 class="floatingBox">Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker" placeholder="Select Date" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h4 class="floatingBox">Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker" placeholder="Select Date" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+    <input type="submit" onclick="query()" value="Click here to continue">
     <div id=dataDisplayDiv class='container'>
         <div id="dvData">
             <table>
             </table>
         </div>
-        <br/>
+        <br>
         <div class='button'>
-            <a href="#" id ="export" role='button'>Click On This Link To Export The Table Data into a CSV File
+            <a href="#" id ="export" role='button'>Export .CSV File
             </a>
+
         </div>
     </div>
 </div>
@@ -279,7 +264,7 @@
         // This must be a hyperlink
         $("#export").click(function (event) {
             // var outputFile = 'export'
-            var outputFile = window.prompt("What do you want to name your output file (Note: This won't have any effect on Safari)") || 'export';
+            var outputFile = window.prompt("Name the export file:") || 'export';
             outputFile = outputFile.replace('.csv','') + '.csv'
 
             // CSV
@@ -289,6 +274,7 @@
             // We actually need this to be a typical hyperlink
         });
     });
+
 </script>
 </body>
 </html>

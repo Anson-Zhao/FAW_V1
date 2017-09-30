@@ -90,10 +90,6 @@ input[type='number']{
     font: inherit;
 }
 
-option {
-    margin-top: 10px;
-}
-
 input[type='text'], select {
     color: #5A5A5A;
     font: inherit;
@@ -110,6 +106,29 @@ input[type='text'], select {
     width: 100%;
 }
 
+#mainCropTitle {
+    font: inherit;
+}
+
+#cropSystemTitle {
+    font: inherit;
+}
+
+#pestSpeciesTitle {
+    font: inherit;
+}
+
+#stageTitle {
+    font: inherit;
+}
+
+#controlTitle {
+    font: inherit;
+}
+
+#ifPesticideTitle {
+    font: inherit;
+}
 
 #container {
     border: solid 3px #474544;
@@ -127,6 +146,7 @@ input[type='text'], select {
     letter-spacing: 7px;
     text-align: center;
     text-transform: uppercase;
+    margin-top: 60px;
 }
 
 select {
