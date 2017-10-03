@@ -149,34 +149,12 @@
                         var photoOfPest = ajaxReturn[i].Photos_of_Pest.split(",");
 
                         for (var a = 0; a < photoOfPest.length; a++) {
-                            $("#photoOfPest").append($("<a target=\"_blank\" href='" + photoOfPest[a] + "'><img src='" + photoOfPest[a] + "' id='p" + i + a + "'></a>"));
-
-                            var popWidth = document.getElementById("p" + i + a).naturalWidth;
-                            var popHeight = document.getElementById("p" + i + a).naturalHeight;
-                            alert("weight: " + popWidth + "     height: " + popHeight);
-                            if (popWidth > popHeight) {
-                                document.getElementById("p" + i + a).setAttribute("class", "x");
-                            } else if (popWidth < popHeight) {
-                                document.getElementById("p" + i + a).setAttribute("class", "y");
-                            } else if (popWidth === popHeight) {
-                                document.getElementById("p" + i + a).setAttribute("class", "z");
-                            }
+                            $("#photoOfPest").append($("<img src='" + photoOfPest[a] + "'>"));
                         }
 
                         var photoOfDamage = ajaxReturn[i].Photos_of_Damage.split(",");
                         for (var b = 0; b < photoOfDamage.length; b++) {
-                            $("#photoOfDamage").append($("<a target=\"_blank\" href='" + photoOfDamage[b] + "'><img src='" + photoOfDamage[b] + "' id='d" + i + b + "'></a>"));
-
-                            var podWidth = document.getElementById("d" + i + b).naturalWidth;
-                            var podHeight = document.getElementById("d" + i + b).naturalHeight;
-                            alert("weight: " + podWidth + "     height: " + podHeight);
-                            if (podWidth > podHeight) {
-                                document.getElementById("d" + i + b).setAttribute("class", "x");
-                            } else if (podWidth < podHeight) {
-                                document.getElementById("d" + i + b).setAttribute("class", "y");
-                            } else if (podWidth === podHeight) {
-                                document.getElementById("d" + i + b).setAttribute("class", "z");
-                            }
+                            $("#photoOfDamage").append($("<img src='" + photoOfDamage[b] + "'>"));
                         }
 
                         table.append($("</tr>"));
@@ -298,7 +276,9 @@
                 var $cols = $row.find('td');
                 if(!$cols.length) $cols = $row.find('th');
 
-                return $cols.map(grabCol)
+                var ee = $cols.length - 2;
+                alert("ee:" + ee);
+                return $cols.map(grabCol(ee))
                     .get().join(tmpColDelim);
             }
             // Grab and format a column from the table

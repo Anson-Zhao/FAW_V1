@@ -1,47 +1,138 @@
-<!-- views/profile.ejs -->
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>FAW Project -  Data Query</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../css/style_query.css" type="text/css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
-	</style>
-    <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
-    <script src="https://unpkg.com/flatpickr"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>-->
-    <!-- If you want to use jquery 2+: https://code.jquery.com/jquery-2.1.0.min.js -->
+    <meta charset="UTF-8">
+    <title>FAO Query</title>
+    <style>
+        h3, input {
+            display: inline-block;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #b7b7b7;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #dddddd;
+        }
+
+        #dataDisplayDiv {
+            display: none;
+        }
+
+        .x {
+            border: 1px solid #ddd; /* Gray border */
+            border-radius: 4px;  /* Rounded border */
+            padding: 5px; /* Some padding */
+            width: 125px; /* Set a small width */
+            height: auto;
+        }
+
+        .y {
+            border: 1px solid #ddd; /* Gray border */
+            border-radius: 4px;  /* Rounded border */
+            padding: 5px; /* Some padding */
+            height: 125px; /* Set a small width */
+            width: auto;
+        }
+
+        .z {
+            border: 1px solid #ddd; /* Gray border */
+            border-radius: 4px;  /* Rounded border */
+            padding: 5px; /* Some padding */
+            height: 125px; /* Set a small width */
+            width: 125px;
+        }
+
+        /* Add a hover effect (blue shadow) */
+        .x:hover, .y:hover, .z:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        #modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+
+        /* The Close Button */
+        #close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        #close:hover,
+        #close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #modal-header {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        #modal-body {padding: 2px 16px;}
+
+        #modal-footer {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-
-	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> FAW Project -  Data Query </h1>
-		<a href="/profile" class="btn btn-default btn-sm"> User Home </a>
-		<a href="/dataEntry" class="btn btn-default btn-sm"> Data Entry </a>
-		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-	</div>
-
-	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-
-					<p>
-						<strong>username</strong>: <%= user.username %><br>
-					</p>
-
-			</div>
-		</div>
-
-	</div>
-
     <div id="modal" class="modal">
         <!-- Modal content -->
         <div id="modal-content">
@@ -56,27 +147,26 @@
             </div>
         </div>
     </div>
-<div class="containerBox">
-    <h4 class="floatingBox">Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <h4 class="floatingBox">Select a Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-    <input type="submit" onclick="query()" value="Click here to continue">
+
+    <h3>Select a Date: &nbsp;&nbsp;&nbsp;</h3><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h3>Select a Date: &nbsp;&nbsp;&nbsp;</h3><input class="datePicker">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+    <input type="button" onclick="query()" value="Click here to continue">
     <div id=dataDisplayDiv class='container'>
         <div id="dvData">
-            <table>
+            <table id="dataDisplay">
             </table>
         </div>
-        <br>
+        <br/>
         <div class='button'>
             <a href="#" id ="export" role='button'>Click On This Link To Export The Table Data into a CSV File
             </a>
-
         </div>
     </div>
-</div>
-</div>
-
-<script type='text/javascript'>
-
+    <p id="p"></p>
+<link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+<script src="https://unpkg.com/flatpickr"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
     flatpickr(".datePicker", {
         dateFormat: "Y-m-d",
         time_24hr: true
@@ -146,8 +236,8 @@
                         table.append($("<tr id='dataColumn" + (i + 1) + "'>"));
                         $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td id='photoOfPest'></td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>" + "<td id='photoOfDamage'></td>"));
 
-                        var photoOfPest = ajaxReturn[i].Photos_of_Pest.split(",");
 
+                        var photoOfPest = ajaxReturn[i].Photos_of_Pest.split(",");
                         for (var a = 0; a < photoOfPest.length; a++) {
                             $("#photoOfPest").append($("<a target=\"_blank\" href='" + photoOfPest[a] + "'><img src='" + photoOfPest[a] + "' id='p" + i + a + "'></a>"));
 
@@ -180,6 +270,7 @@
                         }
 
                         table.append($("</tr>"));
+
                     }
 
                     document.getElementById("modal").style.display = "block";
@@ -238,14 +329,18 @@
 
 
         var querystring = "?startDate=" + startDate + "&endDate=" + endDate;
-        ajaxRequest.open("GET", "/query" + querystring, true);
+        ajaxRequest.open("GET", "//10.11.4.90:9088/query" + querystring, true);
         ajaxRequest.send(querystring);
     };
-
+</script>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+    <!-- If you want to use jquery 2+: https://code.jquery.com/jquery-2.1.0.min.js -->
+    <script type='text/javascript'>
     $(document).ready(function () {
 
         function exportTableToCSV($table, filename) {
             var $headers = $table.find('tr:has(th)')
+
                 ,$rows = $table.find('tr:has(td)')
 
                 // Temporary delimiter characters unlikely to be typed by keyboard
@@ -258,6 +353,7 @@
                 ,rowDelim = '"\r\n"';
 
             // Grab text from table into CSV formatted string
+            //document.getElementById("p").innerHTML = JSON.stringify($headers);
             var csv = '"';
             csv += formatRows($headers.map(grabRow));
             csv += rowDelim;
@@ -296,6 +392,7 @@
                 var $row = $(row);
                 //for some reason $cols = $row.find('td') || $row.find('th') won't work...
                 var $cols = $row.find('td');
+
                 if(!$cols.length) $cols = $row.find('th');
 
                 return $cols.map(grabCol)

@@ -1,71 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
-
-
-
-
-html {
-    font-family: 'Montserrat', Arial, sans-serif;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-}
-
-select {
-    text-transform: none;
-}
-
-input[type='submit']:hover{
-    background-color: #a7cb9f;
-    color: #ffffff;
-}
-
-input[type='submit']{
-    padding: 10px;
-    background-color: #daf3ca;
-    border-radius: 10px;
-    color: #507d6a;
-    font: inherit;
-    margin-top: 60px;
-    margin-left: 80%;
-}
-
-option {
-    margin-top: 10px;
-}
-
-input[type='text'], select {
-    color: #7d7d7d;
-    font: inherit;
-    margin-top: 0;
-    background: none;
-    border: none;
-    border-bottom: solid 2px #474544;
-    font-size: 1.200em;
-    font-weight: 400;
-    letter-spacing: 1px;
-    /*padding: 0 0 0.875em 0;*/
-    text-transform: uppercase;
-    position: center;
-    width: 25%;
-}
-
-.floatingBox {
+h3, input {
     display: inline-block;
 }
 
-select {
-    background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png') no-repeat right;
-    outline: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-}
 table {
-    margin-top: 30px;
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 67%;
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+    width: 100%;
 }
 
 td, th {
@@ -80,10 +20,6 @@ th {
 
 tr:nth-child(odd) {
     background-color: #dddddd;
-}
-
-a {
-    margin-bottom: 60px;
 }
 
 #dataDisplayDiv {
@@ -187,12 +123,4 @@ a {
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
-}
-
-.containerBox {
-    border: solid 3px #474544;
-    max-width: 80%;
-    margin: 60px auto;
-    position: relative;
-    padding: 50px;
 }
