@@ -20,25 +20,10 @@
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1>
+		<h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
 		<a href="/profile" class="btn btn-default btn-sm">User Home</a>
 		<a href="/dataQuery" class="btn btn-default btn-sm">Data Query</a>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-	</div>
-
-	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h4><span class="fa fa-user"></span> Local</h4>
-
-					<p>
-						<strong>username</strong>: <%= user.username %><br>
-					</p>
-
-			</div>
-		</div>
 	</div>
 
 	<div id="modal" class="modal">
@@ -58,17 +43,17 @@
 
 	<h1 id="title">FAW/Locust Data Entry</h1>
 	<div id="container">
-		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date"><br><br>
-		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text"><br><br>
+		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
+		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location" required><br><br>
 		<h4>GPS Location: &nbsp;&nbsp;&nbsp;</h4><input id="GPSLocation" type="text"><br><br>
 		<h4>Main Crop: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="mainCropTitle"></h4><br><br>
-		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text"><br><br>
+		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety" required><br><br>
 		<h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="cropSystemTitle"></h4><br><br>
-		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input class="date"><br><br>
-		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4><input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="999" placeholder="0" onkeyup="limit()"><br><br>
-		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input class="date"><br><br>
+		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
+		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4><input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
+		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
 		<h4>Pest Species: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="pestSpeciesTitle"></h4><br><br>
 		<h4>Presence or Absence: &nbsp;&nbsp;&nbsp;</h4>
@@ -76,10 +61,10 @@
 		<input id="absence" type="radio" name="status" value="Absence"> Absence <br><br>
 		<h4>Stage: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="stageTitle"></h4><br><br>
-		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPlant" type="text"><br><br>
-		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPastures" type="text"><br><br>
-		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text"><br><br>
-		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text"><br><br>
+		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPlant" type="text" placeholder="Enter Number" required><br><br>
+		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPastures" type="text" placeholder="Enter Number" required><br><br>
+		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number" required><br><br>
+		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number" required><br><br>
 		<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="controlTitle"></h4><br><br>
 		<h4>If pesticide: amount in litres (numerical, XX.X): &nbsp;&nbsp;&nbsp;</h4>
@@ -106,12 +91,12 @@
     var endSelectTag = $("</select>");
 
     // main crop option
-    var mainCropList = ["Maize", "Rice", "Sorghum", "Vegetables", "Other"];
+    var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
 
     var mainCropTitle = $("#mainCropTitle");
     var mainCropSelect = $("<select id='mainCrop' onchange='otherMainCrop()'>");
     mainCropTitle.append(mainCropSelect);
-    mainCropSelect.append($("<option value=''>Select the Main Crop</option>"));
+    mainCropSelect.append($("<option value=''>SELECT THE MAIN CROP</option>"));
     for (var i = 0; i < mainCropList.length; i++) {
         var mainCropOption = $("<option>" + mainCropList[i] + "</option>");
         mainCropSelect.append(mainCropOption);
@@ -119,12 +104,12 @@
     mainCropTitle.append(endSelectTag);
 
     // crop system option
-    var cropSystemList = ["Rotation", "Intercropping"];
+    var cropSystemList = ["ROTATION", "INTERCROPPING"];
 
     var cropSystemTitle = $("#cropSystemTitle");
     var cropSystemSelect = $("<select id='cropSystem'>");
     cropSystemTitle.append(cropSystemSelect);
-    cropSystemSelect.append($("<option value=''>Select the Crop System</option>"));
+    cropSystemSelect.append($("<option value=''>SELECT THE CROP SYSTEM</option>"));
     for (var i = 0; i < cropSystemList.length; i++) {
         var cropSystemOption = $("<option>" + cropSystemList[i] + "</option>");
         cropSystemSelect.append(cropSystemOption);
@@ -132,12 +117,12 @@
     cropSystemTitle.append(endSelectTag);
 
     // pest species option
-    var pestSpeciesList = ["FAW", "AAW", "Stalk Borer"];
+    var pestSpeciesList = ["FAW", "AAW", "STALK BORER"];
 
     var pestSpeciesTitle = $("#pestSpeciesTitle");
     var pestSpeciesSelect = $("<select id='pestSpecies'>");
     pestSpeciesTitle.append(pestSpeciesSelect);
-    pestSpeciesSelect.append($("<option value=''>Select the Pest Species</option>"));
+    pestSpeciesSelect.append($("<option value=''>SELECT THE PEST SPECIES</option>"));
     for (var i = 0; i < pestSpeciesList.length; i++) {
         var pestSpeciesOption = $("<option>" + pestSpeciesList[i] + "</option>");
         pestSpeciesSelect.append(pestSpeciesOption);
@@ -145,12 +130,12 @@
     pestSpeciesTitle.append(endSelectTag);
 
     // stage option
-    var stageList = ["Egg", "Larval Instar 1", "Larval Instar 2", "Larval Instar 3", "Larval Instar 4", "Larval Instar 5", "Larval Instar 6", "Adult"];
+    var stageList = ["EGG", "LARVAL INSTAR 1", "LARVAL INSTAR 2", "LARVAL INSTAR 3", "LARVAL INSTAR 4", "LARVAL INSTAR 5", "LARVAL INSTAR 6", "ADULT"];
 
     var stageTitle = $("#stageTitle");
     var stageSelect = $("<select id='stage'>");
     stageTitle.append(stageSelect);
-    stageSelect.append($("<option value=''>Select the Stage</option>"));
+    stageSelect.append($("<option value=''>SELECT THE STAGE</option>"));
     for (var i = 0; i < stageList.length; i++) {
         var stageOption = $("<option>" + stageList[i] + "</option>");
         stageSelect.append(stageOption);
@@ -158,12 +143,12 @@
     stageTitle.append(endSelectTag);
 
     // control option
-    var controlList = ["Hand Picking", "Pesticide Spray", "Mechanical", "Other"];
+    var controlList = ["HAND PICKING", "PESTICIDE SPRAY", "MECHANICAL", "OTHER"];
 
     var controlTitle = $("#controlTitle");
     var controlSelect = $("<select id='control' onchange='otherControl()'>");
     controlTitle.append(controlSelect);
-    controlSelect.append($("<option value=''>Select the Control Type</option>"));
+    controlSelect.append($("<option value=''>SELECT THE CONTROL TYPE</option>"));
     for (var i = 0; i < controlList.length; i++) {
         var controlOption = $("<option>" + controlList[i] + "</option>");
         controlSelect.append(controlOption);
@@ -171,7 +156,7 @@
     controlTitle.append(endSelectTag);
 
     // If Pesticide option
-    var ifPesticideList = ["No", "Yes"];
+    var ifPesticideList = ["NO", "YES"];
 
     var ifPesticideTitle = $("#ifPesticideTitle");
     var ifPesticideSelect = $("<select id='ifPesticide' onchange='ifPesticide()'>");
@@ -185,10 +170,10 @@
 
 
     function otherMainCrop() {
-        if (document.getElementById("mainCrop").value === "Other") {
+        if (document.getElementById("mainCrop").value === "OTHER") {
             var mainCropTitle = $("#mainCropTitle");
             mainCropTitle.append("<span id='otherMainCropDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            mainCropTitle.append($("<input id='otherMainCrop' type='text'>"));
+            mainCropTitle.append($("<input id='otherMainCrop' type='text' placeholder=\"Select The Main Crop\" required>"));
         } else {
             $("#otherMainCropDiv").remove();
             $("#otherMainCrop").remove();
@@ -200,7 +185,7 @@
 
             var controlTitle = $("#controlTitle");
             controlTitle.append("<span id='otherControlDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            controlTitle.append($("<input id='otherControl' type='text'>"));
+            controlTitle.append($("<input id='otherControl' type='text' placeholder=\"SELECT THE CONTROL TYPE\" required>"));
         } else {
             $("#otherControlDiv").remove();
             $("#otherControl").remove();
@@ -265,7 +250,7 @@
 
             var ifPesticideTitle = $("#ifPesticideTitle");
             //ifPesticideTitle.append("<span id='amountOfPesticideDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            ifPesticideTitle.append($("<br><input id='amountOfPesticideInteger' type='number' min='0' max='9999' placeholder='00' onkeyup='limit()'><span id='decimalPoint'>.</span><input id='amountOfPesticideDecimal' type='number' maxlength='1' min='0' max='999' placeholder='0' onkeyup='limit()'>"));
+            ifPesticideTitle.append($("<br><input id='amountOfPesticideInteger' type='number' min='0' max='9999' placeholder='00' onkeyup='limit()'><span id='decimalPoint'>.</span><input id='amountOfPesticideDecimal' type='number' maxlength='1' min='0' max='9' placeholder='0' onkeyup='limit()'>"));
         } else {
             $("#amountOfPesticideDiv").remove();
             $("#amountOfPesticideInteger").remove();
@@ -416,7 +401,7 @@
 
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
-                alert(info[i] + "value missing!");
+                alert(info[i] + "Value(s) missing!");
                 return false;
                 break
             } else {
@@ -518,7 +503,7 @@
                     document.getElementById("modal-footer").style.display = "none";
                     document.getElementById("close").innerHTML = "&times";
 
-                    document.getElementById("header").innerHTML = "The Insert is Success! Thank you for your Information!";
+                    document.getElementById("header").innerHTML = "Data Entry Upload Successful!";
                     document.getElementById("body").innerHTML = "The page will be refresh after closing this.";
 
                     document.getElementById("modal").style.display = "block";

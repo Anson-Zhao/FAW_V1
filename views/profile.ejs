@@ -13,26 +13,10 @@
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> FAW/Locust - User Home </h1>
+		<h1><span class="fa fa-anchor"></span> FAW/Locust - User Home </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
 		<a href="/dataEntry" class="btn btn-default btn-sm"> Data Entry </a>
 		<a href="/dataQuery" class="btn btn-default btn-sm"> Data Query </a>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-	</div>
-
-	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-
-					<p>
-						<strong>username</strong>: <%= user.username %><br>
-					</p>
-
-			</div>
-		</div>
-
 	</div>
 
 </div>
