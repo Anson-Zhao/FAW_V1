@@ -398,18 +398,16 @@
 
 
         info = [date, location, GPSLocation, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
-        var valid;
+
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
                 alert("info[" + i + "] 's " + "value(s) missing!");
-                valid = "false";
+                return false;
                 break
-            } else {
-                valid = "true";
+            } else if (i === info.length -1){
+                return true;
             }
         }
-
-        return valid;
 
 //        if (date && location && GPSLocation && mainCrop && cropVariety && cropSystem && plantDate && fieldSize !== "No Value" && rainFallDate && pestSpecies && status && stage && numPerPlant && numPerPastures && numPerTrap && cropInfested && control && amountOfPesticide !== "No Value" && document.getElementById("photoOfPest").value && document.getElementById("photoOfDamage").value) {
 //
