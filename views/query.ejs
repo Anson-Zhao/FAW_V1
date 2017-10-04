@@ -20,6 +20,7 @@
 <div class="container">
 
 	<div class="page-header text-center">
+        <a href="http://aworldbridge.com"><img class="banner" src="../pic/NewWBBanner.jpg" style="height:147px" /></a>
 		<h1><span class="fa fa-anchor"></span> FAW Project -  Data Query </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
 		<a href="/profile" class="btn btn-default btn-sm"> User Home </a>
 		<a href="/dataEntry" class="btn btn-default btn-sm"> Data Entry </a>
@@ -51,8 +52,7 @@
         </div>
         <br>
         <div class='button'>
-            <a href="#" id ="export" role='button'>Export .CSV File
-            </a>
+            <button onclick="exportTableToCSV('<%= user.username %>.csv')">Export HTML Table To CSV File</button>
 
         </div>
     </div>
@@ -127,7 +127,7 @@
 
                     for (var i = 0; i < ajaxReturn.length; i++){
                         table.append($("<tr id='dataColumn" + (i + 1) + "'>"));
-                        $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>"));
+                        $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>"+"<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>"));
                         table.append($("</tr>"));
                     }
 
@@ -190,90 +190,134 @@
         ajaxRequest.open("GET", "/query" + querystring, true);
         ajaxRequest.send(querystring);
     };
+//
+//    $(document).ready(function () {
+//
+//        function exportTableToCSV($table, filename) {
+//            var $headers = $table.find('tr:has(th)')
+//                ,$rows = $table.find('tr:has(td)')
+//
+//                // Temporary delimiter characters unlikely to be typed by keyboard
+//                // This is to avoid accidentally splitting the actual contents
+//                ,tmpColDelim = String.fromCharCode(11) // vertical tab character
+//                ,tmpRowDelim = String.fromCharCode(0) // null character
+//
+//                // actual delimiter characters for CSV format
+//                ,colDelim = '","'
+//                ,rowDelim = '"\r\n"';
+//
+//            // Grab text from table into CSV formatted string
+//            var csv = '"';
+//            csv += formatRows($headers.map(grabRow));
+//            csv += rowDelim;
+//            csv += formatRows($rows.map(grabRow)) + '"';
+//
+//            // Data URI
+//            var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+//
+//            // For IE (tested 10+)
+//            if (window.navigator.msSaveOrOpenBlob) {
+//                var blob = new Blob([decodeURIComponent(encodeURI(csv))], {
+//                    type: "text/csv;charset=utf-8;"
+//                });
+//                navigator.msSaveBlob(blob, filename);
+//            } else {
+//                $(this)
+//                    .attr({
+//                        'download': filename
+//                        ,'href': csvData
+//                        //,'target' : '_blank' //if you want it to open in a new window
+//                    });
+//            }
+//
+//            //------------------------------------------------------------
+//            // Helper Functions
+//            //------------------------------------------------------------
+//            // Format the output so it has the appropriate delimiters
+//            function formatRows(rows){
+//                return rows.get().join(tmpRowDelim)
+//                    .split(tmpRowDelim).join(rowDelim)
+//                    .split(tmpColDelim).join(colDelim);
+//            }
+//            // Grab and format a row from the table
+//            function grabRow(i,row){
+//
+//                var $row = $(row);
+//                //for some reason $cols = $row.find('td') || $row.find('th') won't work...
+//                var $cols = $row.find('td');
+//                if(!$cols.length) $cols = $row.find('th');
+//
+//                return $cols.map(grabCol)
+//                    .get().join(tmpColDelim);
+//            }
+//            // Grab and format a column from the table
+//            function grabCol(j,col){
+//                var $col = $(col),
+//                    $text = $col.text();
+//
+//                return $text.replace('"', '""'); // escape double quotes
+//
+//            }
+//        }
+//
+//
+//        // This must be a hyperlink
+//        $("#export").click(function (event) {
+//            // var outputFile = 'export'
+//            var outputFile = window.prompt("Name the export file:") || 'export';
+//            outputFile = outputFile.replace('.csv','') + '.csv'
+//
+//            // CSV
+//            exportTableToCSV.apply(this, [$('#dvData > table'), outputFile]);
+//
+//            // IF CSV, don't do event.preventDefault() or return false
+//            // We actually need this to be a typical hyperlink
+//        });
+//    });
 
-    $(document).ready(function () {
 
-        function exportTableToCSV($table, filename) {
-            var $headers = $table.find('tr:has(th)')
-                ,$rows = $table.find('tr:has(td)')
+    function downloadCSV(csv, filename) {
+        var csvFile;
+        var downloadLink;
 
-                // Temporary delimiter characters unlikely to be typed by keyboard
-                // This is to avoid accidentally splitting the actual contents
-                ,tmpColDelim = String.fromCharCode(11) // vertical tab character
-                ,tmpRowDelim = String.fromCharCode(0) // null character
+        // CSV file
+        csvFile = new Blob([csv], {type: "text/csv"});
 
-                // actual delimiter characters for CSV format
-                ,colDelim = '","'
-                ,rowDelim = '"\r\n"';
+        // Download link
+        downloadLink = document.createElement("a");
 
-            // Grab text from table into CSV formatted string
-            var csv = '"';
-            csv += formatRows($headers.map(grabRow));
-            csv += rowDelim;
-            csv += formatRows($rows.map(grabRow)) + '"';
+        // File name
+        downloadLink.download = filename;
 
-            // Data URI
-            var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+        // Create a link to the file
+        downloadLink.href = window.URL.createObjectURL(csvFile);
 
-            // For IE (tested 10+)
-            if (window.navigator.msSaveOrOpenBlob) {
-                var blob = new Blob([decodeURIComponent(encodeURI(csv))], {
-                    type: "text/csv;charset=utf-8;"
-                });
-                navigator.msSaveBlob(blob, filename);
-            } else {
-                $(this)
-                    .attr({
-                        'download': filename
-                        ,'href': csvData
-                        //,'target' : '_blank' //if you want it to open in a new window
-                    });
-            }
+        // Hide download link
+        downloadLink.style.display = "none";
 
-            //------------------------------------------------------------
-            // Helper Functions
-            //------------------------------------------------------------
-            // Format the output so it has the appropriate delimiters
-            function formatRows(rows){
-                return rows.get().join(tmpRowDelim)
-                    .split(tmpRowDelim).join(rowDelim)
-                    .split(tmpColDelim).join(colDelim);
-            }
-            // Grab and format a row from the table
-            function grabRow(i,row){
+        // Add the link to DOM
+        document.body.appendChild(downloadLink);
 
-                var $row = $(row);
-                //for some reason $cols = $row.find('td') || $row.find('th') won't work...
-                var $cols = $row.find('td');
-                if(!$cols.length) $cols = $row.find('th');
+        // Click download link
+        downloadLink.click();
+    }
 
-                return $cols.map(grabCol)
-                    .get().join(tmpColDelim);
-            }
-            // Grab and format a column from the table
-            function grabCol(j,col){
-                var $col = $(col),
-                    $text = $col.text();
+    function exportTableToCSV(filename) {
+        var csv = [];
+        var rows = document.querySelectorAll("table tr");
 
-                return $text.replace('"', '""'); // escape double quotes
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
 
-            }
+            for (var j = 0; j < cols.length - 2; j++)
+                row.push(cols[j].innerText);
+
+            csv.push(row.join(","));
         }
 
-
-        // This must be a hyperlink
-        $("#export").click(function (event) {
-            // var outputFile = 'export'
-            var outputFile = window.prompt("Name the export file:") || 'export';
-            outputFile = outputFile.replace('.csv','') + '.csv'
-
-            // CSV
-            exportTableToCSV.apply(this, [$('#dvData > table'), outputFile]);
-
-            // IF CSV, don't do event.preventDefault() or return false
-            // We actually need this to be a typical hyperlink
-        });
-    });
+        // Download CSV file
+        downloadCSV(csv.join("\n"), filename);
+    }
 
 </script>
 </body>
