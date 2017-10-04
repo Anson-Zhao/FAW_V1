@@ -155,3 +155,9 @@ select {
     -moz-appearance: none;
     -webkit-appearance: none;
 }
+
+.banner {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}

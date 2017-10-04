@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use("/css", express.static(__dirname + "/css"));
 app.use("/uploadfiles", express.static(__dirname + "/uploadfiles"));
+app.use("/pic", express.static(__dirname + "/pic"));
 
 app.set('views', path.join(__dirname, './', 'views'));
 app.engine('ejs', require('ejs').renderFile);
