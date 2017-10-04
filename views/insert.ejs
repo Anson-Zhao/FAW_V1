@@ -354,7 +354,7 @@
         if (fieldSizeInteger || fieldSizeDecimal) {
             fieldSize = fieldSizeInteger + "." + fieldSizeDecimal;
         } else {
-            fieldSize = "NULL";
+            fieldSize = false;
         }
 
         var rainFallDate = document.getElementsByClassName("date")[2].value;
@@ -368,7 +368,7 @@
         } else if (absence) {
             status = document.getElementById("absence").value;
         } else {
-            status = "NULL";
+            status = false;
         }
 
         var stage = document.getElementById("stage").value;
@@ -385,14 +385,14 @@
         var ifPesticide = document.getElementById("ifPesticide").value;
         var amountOfPesticide;
         if (ifPesticide === "No") {
-            amountOfPesticide = "";
+            amountOfPesticide = "NULL";
         } else if (ifPesticide === "Yes") {
             var amountOfPesticideInteger = document.getElementById("amountOfPesticideInteger").value;
             var amountOfPesticideDecimal = document.getElementById("amountOfPesticideDecimal").value;
-            if (amountOfPesticideInteger && amountOfPesticideDecimal) {
+            if (amountOfPesticideInteger || amountOfPesticideDecimal) {
                 amountOfPesticide = amountOfPesticideInteger + "." + amountOfPesticideDecimal;
             } else {
-                amountOfPesticide = "NULL";
+                amountOfPesticide = false;
             }
         }
 
