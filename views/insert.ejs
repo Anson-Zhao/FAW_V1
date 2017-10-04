@@ -398,16 +398,19 @@
 
 
         info = [date, location, GPSLocation, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
-
+        var valid;
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
-                alert(info[i] + "Value(s) missing!");
-                return false;
+                alert("info[" + i + "] 's " + "value(s) missing!");
+                valid = "false";
                 break
             } else {
-                return true;
+                valid = "true";
             }
         }
+
+        return valid;
+
 //        if (date && location && GPSLocation && mainCrop && cropVariety && cropSystem && plantDate && fieldSize !== "No Value" && rainFallDate && pestSpecies && status && stage && numPerPlant && numPerPastures && numPerTrap && cropInfested && control && amountOfPesticide !== "No Value" && document.getElementById("photoOfPest").value && document.getElementById("photoOfDamage").value) {
 //
 //            // here we could return false to prevent the form from being submitted;
