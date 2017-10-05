@@ -27,22 +27,6 @@
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
 
-	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-
-					<p>
-						<strong>username</strong>: <%= user.username %><br>
-					</p>
-
-			</div>
-		</div>
-
-	</div>
-
     <div id="modal" class="modal">
         <!-- Modal content -->
         <div id="modal-content">
@@ -63,12 +47,13 @@
     <input type="submit" onclick="query()" value="Click here to continue">
     <div id=dataDisplayDiv class='container'>
         <div id="dvData">
-            <table>
+            <h4 id="description">Please select row(s) you wish to export.</h4>
+            <table id="example">
             </table>
         </div>
         <br>
         <div class='button'>
-            <button onclick="exportTableToCSV('<%= user.username %>.csv')">Export HTML Table To CSV File</button>
+            <button onclick="exportTableToCSV('<%= user.username %>.csv')">Export .CSV File</button>
 
         </div>
     </div>
@@ -143,7 +128,8 @@
                     table.append($("</tr>"));
 
                     for (var i = 0; i < ajaxReturn.length; i++){
-                        table.append($("<tr id='dataColumn" + (i + 1) + "'>"));
+
+                        table.append($("<tr id='dataColumn" + (i + 1) + "' onmousedown='RowClick(this,false);'>"));
                         $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td id='photoOfPest'></td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>" + "<td id='photoOfDamage'></td>"));
 
                         var photoOfPest = ajaxReturn[i].Photos_of_Pest.split(",");
@@ -153,7 +139,7 @@
 
                             var popWidth = document.getElementById("p" + i + a).naturalWidth;
                             var popHeight = document.getElementById("p" + i + a).naturalHeight;
-                            alert("weight: " + popWidth + "     height: " + popHeight);
+//                            alert("weight: " + popWidth + "     height: " + popHeight);
                             if (popWidth > popHeight) {
                                 document.getElementById("p" + i + a).setAttribute("class", "x");
                             } else if (popWidth < popHeight) {
@@ -169,7 +155,7 @@
 
                             var podWidth = document.getElementById("d" + i + b).naturalWidth;
                             var podHeight = document.getElementById("d" + i + b).naturalHeight;
-                            alert("weight: " + podWidth + "     height: " + podHeight);
+//                            alert("weight: " + podWidth + "     height: " + podHeight);
                             if (podWidth > podHeight) {
                                 document.getElementById("d" + i + b).setAttribute("class", "x");
                             } else if (podWidth < podHeight) {
@@ -270,9 +256,9 @@
 
     function exportTableToCSV(filename) {
         var csv = [];
-        var rows = document.querySelectorAll("table tr");
+        var rows = document.querySelectorAll(".selected, #title");
 
-        for (var i = 0; i < rows.length; i++) {
+        for (var i = 0; i < rows.length - 1; i++) {
             var row = [], cols = rows[i].querySelectorAll("td, th");
 
             for (var j = 0; j < cols.length; j++)
@@ -283,8 +269,54 @@
 
         // Download CSV file
         downloadCSV(csv.join("\n"), filename);
+
     }
 
+    var lastSelectedRow;
+    var trs = document.getElementById('example').getElementsByTagName('tr');
+
+    // disable text selection
+    document.onselectstart = function() {
+        return false;
+    }
+
+    function RowClick(currenttr, lock) {
+        if (window.event.ctrlKey) {
+            toggleRow(currenttr);
+        }
+
+        if (window.event.button === 0) {
+            if (!window.event.ctrlKey && !window.event.shiftKey) {
+                clearAll();
+                toggleRow(currenttr);
+            }
+
+            if (window.event.shiftKey) {
+                selectRowsBetweenIndexes([lastSelectedRow.rowIndex, currenttr.rowIndex])
+            }
+        }
+    }
+
+    function toggleRow(row) {
+        row.className = row.className === 'selected' ? '' : 'selected';
+        lastSelectedRow = row;
+    }
+
+    function selectRowsBetweenIndexes(indexes) {
+        indexes.sort(function(a, b) {
+            return a - b;
+        });
+
+        for (var i = indexes[0]; i <= indexes[1]; i++) {
+            trs[i-1].className = 'selected';
+        }
+    }
+
+    function clearAll() {
+        for (var i = 0; i < trs.length; i++) {
+            trs[i].className = '';
+        }
+    }
 </script>
 </body>
 </html>

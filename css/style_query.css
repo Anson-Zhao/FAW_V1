@@ -196,3 +196,15 @@ a {
     position: relative;
     padding: 50px;
 }
+
+.selected {
+    background: lightBlue
+}
+.selected:nth-child(odd) {
+    background: lightBlue
+}
+
+#description {
+    font: inherit;
+    font-size: large;
+}
