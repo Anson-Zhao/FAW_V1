@@ -492,7 +492,7 @@
         //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.');
 
         if (!responseText.error) {
-            alert(responseText.message);
+            //alert(responseText.message);
             //alert("No error!");
             info[20] = "";
             info[21] = "";
@@ -521,8 +521,8 @@
             //alert(insertStatement);
             insert(insertStatement)
         } else {
-            alert(responseText.message);
-            //alert("There is an error!");
+            //alert(responseText.message);
+            alert("There is an error!");
         }
     }
 
