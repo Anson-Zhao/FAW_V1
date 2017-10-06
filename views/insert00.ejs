@@ -20,8 +20,7 @@
 <div class="container">
 
 	<div class="page-header text-center">
-        <a href="http://aworldbridge.com"><img class="banner" src="../pic/NewWBBanner.jpg" style="height:147px" /></a>
-        <h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <span id="username"><%= user.username %></span></h4><br>
+		<h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
 		<a href="/profile" class="btn btn-default btn-sm">User Home</a>
 		<a href="/dataQuery" class="btn btn-default btn-sm">Data Query</a>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
@@ -46,9 +45,8 @@
 	<div id="container">
 		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
 		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location" required><br><br>
-		<!--<h4>GPS Location: &nbsp;&nbsp;&nbsp;</h4><input id="GPSLocation" type="text"><br><br>-->
-		<h4 id="latitudeTitle">GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4><input id="latitudeDegree" type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
-		<h4 id="longitudeTitle">GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4><input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
+        <h4 id="latitudeTitle">GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4><input id="latitudeDegree" type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br>
+        <h4 id="longitudeTitle">GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4><input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeminute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br>
 		<h4>Main Crop: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="mainCropTitle"></h4><br><br>
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety" required><br><br>
@@ -198,7 +196,7 @@
         if (document.getElementById("mainCrop").value === "OTHER") {
             var mainCropTitle = $("#mainCropTitle");
             mainCropTitle.append("<span id='otherMainCropDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            mainCropTitle.append($("<input id='otherMainCrop' type='text' placeholder=\"ENTER THE MAIN CROP\" required>"));
+            mainCropTitle.append($("<input id='otherMainCrop' type='text' placeholder=\"Select The Main Crop\" required>"));
         } else {
             $("#otherMainCropDiv").remove();
             $("#otherMainCrop").remove();
@@ -206,11 +204,11 @@
     }
 
     function otherControl() {
-        if (document.getElementById("control").value === "OTHER") {
+        if (document.getElementById("control").value === "Other") {
 
             var controlTitle = $("#controlTitle");
             controlTitle.append("<span id='otherControlDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            controlTitle.append($("<input id='otherControl' type='text' placeholder=\"ENTER THE CONTROL TYPE\" required>"));
+            controlTitle.append($("<input id='otherControl' type='text' placeholder=\"SELECT THE CONTROL TYPE\" required>"));
         } else {
             $("#otherControlDiv").remove();
             $("#otherControl").remove();
@@ -271,7 +269,7 @@
     }
 
     function ifPesticide() {
-        if (document.getElementById("ifPesticide").value === "YES") {
+        if (document.getElementById("ifPesticide").value === "Yes") {
 
             var ifPesticideTitle = $("#ifPesticideTitle");
             //ifPesticideTitle.append("<span id='amountOfPesticideDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
@@ -358,14 +356,11 @@
         // DOM element for the form do this:
         // var formElement = jqForm[0];
 
-        alert('About to submit: \n\n' + queryString);
-        var username = document.getElementById("username").innerHTML;
+        //alert('About to submit: \n\n' + queryString);
+        var username = user.username;
 
         var date = document.getElementsByClassName("date")[0].value;
-
         var location = document.getElementById("location").value;
-
-        //var GPSLocation = document.getElementById("GPSLocation").value;
 
         var latiDirection = document.getElementById("latitudeDirection").value;
         var longDirection = document.getElementById("longitudeDirection").value;
@@ -382,13 +377,8 @@
             latitude = latiDirection + " " + latiDegree + "° " + latiMinute + "' " + latiSecond + "''";
             longitude = longDirection + " " + longDegree + "° " + longMinute + "' " + longSecond + "''";
         } else {
-            if (!latiDirection || !latiDegree || !latiMinute || !latiSecond) {
-                latitude = false;
-            }
-
-            if (!longDirection || !longDegree || !longMinute || !longSecond) {
-                longitude = false;
-            }
+            latitude = false;
+            longitude = false;
         }
 
         var mainCrop = document.getElementById("mainCrop").value;
@@ -430,35 +420,36 @@
         var cropInfested = document.getElementById("cropInfested").value;
 
         var control = document.getElementById("control").value;
-        if (control === "OTHER") {
+        if (control === "Other") {
             mainCrop = document.getElementById("otherControl").value;
         }
 
         var ifPesticide = document.getElementById("ifPesticide").value;
         var amountOfPesticide;
-        if (ifPesticide === "NO") {
+        if (ifPesticide === "No") {
             amountOfPesticide = "NULL";
-        } else if (ifPesticide === "YES") {
+        } else if (ifPesticide === "Yes") {
             var amountOfPesticideInteger = document.getElementById("amountOfPesticideInteger").value;
             var amountOfPesticideDecimal = document.getElementById("amountOfPesticideDecimal").value;
-            if (amountOfPesticideInteger || amountOfPesticideDecimal) {
+            if (amountOfPesticideInteger && amountOfPesticideDecimal) {
                 amountOfPesticide = amountOfPesticideInteger + "." + amountOfPesticideDecimal;
             } else {
                 amountOfPesticide = false;
             }
         }
 
+
         info = [username, date, location, latitude, longitude, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
+
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
-                alert("info[" + i + "] 's " + "value(s) missing!");
+                alert(info[i] + "Value(s) missing!");
                 return false;
                 break
-            } else if (i === info.length -1){
+            } else {
                 return true;
             }
         }
-
 //        if (date && location && GPSLocation && mainCrop && cropVariety && cropSystem && plantDate && fieldSize !== "No Value" && rainFallDate && pestSpecies && status && stage && numPerPlant && numPerPastures && numPerTrap && cropInfested && control && amountOfPesticide !== "No Value" && document.getElementById("photoOfPest").value && document.getElementById("photoOfDamage").value) {
 //
 //            // here we could return false to prevent the form from being submitted;
@@ -489,7 +480,7 @@
         //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.');
 
         if (!responseText.error) {
-            //alert(responseText.message);
+            alert(responseText.message);
             //alert("No error!");
             info[20] = "";
             info[21] = "";
@@ -504,7 +495,7 @@
             }
             info[20] = info[20].substring(0, info[20].length - 1);
             info[21] = info[21].substring(0, info[21].length - 1);
-            //alert(info[20].length + " , " + info[21].length);
+            //alert(info[18].length + " , " + info[19].length);
             var insertStatement = "";
             for (var i = 0; i < info.length; i++) {
                 if (info[i] === "NULL"){
@@ -513,7 +504,7 @@
                     insertStatement += '"' + info[i] + '", ';
                 }
             }
-            //alert(info[20] + " , " + info[21]);
+            //alert(info[18] + " , " + info[19]);
             insertStatement = insertStatement.substring(0, insertStatement.length - 2);
             //alert(insertStatement);
             insert(insertStatement)

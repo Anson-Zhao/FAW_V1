@@ -21,7 +21,7 @@
 
 	<div class="page-header text-center">
         <a href="http://aworldbridge.com"><img class="banner" src="../pic/NewWBBanner.jpg" style="height:147px" /></a>
-        <h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <span id="username"><%= user.username %></span></h4><br>
+		<h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
 		<a href="/profile" class="btn btn-default btn-sm">User Home</a>
 		<a href="/dataQuery" class="btn btn-default btn-sm">Data Query</a>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
@@ -46,9 +46,8 @@
 	<div id="container">
 		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
 		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location" required><br><br>
-		<!--<h4>GPS Location: &nbsp;&nbsp;&nbsp;</h4><input id="GPSLocation" type="text"><br><br>-->
-		<h4 id="latitudeTitle">GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4><input id="latitudeDegree" type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
-		<h4 id="longitudeTitle">GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4><input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
+        <h4 id="latitudeTitle">GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4><input id="latitudeDegree" type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">''<br>
+        <h4 id="longitudeTitle">GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4><input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeminute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">''<br>
 		<h4>Main Crop: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="mainCropTitle"></h4><br><br>
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety" required><br><br>
@@ -198,7 +197,7 @@
         if (document.getElementById("mainCrop").value === "OTHER") {
             var mainCropTitle = $("#mainCropTitle");
             mainCropTitle.append("<span id='otherMainCropDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            mainCropTitle.append($("<input id='otherMainCrop' type='text' placeholder=\"ENTER THE MAIN CROP\" required>"));
+            mainCropTitle.append($("<input id='otherMainCrop' type='text' placeholder=\"Select The Main Crop\" required>"));
         } else {
             $("#otherMainCropDiv").remove();
             $("#otherMainCrop").remove();
@@ -210,7 +209,7 @@
 
             var controlTitle = $("#controlTitle");
             controlTitle.append("<span id='otherControlDiv'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            controlTitle.append($("<input id='otherControl' type='text' placeholder=\"ENTER THE CONTROL TYPE\" required>"));
+            controlTitle.append($("<input id='otherControl' type='text' placeholder=\"SELECT THE CONTROL TYPE\" required>"));
         } else {
             $("#otherControlDiv").remove();
             $("#otherControl").remove();
@@ -271,6 +270,7 @@
     }
 
     function ifPesticide() {
+
         if (document.getElementById("ifPesticide").value === "YES") {
 
             var ifPesticideTitle = $("#ifPesticideTitle");
@@ -359,13 +359,13 @@
         // var formElement = jqForm[0];
 
         alert('About to submit: \n\n' + queryString);
-        var username = document.getElementById("username").innerHTML;
+        alert("a");
+        alert(<%= user.username %>);
+
 
         var date = document.getElementsByClassName("date")[0].value;
-
         var location = document.getElementById("location").value;
-
-        //var GPSLocation = document.getElementById("GPSLocation").value;
+        var GPSLocation = document.getElementById("GPSLocation").value;
 
         var latiDirection = document.getElementById("latitudeDirection").value;
         var longDirection = document.getElementById("longitudeDirection").value;
@@ -430,7 +430,7 @@
         var cropInfested = document.getElementById("cropInfested").value;
 
         var control = document.getElementById("control").value;
-        if (control === "OTHER") {
+        if (control === "Other") {
             mainCrop = document.getElementById("otherControl").value;
         }
 
@@ -439,6 +439,7 @@
         if (ifPesticide === "NO") {
             amountOfPesticide = "NULL";
         } else if (ifPesticide === "YES") {
+
             var amountOfPesticideInteger = document.getElementById("amountOfPesticideInteger").value;
             var amountOfPesticideDecimal = document.getElementById("amountOfPesticideDecimal").value;
             if (amountOfPesticideInteger || amountOfPesticideDecimal) {
@@ -447,8 +448,9 @@
                 amountOfPesticide = false;
             }
         }
+        alert("Z");
 
-        info = [username, date, location, latitude, longitude, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
+        info = [date, location, GPSLocation, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
                 alert("info[" + i + "] 's " + "value(s) missing!");
@@ -475,6 +477,7 @@
 
     // post-submit callback
     function showResponse(responseText, statusText, xhr, $form) {
+        alert(responseText.message);
         // for normal html responses, the first argument to the success callback
         // is the XMLHttpRequest object's responseText property
 
@@ -491,19 +494,19 @@
         if (!responseText.error) {
             //alert(responseText.message);
             //alert("No error!");
-            info[20] = "";
-            info[21] = "";
+            info[18] = "";
+            info[19] = "";
             var names = responseText.message.split(",");
 
             for (var i = 0; i < names.length; i++) {
                 if (names[i].substring(0,11) === "photoOfPest") {
-                    info[20] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
+                    info[18] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
                 } else if (names[i].substring(0,13) === "photoOfDamage") {
-                    info[21] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
+                    info[19] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
                 }
             }
-            info[20] = info[20].substring(0, info[20].length - 1);
-            info[21] = info[21].substring(0, info[21].length - 1);
+            info[18] = info[18].substring(0, info[18].length - 1);
+            info[19] = info[19].substring(0, info[19].length - 1);
             //alert(info[20].length + " , " + info[21].length);
             var insertStatement = "";
             for (var i = 0; i < info.length; i++) {
