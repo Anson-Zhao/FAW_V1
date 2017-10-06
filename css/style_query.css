@@ -9,9 +9,9 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-select {
-    text-transform: none;
-}
+/*select {*/
+    /*text-transform: none;*/
+/*}*/
 
 input[type='submit']:hover{
     background-color: #a7cb9f;
@@ -53,6 +53,7 @@ input[type='text'], select {
 }
 
 select {
+    text-transform: none;
     background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png') no-repeat right;
     outline: none;
     -moz-appearance: none;
@@ -198,11 +199,11 @@ a {
 }
 
 .selected {
-    background: lightBlue
+    background: lightBlue;
 }
-.selected:nth-child(odd) {
-    background: lightBlue
-}
+/*.selected:nth-child(odd) {*/
+    /*background: lightgrey;*/
+/*}*/
 
 #description {
     font: inherit;
