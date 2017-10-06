@@ -40,8 +40,8 @@ var options = {
     user: config.session_connection.user,
     password: config.session_connection.password,
     database: config.Session_db,
-    checkExpirationInterval: 60000,// How frequently expired sessions will be cleared; milliseconds.
-    expiration: 300000,// The maximum age of a valid session; milliseconds.
+    checkExpirationInterval: 120000,// How frequently expired sessions will be cleared; milliseconds.
+    expiration: 1800000,// The maximum age of a valid session; milliseconds.
     createDatabaseTable: true,// Whether or not to create the sessions database table, if one does not already exist.
     connectionLimit: 10,// Number of connections when creating a connection pool
     schema: {
