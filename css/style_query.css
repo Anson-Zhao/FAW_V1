@@ -202,9 +202,9 @@ a {
     background: lightBlue;
 }
 
-/*.selected:nth-child(odd) {*/
-    /*background: lightgrey;*/
-/*}*/
+.selected:nth-child(odd) {
+    background: lightBlue;
+}
 
 #description {
     font: inherit;
