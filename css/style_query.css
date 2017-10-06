@@ -78,9 +78,9 @@ th {
     background-color: #b7b7b7;
 }
 
-tr:nth-child(odd) {
-    background-color: #dddddd;
-}
+/*tr:nth-child(odd) {*/
+    /*background-color: #dddddd;*/
+/*}*/
 
 a {
     margin-bottom: 60px;
@@ -200,9 +200,9 @@ a {
 .selected {
     background: lightBlue
 }
-.selected:nth-child(odd) {
-    background: lightBlue
-}
+/*.selected:nth-child(odd) {*/
+    /*background: lightBlue*/
+/*}*/
 
 #description {
     font: inherit;

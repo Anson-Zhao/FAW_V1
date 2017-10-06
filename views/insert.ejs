@@ -44,19 +44,27 @@
 
 	<h1 id="title">FAW/Locust Data Entry</h1>
 	<div id="container">
-		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
-		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location" required><br><br>
+		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
+		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location Here" required><br><br>
 		<!--<h4>GPS Location: &nbsp;&nbsp;&nbsp;</h4><input id="GPSLocation" type="text"><br><br>-->
-		<h4 id="latitudeTitle">GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4><input id="latitudeDegree" type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
-		<h4 id="longitudeTitle">GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4><input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
+		<h4>GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4>
+        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+        <h4 id="latitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="latitudeDegree"  type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
+		<h4>GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4>
+        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+        <h4 id="longitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
 		<h4>Main Crop: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="mainCropTitle"></h4><br><br>
-		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety" required><br><br>
+		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety Here" required><br><br>
 		<h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="cropSystemTitle"></h4><br><br>
-		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
-		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4><input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
-		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date" required><br><br>
+		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
+		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4>
+        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY.</h5>
+        <input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
+		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
 		<h4>Pest Species: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="pestSpeciesTitle"></h4><br><br>
 		<h4>Presence or Absence: &nbsp;&nbsp;&nbsp;</h4>
@@ -64,10 +72,10 @@
 		<input id="absence" type="radio" name="status" value="Absence"> Absence <br><br>
 		<h4>Stage: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="stageTitle"></h4><br><br>
-		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPlant" type="text" placeholder="Enter Number" required><br><br>
-		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPastures" type="text" placeholder="Enter Number" required><br><br>
-		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number" required><br><br>
-		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number" required><br><br>
+		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPastures" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
 		<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="controlTitle"></h4><br><br>
 		<h4>If pesticide: amount in litres (numerical, XX.X): &nbsp;&nbsp;&nbsp;</h4>
@@ -97,7 +105,7 @@
     var latitudeTitle = $("#latitudeTitle");
     var latitudeSelect = $("<select id='latitudeDirection'>");
     latitudeTitle.append(latitudeSelect);
-    latitudeSelect.append($("<option value=''>Select the Direction</option>"));
+    latitudeSelect.append($("<option value=''>SELECT THE DIRECTION</option>"));
     for (var i = 0; i < latitudeList.length; i++) {
         var latitudeOption = $("<option>" + latitudeList[i] + "</option>");
         latitudeSelect.append(latitudeOption);
@@ -108,7 +116,7 @@
     var longitudeTitle = $("#longitudeTitle");
     var longitudeSelect = $("<select id='longitudeDirection'>");
     longitudeTitle.append(longitudeSelect);
-    longitudeSelect.append($("<option value=''>Select the Direction</option>"));
+    longitudeSelect.append($("<option value=''>SELECT THE DIRECTION</option>"));
     for (var i = 0; i < longitudeList.length; i++) {
         var longitudeOption = $("<option>" + longitudeList[i] + "</option>");
         longitudeSelect.append(longitudeOption);
