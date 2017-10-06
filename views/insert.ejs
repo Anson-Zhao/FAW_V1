@@ -492,17 +492,17 @@
         //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.');
 
         if (!responseText.error) {
-            //alert(responseText.message);
+            alert(responseText.message);
             //alert("No error!");
             info[20] = "";
             info[21] = "";
-            var names = responseText.message.split(",");
+            var names = responseText.message.split(";");
 
             for (var i = 0; i < names.length; i++) {
                 if (names[i].substring(0,11) === "photoOfPest") {
-                    info[20] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
+                    info[20] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ";";
                 } else if (names[i].substring(0,13) === "photoOfDamage") {
-                    info[21] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ",";
+                    info[21] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ";";
                 }
             }
             info[20] = info[20].substring(0, info[20].length - 1);
