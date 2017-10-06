@@ -13,8 +13,8 @@ var storage =   multer.diskStorage({
     },
     filename: function (req, file, callback) {
         //console.log(file.fieldname + " " + file.originalname);
-        filePathName += file.fieldname + '-' + file.originalname + ",";
-        console.log(filePathName);
+        filePathName += file.fieldname + '-' + file.originalname + ";";
+        //console.log(filePathName);
         callback(null, file.fieldname + '-' + file.originalname);
     }
 });
@@ -174,7 +174,7 @@ module.exports = function(app, passport) {
                 res.end();
             } else {
                 var JSONresult = JSON.stringify(results, null, "\t");
-                //console.log(JSONresult);
+                console.log(JSONresult);
                 res.send(JSONresult);
                 res.end();
             }
