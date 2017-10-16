@@ -112,12 +112,41 @@ module.exports = function(app, passport) {
     });
 
     // show the data entry page
+    // app.get('/dataEntry', isLoggedIn, function(req, res) {
+    //     res.render('insert.ejs', {
+    //         user : req.user, // get the user out of session and pass to template
+    //         message: req.flash('Data Entry Message')
+    //     });
+    // });
+
     app.get('/dataEntry', isLoggedIn, function(req, res) {
-        res.render('insert.ejs', {
+        res.render('dataEntry_Home.ejs', {
             user : req.user, // get the user out of session and pass to template
             message: req.flash('Data Entry Message')
         });
     });
+
+    app.get('/dataEntry1', isLoggedIn, function(req, res) {
+        res.render('insert_Armyworm.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            message: req.flash('Data Entry Message')
+        });
+    });
+
+    app.get('/dataEntry2', isLoggedIn, function(req, res) {
+        res.render('insert_Desert_Locust.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            message: req.flash('Data Entry Message')
+        });
+    });
+
+    app.get('/dataEntry3', isLoggedIn, function(req, res) {
+        res.render('insert_Other_Locusts.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            message: req.flash('Data Entry Message')
+        });
+    });
+
 
     app.get('/insert', function (req, res) {
         connection.query('USE ' + config.Upload_db);

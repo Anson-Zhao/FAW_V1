@@ -24,6 +24,7 @@
         <h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <span id="username"><%= user.username %></span></h4><br>
 		<a href="/profile" class="btn btn-default btn-sm">User Home</a>
 		<a href="/dataQuery" class="btn btn-default btn-sm">Data Query</a>
+		<a href="/dataEntry" class="btn btn-default btn-sm">Data Entry</a>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
 
@@ -44,7 +45,7 @@
 
 	<h1 id="title">FAW/Locust Data Entry</h1>
 	<div id="container">
-		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
+		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE" class="date" value=""><br><br>
 		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location Here" required><br><br>
 		<!--<h4>GPS Location: &nbsp;&nbsp;&nbsp;</h4><input id="GPSLocation" type="text"><br><br>-->
 		<h4>GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4>
@@ -55,25 +56,30 @@
         <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
         <h4 id="longitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
-		<h4>Main Crop: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="mainCropTitle"></h4><br><br>
+        <h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
+        <h4 id="cropSystemTitle"><h4 id="mainCropTitle"><h4 id="mainCropTitle2"></h4></h4></h4><br>
+
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety Here" required><br><br>
-		<h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="cropSystemTitle"></h4><br><br>
 		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
 		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4>
         <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY.</h5>
         <input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
 		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
 		<h4>Pest Species: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="pestSpeciesTitle"></h4><br><br>
+        <h4 id="pestSpeciesTitle"></h4><br>
 		<h4>Presence or Absence: &nbsp;&nbsp;&nbsp;</h4>
 		<input id="presence" type="radio" name="status" value="Presence"> Presence
 		<input id="absence" type="radio" name="status" value="Absence"> Absence <br><br>
+		<h4>Crop Damage: &nbsp;&nbsp;&nbsp;</h4>
+		<h4 id="cropDamageTitle"></h4><br>
 		<h4>Stage: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="stageTitle"></h4><br><br>
-		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4><input id="numPerPastures" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+        <h4 id="stageTitle"></h4><br>
+		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
+		<h5 style="color:#9d9d9d;">Note: Inputting information here will disable entering values in the field "Number (Numerical) per m2 (Pastures)".</h5>
+		<input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4>
+		<h5 style="color:#9d9d9d;">Note: Inputting information here will disable entering values in the field "Number (Numerical) per Plant (Crops)".</h5>
+		<input id="numPerPastures" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
 		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
 		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
 		<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
@@ -91,6 +97,22 @@
 
 </div>
 <script>
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    document.getElementById("DATE").value = date;
+//    var dd = today.getDate();
+//    var mm = today.getMonth()+1; //January is 0!
+//
+//    var yyyy = today.getFullYear();
+//    if(dd<10){
+//        dd='0'+dd;
+//    }
+//    if(mm<10){
+//        mm='0'+mm;
+//    }
+//    var today = dd+'/'+mm+'/'+yyyy;
+//    document.getElementById("DATE").value = today;
 
     flatpickr(".date", {
         dateFormat: "Y-m-d",
@@ -123,24 +145,11 @@
     }
     longitudeTitle.append(endSelectTag);
 
-    // main crop option
-    var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
-
-    var mainCropTitle = $("#mainCropTitle");
-    var mainCropSelect = $("<select id='mainCrop' onchange='otherMainCrop()'>");
-    mainCropTitle.append(mainCropSelect);
-    mainCropSelect.append($("<option value=''>SELECT THE MAIN CROP</option>"));
-    for (var i = 0; i < mainCropList.length; i++) {
-        var mainCropOption = $("<option>" + mainCropList[i] + "</option>");
-        mainCropSelect.append(mainCropOption);
-    }
-    mainCropTitle.append(endSelectTag);
-
     // crop system option
-    var cropSystemList = ["ROTATION", "INTERCROPPING"];
+    var cropSystemList = ["SEASONAL", "ROTATION", "INTERCROPPING"];
 
     var cropSystemTitle = $("#cropSystemTitle");
-    var cropSystemSelect = $("<select id='cropSystem'>");
+    var cropSystemSelect = $("<select id='cropSystem' onchange='rotationCropSystem(); intercroppingCropSystem();'>");
     cropSystemTitle.append(cropSystemSelect);
     cropSystemSelect.append($("<option value=''>SELECT THE CROP SYSTEM</option>"));
     for (var i = 0; i < cropSystemList.length; i++) {
@@ -149,8 +158,21 @@
     }
     cropSystemTitle.append(endSelectTag);
 
+    // main crop option
+//    var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
+//
+//    var mainCropTitle = $("#mainCropTitle");
+//    var mainCropSelect = $("<select id='mainCrop' onchange='otherMainCrop()'>");
+//    mainCropTitle.append(mainCropSelect);
+//    mainCropSelect.append($("<option value=''>SELECT THE MAIN CROP</option>"));
+//    for (var i = 0; i < mainCropList.length; i++) {
+//        var mainCropOption = $("<option>" + mainCropList[i] + "</option>");
+//        mainCropSelect.append(mainCropOption);
+//    }
+//    mainCropTitle.append(endSelectTag);
+
     // pest species option
-    var pestSpeciesList = ["FAW", "AAW", "STALK BORER"];
+    var pestSpeciesList = ["FAW", "AAW", "BORER"];
 
     var pestSpeciesTitle = $("#pestSpeciesTitle");
     var pestSpeciesSelect = $("<select id='pestSpecies'>");
@@ -162,21 +184,57 @@
     }
     pestSpeciesTitle.append(endSelectTag);
 
+    var cropDamageList = ["NONE", "LOW", "MODERATE", "HIGH"];
+
+    var cropDamageTitle = $("#cropDamageTitle");
+    var cropDamageSelect = $("<select id='cropDamage'>");
+    cropDamageTitle.append(cropDamageSelect);
+    cropDamageSelect.append($("<option value=''>SELECT SEVERITY OF DAMAGE</option>"));
+    for (var i = 0; i < cropDamageList.length; i++) {
+        var cropDamageOption = $("<option>" + cropDamageList[i] + "</option>");
+        cropDamageSelect.append(cropDamageOption);
+    }
+    cropDamageTitle.append(endSelectTag);
+
     // stage option
     var stageList = ["EGG", "LARVAL INSTAR 1", "LARVAL INSTAR 2", "LARVAL INSTAR 3", "LARVAL INSTAR 4", "LARVAL INSTAR 5", "LARVAL INSTAR 6", "ADULT"];
 
     var stageTitle = $("#stageTitle");
-    var stageSelect = $("<select id='stage'>");
+    var stageSelect = $("<select id='stage' multiple>");
     stageTitle.append(stageSelect);
     stageSelect.append($("<option value=''>SELECT THE STAGE</option>"));
     for (var i = 0; i < stageList.length; i++) {
-        var stageOption = $("<option>" + stageList[i] + "</option>");
+        var stageOption = $("<option value=''>" + stageList[i] + "</option>");
         stageSelect.append(stageOption);
     }
     stageTitle.append(endSelectTag);
 
+
+
+
+    document.getElementById("numPerPlant").disabled = false;
+    document.getElementById("numPerPastures").disabled = false;
+
+    var dis1 = document.getElementById("numPerPlant");
+    dis1.onchange = function () {
+        if (this.value != "" || this.value.length > 0) {
+            document.getElementById("numPerPastures").disabled = true;
+        } else {
+            document.getElementById("numPerPastures").disabled = false;
+        }
+    }
+
+    var dis2 = document.getElementById("numPerPastures");
+    dis2.onchange = function () {
+        if (this.value != "" || this.value.length > 0) {
+            document.getElementById("numPerPlant").disabled = true;
+        } else {
+            document.getElementById("numPerPlant").disabled = false;
+        }
+    }
+
     // control option
-    var controlList = ["HAND PICKING", "PESTICIDE SPRAY", "MECHANICAL", "OTHER"];
+    var controlList = ["EGG-SQUASHING", "HAND-PICKING", "MECHANICAL", "CULTURAL", "PESTICIDE", "OTHER"];
 
     var controlTitle = $("#controlTitle");
     var controlSelect = $("<select id='control' onchange='otherControl()'>");
@@ -202,6 +260,46 @@
     ifPesticideTitle.append(endSelectTag);
 
 
+    function rotationCropSystem() {
+        if (document.getElementById("cropSystem").value === "ROTATION") {
+            var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
+
+            var mainCropTitle = $("#mainCropTitle");
+            var mainCropSelect = $("<select id='mainCrop' onchange='otherMainCrop()'>");
+            mainCropTitle.append(mainCropSelect);
+            mainCropSelect.append($("<option value=''>SELECT THE MAIN CROP</option>"));
+            for (var i = 0; i < mainCropList.length; i++) {
+                var mainCropOption = $("<option>" + mainCropList[i] + "</option>");
+                mainCropSelect.append(mainCropOption);
+            }
+            mainCropTitle.append(endSelectTag);
+
+        } else {
+            $("#mainCrop").remove();
+            $("#rotationCropSystem").remove();
+        }
+    }
+
+    function intercroppingCropSystem() {
+        if (document.getElementById("cropSystem").value === "INTERCROPPING") {
+            var mainCropList2 = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
+
+            var mainCropTitle2 = $("#mainCropTitle2");
+            var mainCropSelect2 = $("<select id='mainCrop2' onchange='otherMainCrop2()'>");
+            mainCropTitle2.append(mainCropSelect2);
+            mainCropSelect2.append($("<option value=''>SELECT THE MAIN CROP</option>"));
+            for (var i = 0; i < mainCropList2.length; i++) {
+                var mainCropOption2 = $("<option>" + mainCropList2[i] + "</option>");
+                mainCropSelect2.append(mainCropOption2);
+            }
+            mainCropTitle2.append(endSelectTag);
+
+        } else {
+            $("#mainCrop2").remove();
+            $("#intercroppingCropSystem").remove();
+        }
+    }
+
     function otherMainCrop() {
         if (document.getElementById("mainCrop").value === "OTHER") {
             var mainCropTitle = $("#mainCropTitle");
@@ -212,6 +310,18 @@
             $("#otherMainCrop").remove();
         }
     }
+
+    function otherMainCrop2() {
+        if (document.getElementById("mainCrop2").value === "OTHER") {
+            var mainCropTitle2 = $("#mainCropTitle2");
+            mainCropTitle2.append("<span id='otherMainCropDiv2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
+            mainCropTitle2.append($("<input id='otherMainCrop2' type='text' placeholder=\"ENTER THE MAIN CROP\" required>"));
+        } else {
+            $("#otherMainCropDiv2").remove();
+            $("#otherMainCrop2").remove();
+        }
+    }
+
 
     function otherControl() {
         if (document.getElementById("control").value === "OTHER") {

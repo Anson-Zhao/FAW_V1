@@ -41,6 +41,12 @@ input[type="button"]:disabled {
 
 }
 
+input[type='text']:disabled::placeholder {
+    color: #dd7777;
+    font: inherit;
+
+}
+
 input[type='file']{
     font-size: inherit;
     background-color: #ffffff;
@@ -114,11 +120,19 @@ input[type='text'], select {
     font: inherit;
 }
 
+#mainCropTitle2 {
+    font: inherit;
+}
+
 #cropSystemTitle {
     font: inherit;
 }
 
 #pestSpeciesTitle {
+    font: inherit;
+}
+
+#cropDamageTitle {
     font: inherit;
 }
 
