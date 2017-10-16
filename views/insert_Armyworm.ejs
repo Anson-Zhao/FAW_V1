@@ -85,7 +85,18 @@
 		<h4>Crop Damage: &nbsp;&nbsp;&nbsp;</h4>
 		<h4 id="cropDamageTitle"></h4><br>
 		<h4>Stage: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="stageTitle"></h4><br>
+		<h5 style="color:#9d9d9d;">Note: Click options listed below to select. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</h5>
+		<select style="font: inherit; background-color: #ebebeb;" multiple="multiple" id="stageTitle" name="my-select">
+			<option value='egg'>EGG</option>
+			<option value='stage_1'>LARVAL INSTAR 1</option>
+			<option value='stage_2'>LARVAL INSTAR 2</option>
+			<option value='stage_3'>LARVAL INSTAR 3</option>
+			<option value='stage_4'>LARVAL INSTAR 4</option>
+			<option value='stage_5'>LARVAL INSTAR 5</option>
+			<option value='stage_6'>LARVAL INSTAR 6</option>
+			<option value='adult'>ADULT</option>
+		</select>
+		<h4>Number (N
 		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
 		<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per m2 (Pastures)". Please choose ONE.</h5>
 		<input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
@@ -209,17 +220,17 @@
     cropDamageTitle.append(endSelectTag);
 
     // stage option
-    var stageList = ["EGG", "LARVAL INSTAR 1", "LARVAL INSTAR 2", "LARVAL INSTAR 3", "LARVAL INSTAR 4", "LARVAL INSTAR 5", "LARVAL INSTAR 6", "ADULT"];
-
-    var stageTitle = $("#stageTitle");
-    var stageSelect = $("<select id='stage'>");
-    stageTitle.append(stageSelect);
-    stageSelect.append($("<option value=''>SELECT THE STAGE</option>"));
-    for (var i = 0; i < stageList.length; i++) {
-        var stageOption = $("<option>" + stageList[i] + "</option>");
-        stageSelect.append(stageOption);
-    }
-    stageTitle.append(endSelectTag);
+//    var stageList = ["EGG", "LARVAL INSTAR 1", "LARVAL INSTAR 2", "LARVAL INSTAR 3", "LARVAL INSTAR 4", "LARVAL INSTAR 5", "LARVAL INSTAR 6", "ADULT"];
+//
+//    var stageTitle = $("#stageTitle");
+//    var stageSelect = $("<select id='stage'>");
+//    stageTitle.append(stageSelect);
+//    stageSelect.append($("<option value=''>SELECT THE STAGE</option>"));
+//    for (var i = 0; i < stageList.length; i++) {
+//        var stageOption = $("<option>" + stageList[i] + "</option>");
+//        stageSelect.append(stageOption);
+//    }
+//    stageTitle.append(endSelectTag);
 
     document.getElementById("numPerPlant").disabled = false;
     document.getElementById("numPerPastures").disabled = false;

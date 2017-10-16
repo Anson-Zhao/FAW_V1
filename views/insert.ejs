@@ -49,50 +49,61 @@
 		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location Here" required><br><br>
 		<!--<h4>GPS Location: &nbsp;&nbsp;&nbsp;</h4><input id="GPSLocation" type="text"><br><br>-->
 		<h4>GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4>
-        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
-        <h4 id="latitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input id="latitudeDegree"  type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
+		<h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+		<h4 id="latitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input id="latitudeDegree"  type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
 		<h4>GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4>
-        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
-        <h4 id="longitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
-        <h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="cropSystemTitle"><h4 id="mainCropTitle"><h4 id="mainCropTitle2"></h4></h4></h4><br>
+		<h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+		<h4 id="longitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
+		<h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
+		<h4 id="cropSystemTitle"><h4 id="mainCropTitle"><h4 id="mainCropTitle2"></h4></h4></h4><br>
 
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety Here" required><br><br>
 		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
 		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4>
-        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY.</h5>
-        <input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
+		<h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY.</h5>
+		<input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
 		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
 		<h4>Pest Species: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="pestSpeciesTitle"></h4><br>
+		<h4 id="pestSpeciesTitle"></h4><br>
 		<h4>Presence or Absence: &nbsp;&nbsp;&nbsp;</h4>
 		<input id="presence" type="radio" name="status" value="Presence"> Presence
 		<input id="absence" type="radio" name="status" value="Absence"> Absence <br><br>
 		<h4>Crop Damage: &nbsp;&nbsp;&nbsp;</h4>
 		<h4 id="cropDamageTitle"></h4><br>
 		<h4>Stage: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="stageTitle"></h4><br>
-		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
-		<h5 style="color:#9d9d9d;">Note: Inputting information here will disable entering values in the field "Number (Numerical) per m2 (Pastures)".</h5>
-		<input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4>
-		<h5 style="color:#9d9d9d;">Note: Inputting information here will disable entering values in the field "Number (Numerical) per Plant (Crops)".</h5>
-		<input id="numPerPastures" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-		<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="controlTitle"></h4><br><br>
-		<h4>If pesticide: amount in litres (numerical, XX.X): &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="ifPesticideTitle"></h4><br><br>
+		<h5 style="color:#9d9d9d;">Note: Click options listed below to select. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</h5>
+		<select style="font: inherit; background-color: #ebebeb;" multiple="multiple" id="stageTitle" name="my-select">
+			<option value='egg'>EGG</option>
+			<option value='stage_1'>LARVAL INSTAR 1</option>
+			<option value='stage_2'>LARVAL INSTAR 2</option>
+			<option value='stage_3'>LARVAL INSTAR 3</option>
+			<option value='stage_4'>LARVAL INSTAR 4</option>
+			<option value='stage_5'>LARVAL INSTAR 5</option>
+			<option value='stage_6'>LARVAL INSTAR 6</option>
+			<option value='adult'>ADULT</option>
+		</select>
+		<h4>Number (N
+			<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
+			<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per m2 (Pastures)". Please choose ONE.</h5>
+			<input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+			<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4>
+			<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per Plant (Crops)". Please choose ONE.</h5>
+			<input id="numPerPastures" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+			<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+			<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+			<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
+			<h4 id="controlTitle"></h4><br><br>
+			<h4>If pesticide: amount in litres (numerical, XX.X): &nbsp;&nbsp;&nbsp;</h4>
+			<h4 id="ifPesticideTitle"></h4><br><br>
 
-		<form id = "uploadForm" enctype = "multipart/form-data" action = "/upload" method = "post">
-			<h4>Photos of pest at different stages: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfPest" type="file" name="photoOfPest" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfPestImage" src="" alt="Image preview..."><br>
-			<h4>Photos maize at all stages of damage: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfDamage" type="file" name="photoOfDamage" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfDamageImage" src="" alt="Image preview..."><br><br>
-			<input type="submit" value="Submit the Form">
-		</form>
-		<!--<input type="button" value="Submit the Form" onclick="submit()">-->
+			<form id = "uploadForm" enctype = "multipart/form-data" action = "/upload" method = "post">
+				<h4>Photos of pest at different stages: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfPest" type="file" name="photoOfPest" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfPestImage" src="" alt="Image preview..."><br>
+				<h4>Photos maize at all stages of damage: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfDamage" type="file" name="photoOfDamage" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfDamageImage" src="" alt="Image preview..."><br><br>
+				<input type="submit" value="Submit the Form">
+			</form>
+			<!--<input type="button" value="Submit the Form" onclick="submit()">-->
 	</div>
 
 </div>
@@ -101,18 +112,18 @@
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     document.getElementById("DATE").value = date;
-//    var dd = today.getDate();
-//    var mm = today.getMonth()+1; //January is 0!
-//
-//    var yyyy = today.getFullYear();
-//    if(dd<10){
-//        dd='0'+dd;
-//    }
-//    if(mm<10){
-//        mm='0'+mm;
-//    }
-//    var today = dd+'/'+mm+'/'+yyyy;
-//    document.getElementById("DATE").value = today;
+    //    var dd = today.getDate();
+    //    var mm = today.getMonth()+1; //January is 0!
+    //
+    //    var yyyy = today.getFullYear();
+    //    if(dd<10){
+    //        dd='0'+dd;
+    //    }
+    //    if(mm<10){
+    //        mm='0'+mm;
+    //    }
+    //    var today = dd+'/'+mm+'/'+yyyy;
+    //    document.getElementById("DATE").value = today;
 
     flatpickr(".date", {
         dateFormat: "Y-m-d",
@@ -159,17 +170,17 @@
     cropSystemTitle.append(endSelectTag);
 
     // main crop option
-//    var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
-//
-//    var mainCropTitle = $("#mainCropTitle");
-//    var mainCropSelect = $("<select id='mainCrop' onchange='otherMainCrop()'>");
-//    mainCropTitle.append(mainCropSelect);
-//    mainCropSelect.append($("<option value=''>SELECT THE MAIN CROP</option>"));
-//    for (var i = 0; i < mainCropList.length; i++) {
-//        var mainCropOption = $("<option>" + mainCropList[i] + "</option>");
-//        mainCropSelect.append(mainCropOption);
-//    }
-//    mainCropTitle.append(endSelectTag);
+    //    var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
+    //
+    //    var mainCropTitle = $("#mainCropTitle");
+    //    var mainCropSelect = $("<select id='mainCrop' onchange='otherMainCrop()'>");
+    //    mainCropTitle.append(mainCropSelect);
+    //    mainCropSelect.append($("<option value=''>SELECT THE MAIN CROP</option>"));
+    //    for (var i = 0; i < mainCropList.length; i++) {
+    //        var mainCropOption = $("<option>" + mainCropList[i] + "</option>");
+    //        mainCropSelect.append(mainCropOption);
+    //    }
+    //    mainCropTitle.append(endSelectTag);
 
     // pest species option
     var pestSpeciesList = ["FAW", "AAW", "BORER"];
@@ -197,20 +208,17 @@
     cropDamageTitle.append(endSelectTag);
 
     // stage option
-    var stageList = ["EGG", "LARVAL INSTAR 1", "LARVAL INSTAR 2", "LARVAL INSTAR 3", "LARVAL INSTAR 4", "LARVAL INSTAR 5", "LARVAL INSTAR 6", "ADULT"];
-
-    var stageTitle = $("#stageTitle");
-    var stageSelect = $("<select id='stage' multiple>");
-    stageTitle.append(stageSelect);
-    stageSelect.append($("<option value=''>SELECT THE STAGE</option>"));
-    for (var i = 0; i < stageList.length; i++) {
-        var stageOption = $("<option value=''>" + stageList[i] + "</option>");
-        stageSelect.append(stageOption);
-    }
-    stageTitle.append(endSelectTag);
-
-
-
+    //    var stageList = ["EGG", "LARVAL INSTAR 1", "LARVAL INSTAR 2", "LARVAL INSTAR 3", "LARVAL INSTAR 4", "LARVAL INSTAR 5", "LARVAL INSTAR 6", "ADULT"];
+    //
+    //    var stageTitle = $("#stageTitle");
+    //    var stageSelect = $("<select id='stage'>");
+    //    stageTitle.append(stageSelect);
+    //    stageSelect.append($("<option value=''>SELECT THE STAGE</option>"));
+    //    for (var i = 0; i < stageList.length; i++) {
+    //        var stageOption = $("<option>" + stageList[i] + "</option>");
+    //        stageSelect.append(stageOption);
+    //    }
+    //    stageTitle.append(endSelectTag);
 
     document.getElementById("numPerPlant").disabled = false;
     document.getElementById("numPerPastures").disabled = false;
@@ -437,7 +445,7 @@
 
     var options = {
         url:       '/upload',         // override for form's 'action' attribute
-		type:      'post',        // 'get' or 'post', override for form's 'method' attribute
+        type:      'post',        // 'get' or 'post', override for form's 'method' attribute
         dataType:  'json',        // 'xml', 'script', or 'json' (expected server response type)
         clearForm: true,        // clear all form fields after successful submit
         beforeSubmit:  showRequest,  // pre-submit callback
@@ -602,7 +610,7 @@
         //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.');
 
         if (!responseText.error) {
-            //alert(responseText.message);
+            alert(responseText.message);
             //alert("No error!");
             info[20] = "";
             info[21] = "";
@@ -631,8 +639,8 @@
             //alert(insertStatement);
             insert(insertStatement)
         } else {
-            //alert(responseText.message);
-            alert("There is an error!");
+            alert(responseText.message);
+            //alert("There is an error!");
         }
     }
 
