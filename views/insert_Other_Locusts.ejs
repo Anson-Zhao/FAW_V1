@@ -72,11 +72,11 @@
 		<h4 id="cropSystemTitle"><h4 id="mainCropTitle"><h4 id="mainCropTitle2"></h4></h4></h4><br>
 
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety Here" required><br><br>
-		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
+		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE2" class="date" value=""><br><br>
 		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4>
 		<h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY.</h5>
 		<input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
-		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
+		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input id="DATE3" class="date" value=""><br><br>
 		<h4>Pest Species: &nbsp;&nbsp;&nbsp;</h4>
 		<h4 id="pestSpeciesTitle"></h4><br>
 		<h4>Presence or Absence: &nbsp;&nbsp;&nbsp;</h4>
@@ -96,26 +96,25 @@
 			<option value='stage_6'>LARVAL INSTAR 6</option>
 			<option value='adult'>ADULT</option>
 		</select>
-		<h4>Number (N
-			<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
-			<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per m2 (Pastures)". Please choose ONE.</h5>
-			<input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-			<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4>
-			<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per Plant (Crops)". Please choose ONE.</h5>
-			<input id="numPerPastures" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-			<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-			<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
-			<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
-			<h4 id="controlTitle"></h4><br><br>
-			<h4>If pesticide: amount in litres (numerical, XX.X): &nbsp;&nbsp;&nbsp;</h4>
-			<h4 id="ifPesticideTitle"></h4><br><br>
+		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
+		<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per m2 (Pastures)". Please choose ONE.</h5>
+		<input id="numPerPlant" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>Number (Numerical) per m2 (Pastures): &nbsp;&nbsp;&nbsp;</h4>
+		<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per Plant (Crops)". Please choose ONE.</h5>
+		<input id="numPerPastures" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
+		<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
+		<h4 id="controlTitle"></h4><br><br>
+		<h4>If pesticide: amount in litres (numerical, XX.X): &nbsp;&nbsp;&nbsp;</h4>
+		<h4 id="ifPesticideTitle"></h4><br><br>
 
-			<form id = "uploadForm" enctype = "multipart/form-data" action = "/upload" method = "post">
-				<h4>Photos of pest at different stages: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfPest" type="file" name="photoOfPest" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfPestImage" src="" alt="Image preview..."><br>
-				<h4>Photos maize at all stages of damage: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfDamage" type="file" name="photoOfDamage" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfDamageImage" src="" alt="Image preview..."><br><br>
-				<input type="submit" value="Submit the Form">
-			</form>
-			<!--<input type="button" value="Submit the Form" onclick="submit()">-->
+		<form id = "uploadForm" enctype = "multipart/form-data" action = "/upload" method = "post">
+			<h4>Photos of pest at different stages: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfPest" type="file" name="photoOfPest" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfPestImage" src="" alt="Image preview..."><br>
+			<h4>Photos maize at all stages of damage: &nbsp;&nbsp;&nbsp;</h4><input id="photoOfDamage" type="file" name="photoOfDamage" accept="image/*" onchange="previewFile()" multiple/><br><img id="photoOfDamageImage" src="" alt="Image preview..."><br><br>
+			<input type="submit" value="Submit the Form">
+		</form>
+		<!--<input type="button" value="Submit the Form" onclick="submit()">-->
 	</div>
 
 </div>
@@ -124,6 +123,14 @@
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     document.getElementById("DATE").value = date;
+
+    var today2 = new Date();
+    var date2 = today2.getFullYear()+'-'+(today2.getMonth()+1)+'-'+today2.getDate();
+    document.getElementById("DATE2").value = date2;
+
+    var today3 = new Date();
+    var date3 = today3.getFullYear()+'-'+(today3.getMonth()+1)+'-'+today3.getDate();
+    document.getElementById("DATE3").value = date3;
     //    var dd = today.getDate();
     //    var mm = today.getMonth()+1; //January is 0!
     //
@@ -494,6 +501,8 @@
         //alert('About to submit: \n\n' + queryString);
         var username = document.getElementById("username").innerHTML;
 
+        var title = document.getElementById("title").innerHTML;
+
         var date = document.getElementsByClassName("date")[0].value;
 
         var location = document.getElementById("location").value;
@@ -581,7 +590,7 @@
             }
         }
 
-        info = [username, date, location, latitude, longitude, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
+        info = [username, title, date, location, latitude, longitude, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
                 alert("info[" + i + "] 's " + "value(s) missing!");
@@ -739,3 +748,4 @@
 
 </body>
 </html>
+
