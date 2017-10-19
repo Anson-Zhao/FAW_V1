@@ -93,7 +93,7 @@ module.exports = function(app, passport) {
 	});
 
     app.post('/upload', fileUpload, function(req,res){
-        console.log(req.headers.origin);
+        //console.log(req.headers.origin);
         res.setHeader("Access-Control-Allow-Origin", "*");
 
         fileUpload(req,res,function(err) {
@@ -204,6 +204,7 @@ module.exports = function(app, passport) {
             } else {
                 var JSONresult = JSON.stringify(results, null, "\t");
                 console.log(JSONresult);
+                res.r
                 res.send(JSONresult);
                 res.end();
             }
