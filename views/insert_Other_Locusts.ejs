@@ -69,7 +69,7 @@
 		<h4 id="longitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
 		<h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
-		<h4 id="cropSystemTitle"><h4 id="mainCropTitle"><h4 id="mainCropTitle2"></h4></h4></h4><br>
+		<h4 id="cropSystemTitle"><h4 id="mainCropTitle"></h4></h4><br>
 
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety Here" required><br><br>
 		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE2" class="date" value=""><br><br>
@@ -87,14 +87,14 @@
 		<h4>Stage: &nbsp;&nbsp;&nbsp;</h4>
 		<h5 style="color:#9d9d9d;">Note: Click options listed below to select. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</h5>
 		<select style="font: inherit; background-color: #ebebeb;" multiple="multiple" id="stageTitle" name="my-select">
-			<option value='egg'>EGG</option>
-			<option value='stage_1'>LARVAL INSTAR 1</option>
-			<option value='stage_2'>LARVAL INSTAR 2</option>
-			<option value='stage_3'>LARVAL INSTAR 3</option>
-			<option value='stage_4'>LARVAL INSTAR 4</option>
-			<option value='stage_5'>LARVAL INSTAR 5</option>
-			<option value='stage_6'>LARVAL INSTAR 6</option>
-			<option value='adult'>ADULT</option>
+			<option value='Egg'>EGG</option>
+			<option value='Larval Instar: Stage_1'>LARVAL INSTAR 1</option>
+			<option value='Larval Instar: Stage_2'>LARVAL INSTAR 2</option>
+			<option value='Larval Instar: Stage_3'>LARVAL INSTAR 3</option>
+			<option value='Larval Instar: Stage_4'>LARVAL INSTAR 4</option>
+			<option value='Larval Instar: Stage_5'>LARVAL INSTAR 5</option>
+			<option value='Larval Instar: Stage_6'>LARVAL INSTAR 6</option>
+			<option value='Adult'>ADULT</option>
 		</select>
 		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
 		<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per m2 (Pastures)". Please choose ONE.</h5>
@@ -120,6 +120,10 @@
 </div>
 <script>
 
+    //    var today = new Date();
+    //    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    //    document.getElementsByClassName("date").value = date;
+
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     document.getElementById("DATE").value = date;
@@ -131,9 +135,9 @@
     var today3 = new Date();
     var date3 = today3.getFullYear()+'-'+(today3.getMonth()+1)+'-'+today3.getDate();
     document.getElementById("DATE3").value = date3;
-    //    var dd = today.getDate();
-    //    var mm = today.getMonth()+1; //January is 0!
-    //
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
     //    var yyyy = today.getFullYear();
     //    if(dd<10){
     //        dd='0'+dd;
@@ -179,7 +183,8 @@
     var cropSystemList = ["SEASONAL", "ROTATION", "INTERCROPPING"];
 
     var cropSystemTitle = $("#cropSystemTitle");
-    var cropSystemSelect = $("<select id='cropSystem' onchange='rotationCropSystem(); intercroppingCropSystem();'>");
+    //var cropSystemSelect = $("<select id='cropSystem' onchange='rotationCropSystem(); intercroppingCropSystem();'>");
+    var cropSystemSelect = $("<select id='cropSystem' onchange='rotationInterCropSystem();'>");
     cropSystemTitle.append(cropSystemSelect);
     cropSystemSelect.append($("<option value=''>SELECT THE CROP SYSTEM</option>"));
     for (var i = 0; i < cropSystemList.length; i++) {
@@ -261,7 +266,7 @@
     }
 
     // control option
-    var controlList = ["EGG-SQUASHING", "HAND-PICKING", "MECHANICAL", "CULTURAL", "PESTICIDE", "OTHER"];
+    var controlList = ["EGG-SQUASHING", "HAND-PICKING", "MECHANICAL", "CULTURAL", "PESTICIDE", "BIOCONTROL", "OTHER"];
 
     var controlTitle = $("#controlTitle");
     var controlSelect = $("<select id='control' onchange='otherControl()'>");
@@ -287,10 +292,12 @@
     ifPesticideTitle.append(endSelectTag);
 
 
-    function rotationCropSystem() {
-        if (document.getElementById("cropSystem").value === "ROTATION") {
+    function rotationInterCropSystem() {
+        $("#mainCrop").remove();
+        $("#otherControlDiv").remove();
+        $("#otherMainCrop").remove();
+        if (document.getElementById("cropSystem").value !== "SEASONAL") {
             var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
-
             var mainCropTitle = $("#mainCropTitle");
             var mainCropSelect = $("<select id='mainCrop' onchange='otherMainCrop()'>");
             mainCropTitle.append(mainCropSelect);
@@ -301,29 +308,6 @@
             }
             mainCropTitle.append(endSelectTag);
 
-        } else {
-            $("#mainCrop").remove();
-            $("#rotationCropSystem").remove();
-        }
-    }
-
-    function intercroppingCropSystem() {
-        if (document.getElementById("cropSystem").value === "INTERCROPPING") {
-            var mainCropList2 = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
-
-            var mainCropTitle2 = $("#mainCropTitle2");
-            var mainCropSelect2 = $("<select id='mainCrop2' onchange='otherMainCrop2()'>");
-            mainCropTitle2.append(mainCropSelect2);
-            mainCropSelect2.append($("<option value=''>SELECT THE MAIN CROP</option>"));
-            for (var i = 0; i < mainCropList2.length; i++) {
-                var mainCropOption2 = $("<option>" + mainCropList2[i] + "</option>");
-                mainCropSelect2.append(mainCropOption2);
-            }
-            mainCropTitle2.append(endSelectTag);
-
-        } else {
-            $("#mainCrop2").remove();
-            $("#intercroppingCropSystem").remove();
         }
     }
 
@@ -335,17 +319,6 @@
         } else {
             $("#otherMainCropDiv").remove();
             $("#otherMainCrop").remove();
-        }
-    }
-
-    function otherMainCrop2() {
-        if (document.getElementById("mainCrop2").value === "OTHER") {
-            var mainCropTitle2 = $("#mainCropTitle2");
-            mainCropTitle2.append("<span id='otherMainCropDiv2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>");
-            mainCropTitle2.append($("<input id='otherMainCrop2' type='text' placeholder=\"ENTER THE MAIN CROP\" required>"));
-        } else {
-            $("#otherMainCropDiv2").remove();
-            $("#otherMainCrop2").remove();
         }
     }
 
@@ -423,6 +396,25 @@
             $("#decimalPoint").remove();
         }
     }
+
+
+
+
+    //$('#stageTitle').change(function(){
+    //    var stages = $(this).val();
+    //    var selectedStages = stages.join(", "); // there is a break after comma
+    //
+    //    alert (selectedStages); // just for testing what will be printed
+    //})
+    //
+    //var stageValues = document.getElementById('stageTitle');
+    //var values = [];
+    //for (var c = 0; c < stageValues.options.length; c++) {
+    //    if (stageValues.options[c].selected) {
+    //        values.push(stageValues.options[c].value);
+    //    }
+    //}
+
 
     function previewFile() {
         var activeElementId = document.activeElement.id;
@@ -533,13 +525,28 @@
             }
         }
 
-        var mainCrop = document.getElementById("mainCrop").value;
-        if (mainCrop === "Other") {
-            mainCrop = document.getElementById("otherMainCrop").value;
-        }
+//        var mainCrop = document.getElementById("mainCrop").value;
+//        if (mainCrop === "Other") {
+//            mainCrop = document.getElementById("otherMainCrop").value;
+//        }
 
         var cropVariety = document.getElementById("cropVariety").value;
+
         var cropSystem = document.getElementById("cropSystem").value;
+        if (cropSystem === "ROTATION" || cropSystem === "INTERCROPPING") {
+            var mainCrop = document.getElementById("mainCrop").value;
+            if (mainCrop === "Other") {
+                mainCrop = document.getElementById("otherMainCrop").value;
+            }
+        }
+//
+//        if (cropSystem === "INTERCROPPING") {
+//            var mainCrop2 = document.getElementById("mainCrop2").value;
+//            if (mainCrop2 === "Other") {
+//                mainCrop2 = document.getElementById("otherMainCrop2").value;
+//            }
+//        }
+
         var plantDate = document.getElementsByClassName("date")[1].value;
 
         var fieldSizeInteger = document.getElementById("fieldSizeInteger").value;
@@ -565,15 +572,41 @@
             status = false;
         }
 
-        var stage = document.getElementById("stage").value;
-        var numPerPlant = document.getElementById("numPerPlant").value;
-        var numPerPastures = document.getElementById("numPerPastures").value;
+        var cropDamage = document.getElementById("cropDamage").value;
+
+        var stageTitle = "";
+        var x = document.getElementById("stageTitle");
+        for (var i = 0; i < x.options.length; i++) {
+            if (x.options[i].selected) {
+                stageTitle += x.options[i].value + "; ";
+            }
+        }
+        stageTitle = stageTitle.substring(0, stageTitle.length - 2);
+
+        console.log(stageTitle);
+        var numPerPlant;
+        var numPerPastures;
+        if (document.getElementById("numPerPlant").disabled || document.getElementById("numPerPastures").disabled) {
+            if (document.getElementById("numPerPlant").disabled) {
+                numPerPastures = document.getElementById("numPerPastures").value;
+                numPerPlant = "NULL";
+            } else if (document.getElementById("numPerPastures").disabled) {
+                numPerPlant = document.getElementById("numPerPlant").value;
+                numPerPastures = "NULL";
+            }
+        } else {
+            numPerPlant = false;
+            numPerPastures = false;
+        }
+
+
         var numPerTrap = document.getElementById("numPerTrap").value;
         var cropInfested = document.getElementById("cropInfested").value;
 
         var control = document.getElementById("control").value;
         if (control === "OTHER") {
-            mainCrop = document.getElementById("otherControl").value;
+//            mainCrop = document.getElementById("otherControl").value;
+            control = document.getElementById("otherControl").value;
         }
 
         var ifPesticide = document.getElementById("ifPesticide").value;
@@ -590,16 +623,18 @@
             }
         }
 
-        info = [username, title, date, location, latitude, longitude, mainCrop, cropVariety, cropSystem, plantDate, fieldSize, rainFallDate, pestSpecies, status, stage, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
+        info = [username, title, date, location, latitude, longitude, cropVariety, cropSystem, mainCrop, plantDate, fieldSize, rainFallDate, pestSpecies, status, cropDamage, stageTitle, numPerPlant, numPerPastures, numPerTrap, cropInfested, control, amountOfPesticide, document.getElementById("photoOfPest").value, document.getElementById("photoOfDamage").value];
         for (var i = 0; i < info.length; i++) {
             if (!info[i]) {
-                alert("info[" + i + "] 's " + "value(s) missing!");
+                alert("info[" + i + "] 's " + info[i] + "value(s) missing!");
                 return false;
                 break
             } else if (i === info.length -1){
                 return true;
             }
         }
+
+
 
 //        if (date && location && GPSLocation && mainCrop && cropVariety && cropSystem && plantDate && fieldSize !== "No Value" && rainFallDate && pestSpecies && status && stage && numPerPlant && numPerPastures && numPerTrap && cropInfested && control && amountOfPesticide !== "No Value" && document.getElementById("photoOfPest").value && document.getElementById("photoOfDamage").value) {
 //
@@ -614,6 +649,8 @@
 //            return false;
 //        }
     }
+
+
 
     // post-submit callback
     function showResponse(responseText, statusText, xhr, $form) {
@@ -633,19 +670,19 @@
         if (!responseText.error) {
             alert(responseText.message);
             //alert("No error!");
-            info[20] = "";
-            info[21] = "";
+            info[22] = "";
+            info[23] = "";
             var names = responseText.message.split(";");
 
             for (var i = 0; i < names.length; i++) {
                 if (names[i].substring(0,11) === "photoOfPest") {
-                    info[20] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ";";
+                    info[22] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ";";
                 } else if (names[i].substring(0,13) === "photoOfDamage") {
-                    info[21] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ";";
+                    info[23] += "http://faw.aworldbridgelabs.com/uploadfiles/" + names[i] + ";";
                 }
             }
-            info[20] = info[20].substring(0, info[20].length - 1);
-            info[21] = info[21].substring(0, info[21].length - 1);
+            info[22] = info[22].substring(0, info[22].length - 1);
+            info[23] = info[23].substring(0, info[23].length - 1);
             //alert(info[20].length + " , " + info[21].length);
             var insertStatement = "";
             for (var i = 0; i < info.length; i++) {
@@ -748,4 +785,3 @@
 
 </body>
 </html>
-

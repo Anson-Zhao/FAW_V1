@@ -279,3 +279,8 @@ select {
     background-color: #5cb85c;
     color: white;
 }
+
+input[type='text']::placeholder {
+    color: #c6c6c6;
+
+}

@@ -87,14 +87,14 @@
 		<h4>Stage: &nbsp;&nbsp;&nbsp;</h4>
 		<h5 style="color:#9d9d9d;">Note: Click options listed below to select. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</h5>
 		<select style="font: inherit; background-color: #ebebeb;" multiple="multiple" id="stageTitle" name="my-select">
-			<option value='egg'>EGG</option>
-			<option value='stage_1'>LARVAL INSTAR 1</option>
-			<option value='stage_2'>LARVAL INSTAR 2</option>
-			<option value='stage_3'>LARVAL INSTAR 3</option>
-			<option value='stage_4'>LARVAL INSTAR 4</option>
-			<option value='stage_5'>LARVAL INSTAR 5</option>
-			<option value='stage_6'>LARVAL INSTAR 6</option>
-			<option value='adult'>ADULT</option>
+			<option value='Egg'>EGG</option>
+			<option value='Larval Instar: Stage_1'>LARVAL INSTAR 1</option>
+			<option value='Larval Instar: Stage_2'>LARVAL INSTAR 2</option>
+			<option value='Larval Instar: Stage_3'>LARVAL INSTAR 3</option>
+			<option value='Larval Instar: Stage_4'>LARVAL INSTAR 4</option>
+			<option value='Larval Instar: Stage_5'>LARVAL INSTAR 5</option>
+			<option value='Larval Instar: Stage_6'>LARVAL INSTAR 6</option>
+			<option value='Adult'>ADULT</option>
 		</select>
 		<h4>Number (Numerical) per Plant (Crops): &nbsp;&nbsp;&nbsp;</h4>
 		<h5 style="color:#9d9d9d;">Note: Any text here will disable entering values in the field "Number (Numerical) per m2 (Pastures)". Please choose ONE.</h5>
@@ -266,7 +266,7 @@
     }
 
     // control option
-    var controlList = ["EGG-SQUASHING", "HAND-PICKING", "MECHANICAL", "CULTURAL", "PESTICIDE", "OTHER"];
+    var controlList = ["EGG-SQUASHING", "HAND-PICKING", "MECHANICAL", "CULTURAL", "PESTICIDE", "BIOCONTROL", "OTHER"];
 
     var controlTitle = $("#controlTitle");
     var controlSelect = $("<select id='control' onchange='otherControl()'>");
@@ -396,6 +396,25 @@
             $("#decimalPoint").remove();
         }
     }
+
+
+
+
+//$('#stageTitle').change(function(){
+//    var stages = $(this).val();
+//    var selectedStages = stages.join(", "); // there is a break after comma
+//
+//    alert (selectedStages); // just for testing what will be printed
+//})
+//
+//var stageValues = document.getElementById('stageTitle');
+//var values = [];
+//for (var c = 0; c < stageValues.options.length; c++) {
+//    if (stageValues.options[c].selected) {
+//        values.push(stageValues.options[c].value);
+//    }
+//}
+
 
     function previewFile() {
         var activeElementId = document.activeElement.id;
@@ -555,7 +574,15 @@
 
         var cropDamage = document.getElementById("cropDamage").value;
 
-        var stageTitle = document.getElementById("stageTitle").value;
+        var stageTitle = "";
+        var x = document.getElementById("stageTitle");
+        for (var i = 0; i < x.options.length; i++) {
+            if (x.options[i].selected) {
+                stageTitle += x.options[i].value + "; ";
+            }
+        }
+        stageTitle = stageTitle.substring(0, stageTitle.length - 2);
+
         console.log(stageTitle);
         var numPerPlant;
         var numPerPastures;
@@ -607,6 +634,8 @@
             }
         }
 
+
+
 //        if (date && location && GPSLocation && mainCrop && cropVariety && cropSystem && plantDate && fieldSize !== "No Value" && rainFallDate && pestSpecies && status && stage && numPerPlant && numPerPastures && numPerTrap && cropInfested && control && amountOfPesticide !== "No Value" && document.getElementById("photoOfPest").value && document.getElementById("photoOfDamage").value) {
 //
 //            // here we could return false to prevent the form from being submitted;
@@ -620,6 +649,8 @@
 //            return false;
 //        }
     }
+
+
 
     // post-submit callback
     function showResponse(responseText, statusText, xhr, $form) {
