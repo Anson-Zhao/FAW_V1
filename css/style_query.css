@@ -210,3 +210,8 @@ a {
     font: inherit;
     font-size: large;
 }
+
+#map {
+    height: 400px;
+    width: 60%;
+}

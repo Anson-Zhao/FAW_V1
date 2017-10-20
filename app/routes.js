@@ -174,7 +174,7 @@ module.exports = function(app, passport) {
                 res.end();
             } else {
                 var JSONresult = JSON.stringify(results, null, "\t");
-                console.log(JSONresult);
+                //console.log(JSONresult);
                 res.send(JSONresult);
                 res.end();
             }

@@ -15,9 +15,8 @@
 	<script src="https://unpkg.com/flatpickr"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX94wEDdQ52lCDhKAhcfR-flIw1NyLTMA"></script>
 </head>
-<body onload="getLocation()">
+<body>
 <div class="container">
 
 	<div class="page-header text-center">
@@ -48,16 +47,14 @@
 		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" placeholder="Select Date Here" required><br><br>
 		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location Here" required><br><br>
 		<!--<h4>GPS Location: &nbsp;&nbsp;&nbsp;</h4><input id="GPSLocation" type="text"><br><br>-->
-		<h4 id="GPSLocationTitle">GPS Location: &nbsp;&nbsp;&nbsp;</h4>
-		<h4 id="errorMessage"></h4>
-        <h5 style="color:#9d9d9d;" id="locationNote">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
-		<div id="map"></div>
-        <!--<h4 id="latitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!--<input id="latitudeDegree"  type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>-->
-		<!--<h4>GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4>-->
-        <!--<h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>-->
-        <!--<h4 id="longitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!--<input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>-->
+		<h4>GPS Location (Latitude): &nbsp;&nbsp;&nbsp;</h4>
+        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+        <h4 id="latitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="latitudeDegree"  type="number"  min="0" max="60" placeholder="0000">° <input id="latitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="latitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
+		<h4>GPS Location (Longitude): &nbsp;&nbsp;&nbsp;</h4>
+        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+        <h4 id="longitudeTitle" class="floatingBox"></h4><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="longitudeDegree" type="number" min="0" max="60" placeholder="0000">° <input id="longitudeMinute" type="number" min="0" max="60" placeholder="0000">' <input id="longitudeSecond" type="number" min="0" max="60" placeholder="0000">'' <br><br>
 		<h4>Main Crop: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="mainCropTitle"></h4><br><br>
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety Here" required><br><br>
@@ -95,106 +92,6 @@
 </div>
 <script>
 
-    function getLocation() {
-        $("#locationNote").append($("<h4 id='latitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latitude: </h4><h4 id='latitudeStatus'>Locating......</h4><h4 id='longitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude: </h4><h4 id='longitudeStatus'>Locating......</h4>"));
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            $("#latitudeStatus").remove();
-            $("#longitudeStatus").remove();
-			document.getElementById("errorMessage").innerHTML = "ERROR: Geolocation is not supported by this browser."
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-    function showPosition(position) {
-        $("#latitudeStatus").remove();
-        $("#longitudeStatus").remove();
-
-        var uluru = {lat: position.coords.latitude, lng: position.coords.longitude};
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: uluru,
-            mapTypeId: 'hybrid'
-        });
-
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-        });
-
-        var latiDD = position.coords.latitude;
-        var longDD = position.coords.longitude;
-        // convert latitude from Decimal Degree to Degrees Minutes Seconds
-        var latiDirection;
-        var latiDegrees = Math.floor(latiDD);
-        var latiMinutes = Math.floor((latiDD - latiDegrees) * 60);
-        var latiSeconds = ((latiDD - latiDegrees) * 60 - latiMinutes) * 60;
-        // convert longitude from Decimal Degree to Degrees Minutes Seconds
-        var longDirection;
-        var longDegrees = Math.floor(longDD);
-        var longMinutes = Math.floor((longDD - longDegrees) * 60);
-        var longSeconds = ((longDD - longDegrees) * 60 - longMinutes) * 60;
-        // check direction
-        if (latiDD >= 0) {
-            latiDirection = "N";
-        } else if (latiDD < 0) {
-            latiDirection = "S";
-        }
-        if (longDD >= 0) {
-            longDirection = "E";
-        } else if (longDD < 0) {
-            longDirection = "W";
-        }
-
-        var latitudeTitle = $("#latitudeTitle");
-        var latitudeSelect = $("<select id='latitudeDirection'>");
-        latitudeTitle.append(latitudeSelect);
-        latitudeSelect.append($("<option>" + latiDirection + "</option>"));
-        if (latiDirection === "N") {
-            latitudeSelect.append($("<option>S</option>"));
-        } else if (latiDirection === "S") {
-            latitudeSelect.append($("<option>N</option>"));
-        }
-        latitudeTitle.append(endSelectTag);
-
-        var longitudeTitle = $("#longitudeTitle");
-        var longitudeSelect = $("<select id='longitudeDirection'>");
-        longitudeTitle.append(longitudeSelect);
-        longitudeSelect.append($("<option>" + longDirection + "</option>"));
-        if (longDirection === "E") {
-            longitudeSelect.append($("<option>W</option>"));
-        } else if (longDirection === "W") {
-            longitudeSelect.append($("<option>E</option>"));
-        }
-        longitudeTitle.append(endSelectTag);
-
-
-        latitudeTitle.append($("<input id='latitudeDegree' type='number' value='" + latiDegrees + "'>°" + " <input id='latitudeMinute' type='number' value='" + latiMinutes + "'>'" + " <input id='latitudeSecond' type='number' value='" + Math.round(latiSeconds * 1000) / 1000 + "'>''" + "<p></p>"));
-        longitudeTitle.append($("<input id='longitudeDegree' type='number' value='" + longDegrees + "'>°" + " <input id='longitudeMinute' type='number' value='" + longMinutes + "'>'" + " <input id='longitudeSecond' type='number' value='" + Math.round(longSeconds * 1000) / 1000 + "'>''" + "<p></p>"));
-
-		$("#locationNote").append($("<input type='button' onclick='refresh()' value='Click here to refresh the map'>"))
-    }
-
-    function showError(error) {
-
-        var errorMessage = document.getElementById("errorMessage");
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                errorMessage.innerHTML = "ERROR: User denied the request for Geolocation."
-                break;
-            case error.POSITION_UNAVAILABLE:
-                errorMessage.innerHTML = "ERROR: Location information is unavailable."
-                break;
-            case error.TIMEOUT:
-                errorMessage.innerHTML = "ERROR: The request to get user location timed out."
-                break;
-            case error.UNKNOWN_ERROR:
-                errorMessage.innerHTML = "ERROR: An unknown error occurred."
-                break;
-        }
-    }
-
     flatpickr(".date", {
         dateFormat: "Y-m-d",
         time_24hr: true
@@ -203,6 +100,28 @@
     var info = [];
 
     var endSelectTag = $("</select>");
+
+    var latitudeList = ["N", "S"];
+    var latitudeTitle = $("#latitudeTitle");
+    var latitudeSelect = $("<select id='latitudeDirection'>");
+    latitudeTitle.append(latitudeSelect);
+    latitudeSelect.append($("<option value=''>SELECT THE DIRECTION</option>"));
+    for (var i = 0; i < latitudeList.length; i++) {
+        var latitudeOption = $("<option>" + latitudeList[i] + "</option>");
+        latitudeSelect.append(latitudeOption);
+    }
+    latitudeTitle.append(endSelectTag);
+
+    var longitudeList = ["E", "W"];
+    var longitudeTitle = $("#longitudeTitle");
+    var longitudeSelect = $("<select id='longitudeDirection'>");
+    longitudeTitle.append(longitudeSelect);
+    longitudeSelect.append($("<option value=''>SELECT THE DIRECTION</option>"));
+    for (var i = 0; i < longitudeList.length; i++) {
+        var longitudeOption = $("<option>" + longitudeList[i] + "</option>");
+        longitudeSelect.append(longitudeOption);
+    }
+    longitudeTitle.append(endSelectTag);
 
     // main crop option
     var mainCropList = ["MAIZE", "RICE", "SORGHUM", "VEGETABLES", "OTHER"];
@@ -281,45 +200,6 @@
         ifPesticideSelect.append(ifPesticideOption);
     }
     ifPesticideTitle.append(endSelectTag);
-
-    function refresh() {
-        var latiDirection = document.getElementById("latitudeDirection").value;
-        var longDirection = document.getElementById("longitudeDirection").value;
-        var latiDegree = document.getElementById("latitudeDegree").value;
-        var longDegree = document.getElementById("longitudeDegree").value;
-        var latiMinute = document.getElementById("latitudeMinute").value;
-        var longMinute = document.getElementById("longitudeMinute").value;
-        var latiSecond = document.getElementById("latitudeSecond").value;
-        var longSecond = document.getElementById("longitudeSecond").value;
-
-        if (latiDirection && longDirection && latiDegree && longDegree && latiMinute && longMinute && latiSecond && longSecond) {
-            // convert latitude & longitude from Degrees Minutes Seconds to Decimal Degree
-            var latiDD = parseFloat(latiDegree) + (parseFloat(latiMinute) / 60) + (parseFloat(latiSecond) / 3600);
-            var longDD = parseFloat(longDegree) + (parseFloat(longMinute) / 60) + (parseFloat(longSecond) / 3600);
-            // change to negative if S or W
-            if (latiDirection === "S") {
-                latiDD = latiDD * -1;
-            }
-            if (longDirection === "W") {
-                longDD = longDD * -1;
-            }
-
-            var newPosition = {lat: latiDD, lng: longDD};
-            document.getElementById("map").innerHTML = "";
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center:  newPosition,
-                mapTypeId: 'hybrid'
-            });
-
-            var marker = new google.maps.Marker({
-                position:  newPosition,
-                map: map
-            });
-        } else {
-
-		}
-    }
 
 
     function otherMainCrop() {

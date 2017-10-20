@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
     <script src="https://unpkg.com/flatpickr"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX94wEDdQ52lCDhKAhcfR-flIw1NyLTMA"></script>
     <!--<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>-->
     <!-- If you want to use jquery 2+: https://code.jquery.com/jquery-2.1.0.min.js -->
 </head>
@@ -59,7 +60,7 @@
     </div>
 </div>
 </div>
-
+<div id="map"></div>
 <script type='text/javascript'>
 
     flatpickr(".datePicker", {
@@ -127,9 +128,18 @@
                     }
                     table.append($("</tr>"));
 
+                    var center = {lat: 0, lng: 0};
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 4,
+                        center: center,
+                        mapTypeId: 'hybrid'
+                    });
+
+                    var markers = [];
+
                     for (var i = 0; i < ajaxReturn.length; i++){
 
-                        table.append($("<tr id='dataColumn" + (i + 1) + "' onmousedown='RowClick(this,false);'>"));
+                        table.append($("<tr id='dataColumn" + (i + 1) + "' onmousedown='RowClick(this,false)'>"));
                         $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Username + "</td>" + "<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Latitude + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Longitude + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td id='photoOfPest'></td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>" + "<td id='photoOfDamage'></td>"));
 
                         var photoOfPest = ajaxReturn[i].Photos_of_Pest.split(";");
@@ -139,7 +149,7 @@
 
                             var popWidth = document.getElementById("p" + i + a).naturalWidth;
                             var popHeight = document.getElementById("p" + i + a).naturalHeight;
-//                            alert("weight: " + popWidth + "     height: " + popHeight);
+                            //alert("weight: " + popWidth + "     height: " + popHeight);
                             if (popWidth > popHeight) {
                                 document.getElementById("p" + i + a).setAttribute("class", "x");
                             } else if (popWidth < popHeight) {
@@ -155,7 +165,7 @@
 
                             var podWidth = document.getElementById("d" + i + b).naturalWidth;
                             var podHeight = document.getElementById("d" + i + b).naturalHeight;
-//                            alert("weight: " + podWidth + "     height: " + podHeight);
+                            //alert("weight: " + podWidth + "     height: " + podHeight);
                             if (podWidth > podHeight) {
                                 document.getElementById("d" + i + b).setAttribute("class", "x");
                             } else if (podWidth < podHeight) {
@@ -166,7 +176,32 @@
                         }
 
                         table.append($("</tr>"));
+
+                        // array
+                        var latiDMS = ajaxReturn[i].GPS_Location_Latitude.split(" ");
+                        var longDMS = ajaxReturn[i].GPS_Location_Longitude.split(" ");
+                        // convert latitude & longitude from Degrees Minutes Seconds to Decimal Degree
+                        var latiDD = parseFloat(latiDMS[1].substring(0,latiDMS[1] - 1)) + (parseFloat(latiDMS[2].substring(0,latiDMS[2] - 1)) / 60) + (parseFloat(latiDMS[3].substring(0,latiDMS[3] - 1)) / 3600);
+                        var longDD = parseFloat(longDMS[1].substring(0,longDMS[1] - 1)) + (parseFloat(longDMS[2].substring(0,longDMS[2] - 1)) / 60) + (parseFloat(longDMS[3].substring(0,longDMS[3] - 1)) / 3600);
+                        // change to negative if S or W
+                        if (latiDMS[0] === "S") {
+                            latiDD = latiDD * -1;
+                        }
+                        if (longDMS[0] === "W") {
+                            longDD = longDD * -1;
+                        }
+
+                        var position = {lat: latiDD, lng: longDD};
+                        var marker = new google.maps.Marker({
+                            position: position,
+                            map: map
+                        });
+                        marker.DMS = ajaxReturn[i].GPS_Location_Latitude + "; " + ajaxReturn[i].GPS_Location_Longitude;
+                        marker.status = "red";
+                        markers.push(marker);
+                        alert("a");
                     }
+
 
                     document.getElementById("modal").style.display = "block";
 
@@ -298,8 +333,10 @@
     }
 
     function toggleRow(row) {
-        row.className = row.className === 'selected' ? '' : 'selected';
+        row.className = row.className === 'selected' ? 'change' : 'selected change';
         lastSelectedRow = row;
+
+        changeColor();
     }
 
     function selectRowsBetweenIndexes(indexes) {
@@ -316,6 +353,11 @@
         for (var i = 0; i < trs.length; i++) {
             trs[i].className = '';
         }
+    }
+
+    function changeColor() {
+        var lati = document.getElementsByClassName("change")[4].innerHTML;
+        var long = document.getElementsByClassName("change")[5].innerHTML;
     }
 </script>
 </body>
