@@ -203,8 +203,9 @@ module.exports = function(app, passport) {
                 res.end();
             } else {
                 var JSONresult = JSON.stringify(results, null, "\t");
-                console.log(results);
-                //res.send(JSONresult);
+                console.log(JSONresult);
+                res.r
+                res.send(JSONresult);
                 res.end();
             }
         });
