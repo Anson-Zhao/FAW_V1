@@ -27,7 +27,7 @@ select {
     text-transform: none;
 }
 
-img {
+#photoOfPestImage, #photoOfDamageImage{
     border-style: solid;
     color: #5A5A5A;
     font: inherit;
@@ -278,6 +278,11 @@ select {
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
+}
+
+#map {
+    width: 400px;
+    height: 400px;
 }
 
 input[type='text']::placeholder {
