@@ -126,14 +126,6 @@ module.exports = function(app, passport) {
         });
     });
 
-    // show the data entry page
-    // app.get('/dataEntry', isLoggedIn, function(req, res) {
-    //     res.render('insert.ejs', {
-    //         user : req.user, // get the user out of session and pass to template
-    //         message: req.flash('Data Entry Message')
-    //     });
-    // });
-
     app.get('/dataEntry', isLoggedIn, function(req, res) {
         res.render('dataEntry_Home.ejs', {
             user : req.user, // get the user out of session and pass to template
