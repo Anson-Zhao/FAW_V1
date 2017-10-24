@@ -45,7 +45,7 @@ module.exports = function(app, passport) {
             successRedirect : '/profile', // redirect to the secure profile section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
-            }),
+		}),
         function(req, res) {
             //console.log("hello");
 
@@ -61,17 +61,17 @@ module.exports = function(app, passport) {
 	// SIGNUP ==============================
 	// =====================================
 	// show the signup form
-    app.get('/signup', function (req, res) {
-        // render the page and pass in any flash data if it exists
-        res.render('signup.ejs', {message: req.flash('signupMessage')});
-    });
+	app.get('/signup', function(req, res) {
+		// render the page and pass in any flash data if it exists
+		res.render('signup.ejs', { message: req.flash('signupMessage') });
+	});
 
-
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile', // redirect to the secure profile section
-        failureRedirect: '/signup', // redirect back to the signup page if there is an error
-        failureFlash: true // allow flash messages
-    }));
+	// process the signup form
+	app.post('/signup', passport.authenticate('local-signup', {
+		successRedirect : '/profile', // redirect to the secure profile section
+		failureRedirect : '/signup', // redirect back to the signup page if there is an error
+		failureFlash : true // allow flash messages
+	}));
 
 	// =====================================
 	// PROFILE SECTION =========================
@@ -79,26 +79,9 @@ module.exports = function(app, passport) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, function(req, res) {
-        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = " + req.user.username + ";";
-            console.log(req.user.username);
-            console.log(queryStatementTest);
-
-        connection.query(queryStatementTest, function(err, results, fields) {
-            console.log(results);
-
-            if (!results) {
-                console.log(results);
-            } else if (results === "Admin") {
-                // process the signup form
-                res.render('profile_Admin.ejs', {
-                    user: req.user // get the user out of session and pass to template
-                });
-            } else if (results === "Regular") {
-                res.render('profile_Regular.ejs', {
-                    user: req.user // get the user out of session and pass to template
-                });
-            }
-        });
+		res.render('profile.ejs', {
+			user : req.user // get the user out of session and pass to template
+		});
 	});
 
 	// =====================================
