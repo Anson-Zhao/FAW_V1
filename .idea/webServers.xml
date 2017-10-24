@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="00eb9ebb-b85e-4242-ba45-197fa0c8f5fd" name="FAW" url="http://faw.aworldbridgelabs.com">
+        <fileTransfer host="faw.aworldbridgelabs.com" port="5532" rootFolder="/var/www/faw" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="5532" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

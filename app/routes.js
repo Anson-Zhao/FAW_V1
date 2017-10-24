@@ -134,18 +134,31 @@ module.exports = function(app, passport) {
     });
 
     app.get('/dataEntry2', isLoggedIn, function(req, res) {
-        res.render('insert_Desert_Locust.ejs', {
+        res.render('insert_Armyworm.ejs', {
             user : req.user, // get the user out of session and pass to template
             message: req.flash('Data Entry Message')
         });
     });
 
     app.get('/dataEntry3', isLoggedIn, function(req, res) {
-        res.render('insert_Other_Locusts.ejs', {
+        res.render('insert_Armyworm.ejs', {
             user : req.user, // get the user out of session and pass to template
             message: req.flash('Data Entry Message')
         });
     });
+    // app.get('/dataEntry2', isLoggedIn, function(req, res) {
+    //     res.render('insert_Desert_Locust.ejs', {
+    //         user : req.user, // get the user out of session and pass to template
+    //         message: req.flash('Data Entry Message')
+    //     });
+    // });
+    //
+    // app.get('/dataEntry3', isLoggedIn, function(req, res) {
+    //     res.render('insert_Other_Locusts.ejs', {
+    //         user : req.user, // get the user out of session and pass to template
+    //         message: req.flash('Data Entry Message')
+    //     });
+    // });
 
 
     app.get('/insert', function (req, res) {
