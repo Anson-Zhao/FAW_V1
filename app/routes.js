@@ -27,7 +27,8 @@ module.exports = function(app, passport) {
 	// HOME PAGE (with login links) ========
 	// =====================================
 	app.get('/', function(req, res) {
-		res.render('index.ejs'); // load the index.ejs file
+		// res.render('index.ejs'); // load the index.ejs file
+        res.redirect('/login');
 	});
 
 	// =====================================
@@ -79,21 +80,18 @@ module.exports = function(app, passport) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, function(req, res) {
-        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = " + req.user.username + ";";
-            console.log(req.user.username);
-            console.log(queryStatementTest);
+        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
 
         connection.query(queryStatementTest, function(err, results, fields) {
-            console.log(results);
-
-            if (!results) {
-                console.log(results);
-            } else if (results === "Admin") {
+            // console.log([results[0].userrole]);
+            if (!results[0].userrole) {
+                console.log("Error");
+            } else if (results[0].userrole === "Admin") {
                 // process the signup form
                 res.render('profile_Admin.ejs', {
                     user: req.user // get the user out of session and pass to template
                 });
-            } else if (results === "Regular") {
+            } else if (results[0].userrole === "Regular") {
                 res.render('profile_Regular.ejs', {
                     user: req.user // get the user out of session and pass to template
                 });
