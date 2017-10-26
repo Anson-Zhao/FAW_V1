@@ -25,6 +25,9 @@ var fileUpload = multer({ storage : storage}).any();
 
 module.exports = function(app, passport) {
 
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+
 	// =====================================
 	// HOME PAGE (with login links) ========
 	// =====================================
@@ -50,14 +53,12 @@ module.exports = function(app, passport) {
             failureFlash : true // allow flash messages
             }),
         function(req, res) {
-            //console.log("hello");
-
             if (req.body.remember) {
               req.session.cookie.maxAge = 1000 * 60 * 3;
             } else {
               req.session.cookie.expires = false;
             }
-        res.redirect('/');
+        res.redirect('/login');
     });
 
 	// =====================================
@@ -71,64 +72,30 @@ module.exports = function(app, passport) {
         });
     });
 
-
-    // app.post('/signup', passport.authenticate('local-signup', {
-    //     successRedirect: '/profile', // redirect to the secure profile section
-    //     failureRedirect: '/signup', // redirect back to the signup page if there is an error
-    //     failureFlash: true // allow flash messages
-    // }));
-
-    // app.post('/signup', isLoggedIn, function(req, res) {
-    //
-    // });
-
-    app.use(bodyParser.urlencoded({
-        extended: true
-    }));
-
-    app.use(bodyParser.json());
-
     app.post('/signup', function(req, res){
-        console.log(req.body.username);
-        console.log(req.body.password);
-        console.log(req.body.userrole);
-        var pass = bcrypt.hashSync(req.body.password, null, null);
-        console.log(pass);
 
-        connection.query('USE ' + config.Login_db);
-        console.log(config.Login_db);
-        var signupInfo = req.body.username + "', '" + pass + "', '" + req.body.userrole;
-        console.log(signupInfo);
+        res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
+        connection.query('USE ' + config.Login_db); // Locate Login DB
 
-        var signupStatement = "INSERT INTO users (username, password, userrole) VALUES ('" + signupInfo + "');";
-        console.log(signupStatement);
+        var newUser = {
+            username: req.body.username,
+            password: bcrypt.hashSync(req.body.password, null, null),  // use the generateHash function
+            userrole: req.body.userrole
+        };
 
+        var insertQuery = "INSERT INTO users ( username, password, userrole ) VALUES (?,?,?)";
 
-        res.setHeader("Access-Control-Allow-Origin", "*");
+        connection.query(insertQuery,[newUser.username, newUser.password, newUser.userrole],function(err, rows) {
 
-        connection.query(signupStatement, function(err, results, fields) {
+            //newUser.id = rows.insertId;
+
             if (err) {
                 console.log(err);
-                res.send("fail");
+                res.send("New User Insert Fail!");
                 res.end();
             } else {
-                var queryStatementTest = "SELECT userrole FROM users WHERE username = '" + req.user.username + "';";
-
-                connection.query(queryStatementTest, function(err, results, fields) {
-                    console.log(results);
-
-                    if (!results[0].userrole) {
-                        console.log("Error");
-                    } else if (results[0].userrole === "Admin") {
-                        // process the signup form
-                        res.render('profile_Admin.ejs', {
-                            user: req.user // get the user out of session and pass to template
-                        });
-                    } else if (results[0].userrole === "Regular") {
-                        res.render('profile_Regular.ejs', {
-                            user: req.user // get the user out of session and pass to template
-                        });
-                    }
+                res.render('profile_Admin.ejs', {
+                    user: req.user // get the user out of session and pass to template
                 });
             }
         });
