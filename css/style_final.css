@@ -163,23 +163,26 @@ input[type='text'], select {
     font: inherit;
 }
 
-#latitudeTitle {
+#latitudeTitle{
     position:relative;
-    width:20%;
-    right:40px;
+    right:48px;
 }
-#latitudeDegree{
-    width:60%;
-    right:100px;
+#latitudeDirection{
+    width:14.8%;
 }
-
-#latitudeMinute{
+#latitudeDegree,#latitudeMinute,#latitudeSecond{
+    width:18%;
+}
+#longitudeTitle{
     position:relative;
-    width:60%;
-    left:125px;
-    bottom:25px;
+    right:48px;
 }
-
+#longitudeDirection{
+    width:13%;
+}
+#longitudeDegree,#longitudeMinute,#longitudeSecond{
+    width:18%;
+}
 .floatingBox {
     float:left;
 }
@@ -190,7 +193,6 @@ input[type='text'], select {
     margin: 60px auto;
     position: relative;
     padding: 50px;
-
 }
 
 #title {
