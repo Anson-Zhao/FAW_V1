@@ -27,7 +27,8 @@ module.exports = function(app, passport) {
 	// HOME PAGE (with login links) ========
 	// =====================================
 	app.get('/', function(req, res) {
-		res.render('index.ejs'); // load the index.ejs file
+		// res.render('index.ejs'); // load the index.ejs file
+        res.redirect('/login');
 	});
 
 	// =====================================
@@ -45,7 +46,7 @@ module.exports = function(app, passport) {
             successRedirect : '/profile', // redirect to the secure profile section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
-		}),
+            }),
         function(req, res) {
             //console.log("hello");
 
@@ -61,17 +62,17 @@ module.exports = function(app, passport) {
 	// SIGNUP ==============================
 	// =====================================
 	// show the signup form
-	app.get('/signup', function(req, res) {
-		// render the page and pass in any flash data if it exists
-		res.render('signup.ejs', { message: req.flash('signupMessage') });
-	});
+    app.get('/signup', function (req, res) {
+        // render the page and pass in any flash data if it exists
+        res.render('signup.ejs', {message: req.flash('signupMessage')});
+    });
 
-	// process the signup form
-	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/profile', // redirect to the secure profile section
-		failureRedirect : '/signup', // redirect back to the signup page if there is an error
-		failureFlash : true // allow flash messages
-	}));
+
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect: '/profile', // redirect to the secure profile section
+        failureRedirect: '/signup', // redirect back to the signup page if there is an error
+        failureFlash: true // allow flash messages
+    }));
 
 	// =====================================
 	// PROFILE SECTION =========================
@@ -79,9 +80,23 @@ module.exports = function(app, passport) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile.ejs', {
-			user : req.user // get the user out of session and pass to template
-		});
+        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
+
+        connection.query(queryStatementTest, function(err, results, fields) {
+            // console.log([results[0].userrole]);
+            if (!results[0].userrole) {
+                console.log("Error");
+            } else if (results[0].userrole === "Admin") {
+                // process the signup form
+                res.render('profile_Admin.ejs', {
+                    user: req.user // get the user out of session and pass to template
+                });
+            } else if (results[0].userrole === "Regular") {
+                res.render('profile_Regular.ejs', {
+                    user: req.user // get the user out of session and pass to template
+                });
+            }
+        });
 	});
 
 	// =====================================
@@ -110,14 +125,6 @@ module.exports = function(app, passport) {
             }
         });
     });
-
-    // show the data entry page
-    // app.get('/dataEntry', isLoggedIn, function(req, res) {
-    //     res.render('insert.ejs', {
-    //         user : req.user, // get the user out of session and pass to template
-    //         message: req.flash('Data Entry Message')
-    //     });
-    // });
 
     app.get('/dataEntry', isLoggedIn, function(req, res) {
         res.render('dataEntry_Home.ejs', {
