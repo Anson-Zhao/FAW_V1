@@ -16,6 +16,7 @@ select {
 table::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
+    height: 7px;
 }
 table::-webkit-scrollbar-thumb {
     border-radius: 4px;
@@ -69,6 +70,13 @@ select {
     -moz-appearance: none;
     -webkit-appearance: none;
 }
+
+
+#map {
+    height: 400px;
+    width: 67%;
+}
+
 table {
     margin-top: 30px;
     font-family: arial, sans-serif;
@@ -76,7 +84,7 @@ table {
     width: 67%;
     display: block;
     max-height: 500px;
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: scroll;
     white-space: nowrap;
 }
@@ -221,9 +229,4 @@ a {
 #description {
     font: inherit;
     font-size: large;
-}
-
-#map {
-    height: 400px;
-    width: 67%;
 }
