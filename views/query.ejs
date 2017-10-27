@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">
     <script src="//unpkg.com/flatpickr"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX94wEDdQ52lCDhKAhcfR-flIw1NyLTMA"></script>
 </head>
 <body>
 <div class="container">
@@ -40,7 +41,7 @@
         </div>
     </div>
     <div class="containerBox">
-        <h4 class="floatingBox">Start Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker" placeholder="Select Date here" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4 class="floatingBox">Start Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE" class="datePicker"required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <h4 class="floatingBox">End Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker" placeholder="Select Date here" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
         <input type="submit" onclick="query()" value="Click here to continue">
         <div id=dataDisplayDiv class='container'>
@@ -57,8 +58,15 @@
         </div>
     </div>
 </div>
-
+<div id="map"></div>
 <script type='text/javascript'>
+
+    var markers = [];
+    var map;
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    document.getElementById("DATE").value = date;
 
     flatpickr(".datePicker", {
         dateFormat: "Y-m-d",
@@ -75,7 +83,7 @@
 
             queryAndDisplay(startDate, endDate);
         } else {
-            alert("Please Select both Date !");
+            alert("Please Select both Date!");
         }
     }
 
@@ -126,15 +134,22 @@
                     }
                     table.append($("</tr>"));
 
+                    var center = {lat: 0, lng: 0};
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 3,
+                        center: center,
+                        mapTypeId: 'hybrid'
+                    });
+
                     for (var i = 0; i < ajaxReturn.length; i++){
 
                         table.append($("<tr id='dataColumn" + (i + 1) + "' onmousedown='RowClick(this,false);'>"));
-                        $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Username + "</td>" + "<td>" + ajaxReturn[i].Title + "</td>" + "<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Latitude + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Longitude + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Crop_Damage + "</td>"  + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td id='photoOfPest'></td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>" + "<td id='photoOfDamage'></td>"));
+                        $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Username + "</td>" + "<td>" + ajaxReturn[i].Title + "</td>" + "<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Latitude + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Longitude + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Crop_Damage + "</td>"  + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td id='photoOfPest" + (i + 1) + "'></td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>" + "<td id='photoOfDamage" + (i + 1) + "'></td>"));
 
                         var photoOfPest = ajaxReturn[i].Photos_of_Pest.split(";");
 
                         for (var a = 0; a < photoOfPest.length; a++) {
-                            $("#photoOfPest").append($("<a target=\"_blank\" href='" + photoOfPest[a] + "'><img src='" + photoOfPest[a] + "' id='p" + i + a + "'></a>"));
+                            $("#photoOfPest"  + (i + 1)).append($("<a target=\"_blank\" href='" + photoOfPest[a] + "'><img src='" + photoOfPest[a] + "' id='p" + i + a + "'></a>"));
 
                             var popWidth = document.getElementById("p" + i + a).naturalWidth;
                             var popHeight = document.getElementById("p" + i + a).naturalHeight;
@@ -150,7 +165,7 @@
 
                         var photoOfDamage = ajaxReturn[i].Photos_of_Damage.split(",");
                         for (var b = 0; b < photoOfDamage.length; b++) {
-                            $("#photoOfDamage").append($("<a target=\"_blank\" href='" + photoOfDamage[b] + "'><img src='" + photoOfDamage[b] + "' id='d" + i + b + "'></a>"));
+                            $("#photoOfDamage" + (i + 1)).append($("<a target=\"_blank\" href='" + photoOfDamage[b] + "'><img src='" + photoOfDamage[b] + "' id='d" + i + b + "'></a>"));
 
                             var podWidth = document.getElementById("d" + i + b).naturalWidth;
                             var podHeight = document.getElementById("d" + i + b).naturalHeight;
@@ -174,10 +189,45 @@
 //
 //                        $("#stageTitle").val(stageArray).trigger("chosen:updated");
 
-
                         table.append($("</tr>"));
-                    }
 
+                        // array
+                        var latiDMS = ajaxReturn[i].GPS_Location_Latitude.split(" ");
+                        var longDMS = ajaxReturn[i].GPS_Location_Longitude.split(" ");
+                        // convert latitude & longitude from Degrees Minutes Seconds to Decimal Degree
+                        var latiDD = parseFloat(latiDMS[1].substring(0,latiDMS[1].length - 1)) + (parseFloat(latiDMS[2].substring(0,latiDMS[2].length - 1)) / 60) + (parseFloat(latiDMS[3].substring(0,latiDMS[3].length - 1)) / 3600);
+                        var longDD = parseFloat(longDMS[1].substring(0,longDMS[1].length - 1)) + (parseFloat(longDMS[2].substring(0,longDMS[2].length - 1)) / 60) + (parseFloat(longDMS[3].substring(0,longDMS[3].length - 1)) / 3600);
+                        // change to negative if S or W
+                        if (latiDMS[0] === "S") {
+                            latiDD = latiDD * -1;
+                        }
+                        if (longDMS[0] === "W") {
+                            longDD = longDD * -1;
+                        }
+
+                        var pinColor = "FE7569";
+                        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                            new google.maps.Size(21, 34),
+                            new google.maps.Point(0,0),
+                            new google.maps.Point(10, 34));
+                        var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+                            new google.maps.Size(40, 37),
+                            new google.maps.Point(0, 0),
+                            new google.maps.Point(12, 35));
+
+                        //alert(latiDD + " / " + longDD);
+                        var position = {lat: latiDD, lng: longDD};
+                        var marker = new google.maps.Marker({
+                            position: position,
+                            map: map,
+                            icon: pinImage,
+                            shadow: pinShadow
+                        });
+                        marker.DMS = ajaxReturn[i].GPS_Location_Latitude + "; " + ajaxReturn[i].GPS_Location_Longitude;
+                        //marker.status = "red";
+                        markers.push(marker);
+                        //alert("a");
+                    }
 
                     document.getElementById("modal").style.display = "block";
 
@@ -309,8 +359,11 @@
     }
 
     function toggleRow(row) {
-        row.className = row.className === 'selected' ? '' : 'selected';
+        row.className = row.className === 'selected' ? 'change' : 'selected change';
         lastSelectedRow = row;
+        //alert(row);
+
+        changeColor();
     }
 
     function selectRowsBetweenIndexes(indexes) {
@@ -327,6 +380,48 @@
         for (var i = 0; i < trs.length; i++) {
             trs[i].className = '';
         }
+    }
+
+    function changeColor() {
+        //alert(document.getElementsByClassName("change")[0].innerHTML);
+        var row = document.getElementsByClassName("change")[0].innerHTML.trim().split("</td>");
+//        for (var i = 0; i < row.length; i++) {
+//            alert(row[i]);
+//        }
+        var latiLong = row[4].substring(4, row[4].length) + "; " + row[5].substring(4, row[5].length);
+        //alert(latiLong + " / " + markers[0].DMS);
+
+        for (var i = 0; i < markers.length; i++) {
+            if (markers[i].DMS === latiLong) {
+                markers[i].setMap(null);
+
+                if (document.getElementsByClassName("change")[0].className === "selected change") {
+                    document.getElementsByClassName("change")[0].className = "selected";
+
+                    var pinColor = "ffff00";
+                    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                        new google.maps.Size(21, 34),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(10, 34));
+                    markers[i].icon = pinImage;
+                    markers[i].setMap(map);
+                } else if (document.getElementsByClassName("change")[0].className === "change") {
+                    document.getElementsByClassName("change")[0].className = "";
+
+                    var pinColor = "FE7569";
+                    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                        new google.maps.Size(21, 34),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(10, 34));
+                    markers[i].icon = pinImage;
+                    markers[i].setMap(map);
+                }
+
+                break
+            }
+        }
+
+        //alert(markers.length)
     }
 </script>
 </body>
