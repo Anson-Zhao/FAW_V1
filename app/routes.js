@@ -153,30 +153,94 @@ module.exports = function(app, passport) {
     });
 
     app.get('/dataEntry', isLoggedIn, function(req, res) {
-        res.render('dataEntry_Home.ejs', {
-            user : req.user, // get the user out of session and pass to template
-            message: req.flash('Data Entry Message')
+        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
+
+        connection.query(queryStatementTest, function(err, results, fields) {
+            //console.log(results);
+
+            if (!results[0].userrole) {
+                console.log("Error");
+            } else if (results[0].userrole === "Admin") {
+                // process the signup form
+                res.render('dataEntry_Home_Admin.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            } else if (results[0].userrole === "Regular") {
+                res.render('dataEntry_Home_Regular.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            }
         });
     });
 
     app.get('/dataEntry1', isLoggedIn, function(req, res) {
-        res.render('insert_Armyworm.ejs', {
-            user : req.user, // get the user out of session and pass to template
-            message: req.flash('Data Entry Message')
+        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
+
+        connection.query(queryStatementTest, function(err, results, fields) {
+            //console.log(results);
+
+            if (!results[0].userrole) {
+                console.log("Error");
+            } else if (results[0].userrole === "Admin") {
+                // process the signup form
+                res.render('insert_Armyworm_Admin.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            } else if (results[0].userrole === "Regular") {
+                res.render('insert_Armyworm_Regular.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            }
         });
     });
 
     app.get('/dataEntry2', isLoggedIn, function(req, res) {
-        res.render('insert_Armyworm.ejs', {
-            user : req.user, // get the user out of session and pass to template
-            message: req.flash('Data Entry Message')
+        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
+
+        connection.query(queryStatementTest, function(err, results, fields) {
+            //console.log(results);
+
+            if (!results[0].userrole) {
+                console.log("Error");
+            } else if (results[0].userrole === "Admin") {
+                // process the signup form
+                res.render('insert_Armyworm_Admin.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            } else if (results[0].userrole === "Regular") {
+                res.render('insert_Armyworm_Regular.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            }
         });
     });
 
     app.get('/dataEntry3', isLoggedIn, function(req, res) {
-        res.render('insert_Armyworm.ejs', {
-            user : req.user, // get the user out of session and pass to template
-            message: req.flash('Data Entry Message')
+        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
+
+        connection.query(queryStatementTest, function(err, results, fields) {
+            //console.log(results);
+
+            if (!results[0].userrole) {
+                console.log("Error");
+            } else if (results[0].userrole === "Admin") {
+                // process the signup form
+                res.render('insert_Armyworm_Admin.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            } else if (results[0].userrole === "Regular") {
+                res.render('insert_Armyworm_Regular.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            }
         });
     });
     // app.get('/dataEntry2', isLoggedIn, function(req, res) {
@@ -217,9 +281,25 @@ module.exports = function(app, passport) {
 
     // show the data query form
     app.get('/dataQuery', isLoggedIn, function(req, res) {
-        res.render('query.ejs', {
-            user : req.user, // get the user out of session and pass to template
-            message: req.flash('Data Query Message')
+        var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
+
+        connection.query(queryStatementTest, function(err, results, fields) {
+            //console.log(results);
+
+            if (!results[0].userrole) {
+                console.log("Error");
+            } else if (results[0].userrole === "Admin") {
+                // process the signup form
+                res.render('query_Admin.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Entry Message')
+                });
+            } else if (results[0].userrole === "Regular") {
+                res.render('query_Regular.ejs', {
+                    user: req.user, // get the user out of session and pass to template
+                    message: req.flash('Data Query Message')
+                });
+            }
         });
     });
 
@@ -250,7 +330,6 @@ module.exports = function(app, passport) {
             } else {
                 var JSONresult = JSON.stringify(results, null, "\t");
                 console.log(JSONresult);
-                res.r
                 res.send(JSONresult);
                 res.end();
             }
