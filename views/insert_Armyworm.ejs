@@ -170,6 +170,7 @@
             $("#longitudeStatus").remove();
 			document.getElementById("errorMessage").innerHTML = "ERROR: Geolocation is not supported by this browser."
             alert("Geolocation is not supported by this browser.");
+            createInputBox();
         }
     }
 
@@ -191,8 +192,9 @@
 
         var latiDD = position.coords.latitude;
         var longDD = position.coords.longitude;
-        // convert latitude from Decimal Degree to Degrees Minutes Seconds
+
         var latiDirection;
+        var longDirection;
         // check direction
         if (latiDD >= 0) {
             latiDirection = "N";
@@ -206,44 +208,58 @@
             longDirection = "W";
             longDD = longDD * -1;
         }
-
+		// convert latitude from Decimal Degree to Degrees Minutes Seconds
         var latiDegrees = Math.floor(latiDD);
         var latiMinutes = Math.floor((latiDD - latiDegrees) * 60);
         var latiSeconds = ((latiDD - latiDegrees) * 60 - latiMinutes) * 60;
         // convert longitude from Decimal Degree to Degrees Minutes Seconds
-        var longDirection;
         var longDegrees = Math.floor(longDD);
         var longMinutes = Math.floor((longDD - longDegrees) * 60);
         var longSeconds = ((longDD - longDegrees) * 60 - longMinutes) * 60;
 
-        var latitudeTitle = $("#latitudeTitle");
+        var latitude = latiDirection + " " + latiDegrees + " " + latiMinutes + " " + latiSeconds;
+        var longitude = longDirection + " " + longDegrees + " " + longMinutes + " " + longSeconds;
+        createInputBox(latitude, longitude);
+    }
+
+    function createInputBox(lati, long) {
+        // [0] = direction; [1] = degrees; [2] = minutes; [3] = seconds
+		var latitude = [];
+		var longitude = [];
+		if (lati && long) {
+            latitude = lati.split(" ");
+            longitude = long.split(" ");
+        }
+
+		var latitudeTitle = $("#latitudeTitle");
         var latitudeSelect = $("<select id='latitudeDirection'>");
         latitudeTitle.append(latitudeSelect);
-        latitudeSelect.append($("<option>" + latiDirection + "</option>"));
-        if (latiDirection === "N") {
-            latitudeSelect.append($("<option>S</option>"));
-        } else if (latiDirection === "S") {
-            latitudeSelect.append($("<option>N</option>"));
-        }
+        if (latitude[0] === "N") {
+            latitudeSelect.append($("<option>N</option><option>S</option>"));
+        } else if (latitude[0] === "S") {
+            latitudeSelect.append($("<option>S</option><option>N</option>"));
+        } else {
+            latitudeSelect.append($("<option value=''>Select a Direction</option><option>N</option><option>S</option>"));
+		}
         latitudeTitle.append(endSelectTag);
 
         var longitudeTitle = $("#longitudeTitle");
         var longitudeSelect = $("<select id='longitudeDirection'>");
         longitudeTitle.append(longitudeSelect);
-        longitudeSelect.append($("<option>" + longDirection + "</option>"));
-        if (longDirection === "E") {
-            longitudeSelect.append($("<option>W</option>"));
-        } else if (longDirection === "W") {
-            longitudeSelect.append($("<option>E</option>"));
-        }
+        if (longitude[0] === "E") {
+            longitudeSelect.append($("<option>E</option><option>W</option>"));
+        } else if (longitude[0] === "W") {
+            longitudeSelect.append($("<option>W</option><option>E</option>"));
+        } else {
+            longitudeSelect.append($("<option value=''>Select a Direction</option><option>E</option><option>W</option>"));
+		}
         longitudeTitle.append(endSelectTag);
 
-
-        latitudeTitle.append($("<input id='latitudeDegree' type='number' value='" + latiDegrees + "'>°" + " <input id='latitudeMinute' type='number' value='" + latiMinutes + "'>'" + " <input id='latitudeSecond' type='number' value='" + Math.round(latiSeconds * 1000) / 1000 + "'>''" + "<p></p>"));
-        longitudeTitle.append($("<input id='longitudeDegree' type='number' value='" + longDegrees + "'>°" + " <input id='longitudeMinute' type='number' value='" + longMinutes + "'>'" + " <input id='longitudeSecond' type='number' value='" + Math.round(longSeconds * 1000) / 1000 + "'>''" + "<p></p>"));
+		latitudeTitle.append($("<input id='latitudeDegree' type='number' value='" + latitude[1] + "'>°" + " <input id='latitudeMinute' type='number' value='" + latitude[2] + "'>'" + " <input id='latitudeSecond' type='number' value='" + Math.round(latitude[3] * 1000) / 1000 + "'>''" + "<p></p>"));
+        longitudeTitle.append($("<input id='longitudeDegree' type='number' value='" + longitude[1] + "'>°" + " <input id='longitudeMinute' type='number' value='" + longitude[2] + "'>'" + " <input id='longitudeSecond' type='number' value='" + Math.round(longitude[3] * 1000) / 1000 + "'>''" + "<p></p>"));
 
 		$("#locationNote").append($("<input type='button' onclick='refresh()' value='Click here to refresh the map'>"))
-    }
+	}
 
     function refresh() {
         var latiDirection = document.getElementById("latitudeDirection").value;
@@ -287,6 +303,8 @@
     function showError(error) {
 
         var errorMessage = document.getElementById("errorMessage");
+        $("#latitudeStatus").remove();
+        $("#longitudeStatus").remove();
         switch(error.code) {
             case error.PERMISSION_DENIED:
                 errorMessage.innerHTML = "ERROR: User denied the request for Geolocation."
@@ -301,6 +319,7 @@
                 errorMessage.innerHTML = "ERROR: An unknown error occurred."
                 break;
         }
+        createInputBox();
     }
 
     // Form Initialization with default value

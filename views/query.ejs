@@ -140,12 +140,12 @@
                     for (var i = 0; i < ajaxReturn.length; i++){
 
                         table.append($("<tr id='dataColumn" + (i + 1) + "' onmousedown='RowClick(this,false);'>"));
-                        $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Username + "</td>" + "<td>" + ajaxReturn[i].Title + "</td>" + "<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Latitude + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Longitude + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Crop_Damage + "</td>"  + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td id='photoOfPest'></td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>" + "<td id='photoOfDamage'></td>"));
+                        $("#dataColumn" + (i + 1)).append($("<td>" + ajaxReturn[i].Username + "</td>" + "<td>" + ajaxReturn[i].Title + "</td>" + "<td>" + ajaxReturn[i].Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Location + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Latitude + "</td>" + "<td>" + ajaxReturn[i].GPS_Location_Longitude + "</td>" + "<td>" + ajaxReturn[i].Crop_Variety + "</td>" + "<td>" + ajaxReturn[i].Cropping_System + "</td>" + "<td>" + ajaxReturn[i].Main_Crop + "</td>" + "<td>" + ajaxReturn[i].Planting_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Field_Size + "</td>" + "<td>" + ajaxReturn[i].Last_Rainfall_Date.substring(0,10) + "</td>" + "<td>" + ajaxReturn[i].Pest_Species + "</td>" + "<td>" + ajaxReturn[i].Presence_or_Absence + "</td>" + "<td>" + ajaxReturn[i].Crop_Damage + "</td>"  + "<td>" + ajaxReturn[i].Stage + "</td>" + "<td>" + ajaxReturn[i].Number_per_Plant + "</td>" + "<td>" + ajaxReturn[i].Number_per_Pastures + "</td>" + "<td>" + ajaxReturn[i].Number_per_Trap + "</td>" + "<td>" + ajaxReturn[i].Percentage_of_Crop_Infested + "</td>" + "<td>" + ajaxReturn[i].Control + "</td>" + "<td>" + ajaxReturn[i].Amount_of_Pesticide_in_Litres + "</td>" + "<td>" + ajaxReturn[i].Photos_of_Pest + "</td>" + "<td id='photoOfPest" + (i + 1) + "'></td>" + "<td>" + ajaxReturn[i].Photos_of_Damage + "</td>" + "<td id='photoOfDamage" + (i + 1) + "'></td>"));
 
                         var photoOfPest = ajaxReturn[i].Photos_of_Pest.split(";");
 
                         for (var a = 0; a < photoOfPest.length; a++) {
-                            $("#photoOfPest").append($("<a target=\"_blank\" href='" + photoOfPest[a] + "'><img src='" + photoOfPest[a] + "' id='p" + i + a + "'></a>"));
+                            $("#photoOfPest"  + (i + 1)).append($("<a target=\"_blank\" href='" + photoOfPest[a] + "'><img src='" + photoOfPest[a] + "' id='p" + i + a + "'></a>"));
 
                             var popWidth = document.getElementById("p" + i + a).naturalWidth;
                             var popHeight = document.getElementById("p" + i + a).naturalHeight;
@@ -161,7 +161,7 @@
 
                         var photoOfDamage = ajaxReturn[i].Photos_of_Damage.split(",");
                         for (var b = 0; b < photoOfDamage.length; b++) {
-                            $("#photoOfDamage").append($("<a target=\"_blank\" href='" + photoOfDamage[b] + "'><img src='" + photoOfDamage[b] + "' id='d" + i + b + "'></a>"));
+                            $("#photoOfDamage" + (i + 1)).append($("<a target=\"_blank\" href='" + photoOfDamage[b] + "'><img src='" + photoOfDamage[b] + "' id='d" + i + b + "'></a>"));
 
                             var podWidth = document.getElementById("d" + i + b).naturalWidth;
                             var podHeight = document.getElementById("d" + i + b).naturalHeight;
