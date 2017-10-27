@@ -144,7 +144,7 @@ module.exports = function(app, passport) {
                 filePathName = "";
                 //res.send("Error uploading file.");
             } else {
-                console.log("Success:" + filePathName);
+                //console.log("Success:" + filePathName);
                 res.json({"error": false, "message": filePathName});
                 filePathName = "";
                 //res.send("File is uploaded");
@@ -156,7 +156,6 @@ module.exports = function(app, passport) {
         var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
 
         connection.query(queryStatementTest, function(err, results, fields) {
-            //console.log(results);
 
             if (!results[0].userrole) {
                 console.log("Error");
@@ -179,7 +178,6 @@ module.exports = function(app, passport) {
         var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
 
         connection.query(queryStatementTest, function(err, results, fields) {
-            //console.log(results);
 
             if (!results[0].userrole) {
                 console.log("Error");
@@ -202,7 +200,6 @@ module.exports = function(app, passport) {
         var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
 
         connection.query(queryStatementTest, function(err, results, fields) {
-            //console.log(results);
 
             if (!results[0].userrole) {
                 console.log("Error");
@@ -225,7 +222,6 @@ module.exports = function(app, passport) {
         var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
 
         connection.query(queryStatementTest, function(err, results, fields) {
-            //console.log(results);
 
             if (!results[0].userrole) {
                 console.log("Error");
@@ -243,26 +239,12 @@ module.exports = function(app, passport) {
             }
         });
     });
-    // app.get('/dataEntry2', isLoggedIn, function(req, res) {
-    //     res.render('insert_Desert_Locust.ejs', {
-    //         user : req.user, // get the user out of session and pass to template
-    //         message: req.flash('Data Entry Message')
-    //     });
-    // });
-    //
-    // app.get('/dataEntry3', isLoggedIn, function(req, res) {
-    //     res.render('insert_Other_Locusts.ejs', {
-    //         user : req.user, // get the user out of session and pass to template
-    //         message: req.flash('Data Entry Message')
-    //     });
-    // });
-
 
     app.get('/insert', function (req, res) {
-        connection.query('USE ' + config.Upload_db);
-        var insertInfo = req.query.statement;
-        //console.log(insertInfo);
 
+        connection.query('USE ' + config.Upload_db);
+
+        var insertInfo = req.query.statement;
         var insertStatement = "INSERT INTO FAW_Data_Entry VALUES (" + insertInfo + ");";
 
         res.setHeader("Access-Control-Allow-Origin", "*");
@@ -284,7 +266,6 @@ module.exports = function(app, passport) {
         var queryStatementTest = "SELECT userrole FROM Login_DB.users WHERE username = '" + req.user.username + "';";
 
         connection.query(queryStatementTest, function(err, results, fields) {
-            //console.log(results);
 
             if (!results[0].userrole) {
                 console.log("Error");
@@ -304,17 +285,16 @@ module.exports = function(app, passport) {
     });
 
     app.get('/query', function (req, res) {
+
         connection.query('USE ' + config.Upload_db);
+
         var startDate = req.query.startDate;
         var endDate = req.query.endDate;
-        //console.log(startDate + "  " + endDate);
-
         var queryStatement = "SELECT * FROM FAW_Data_Entry WHERE Date >= '" + startDate + "' AND Date <= '" + endDate + "' ORDER BY Date;";
 
         res.setHeader("Access-Control-Allow-Origin", "*");
 
         connection.query(queryStatement, function(err, results, fields) {
-            //console.log(results);
 
             var status = [{errStatus: ""}];
 
@@ -329,7 +309,6 @@ module.exports = function(app, passport) {
                 res.end();
             } else {
                 var JSONresult = JSON.stringify(results, null, "\t");
-                console.log(JSONresult);
                 res.send(JSONresult);
                 res.end();
             }
