@@ -63,7 +63,7 @@
 		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location Here" required><br><br>
         <h4 id="GPSLocationTitle">GPS Location: &nbsp;&nbsp;&nbsp;</h4>
 		<h4 id="errorMessage"></h4>
-        <h5 style="color:#9d9d9d;" id="locationNote">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+        <h5 style="color:#9d9d9d;" id="locationNote">Note: Please verify the coordinates below. If it is incorrect, change according to your current location.</h5>
 		<div id="map"></div>
         <h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
         <h4 id="cropSystemTitle"><h4 id="mainCropTitle"></h4></h4><br>
@@ -162,7 +162,7 @@
 
     //Get geolocation and map preview
     function getLocation() {
-        $("#locationNote").append($("<h4 id='latitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latitude: </h4><h4 id='latitudeStatus'>Locating......</h4><h4 id='longitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude: </h4><h4 id='longitudeStatus'>Locating......</h4>"));
+        $("#locationNote").append($("<h4 id='latitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latitude:&nbsp;&nbsp;&nbsp;&nbsp;</h4><h4 id='latitudeStatus'>Locating......</h4><h4 id='longitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude: </h4><h4 id='longitudeStatus'>Locating......</h4>"));
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);

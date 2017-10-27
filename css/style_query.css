@@ -9,19 +9,19 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-/*select {*/
-    /*text-transform: none;*/
-/*}*/
+select {
+    text-transform: none;
+}
 
-/*table::-webkit-scrollbar {*/
-    /*-webkit-appearance: none;*/
-    /*width: 7px;*/
-/*}*/
-/*table::-webkit-scrollbar-thumb {*/
-    /*border-radius: 4px;*/
-    /*background-color: rgba(0, 0, 0, .5);*/
-    /*-webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);*/
-/*}*/
+table::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+table::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
 
 input[type='submit']:hover{
     background-color: #a7cb9f;
