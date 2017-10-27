@@ -17,9 +17,9 @@
 			font: inherit;
 		}
 	</style>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="//unpkg.com/flatpickr"></script>
-    <script src="/scripts/jquery.form.min.js"></script>
+	<script src="/scripts/jquery.form.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBX94wEDdQ52lCDhKAhcfR-flIw1NyLTMA"></script>
 </head>
@@ -28,8 +28,8 @@
 <div class="container">
 
 	<div class="page-header text-center">
-        <a href="//aworldbridge.com"><img class="banner" src="../pic/NewWBBanner.jpg" style="height:147px" /></a>
-        <h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <span id="username"><%= user.username %></span></h4><br>
+		<a href="//aworldbridge.com"><img class="banner" src="../pic/NewWBBanner.jpg" style="height:147px" /></a>
+		<h1><span class="fa fa-anchor"></span> FAW/Locust - Data Entry </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <span id="username"><%= user.username %></span></h4><br>
 		<a href="/profile" class="btn btn-default btn-sm">User Home</a>
 		<a href="/dataEntry" class="btn btn-default btn-sm">Data Entry</a>
 		<a href="/dataQuery" class="btn btn-default btn-sm">Data Query</a>
@@ -60,21 +60,21 @@
 	<div id="container">
 		<h4>Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE" class="date" value=""><br><br>
 		<h4>Location: &nbsp;&nbsp;&nbsp;</h4><input id="location" type="text" placeholder="Enter Location Here" required><br><br>
-        <h4 id="GPSLocationTitle">GPS Location: &nbsp;&nbsp;&nbsp;</h4>
+		<h4 id="GPSLocationTitle">GPS Location: &nbsp;&nbsp;&nbsp;</h4>
 		<h4 id="errorMessage"></h4>
-        <h5 style="color:#9d9d9d;" id="locationNote">Note: There is no need to enter the decimals, etc. Please enter the number ONLY. (Order: Degrees, minutes, seconds)</h5>
+		<h5 style="color:#9d9d9d;" id="locationNote">Note: Please verify the coordinates below. If it is incorrect, change according to your current location.</h5>
 		<div id="map"></div>
-        <h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="cropSystemTitle"><h4 id="mainCropTitle"></h4></h4><br>
+		<h4>Cropping System: &nbsp;&nbsp;&nbsp;</h4>
+		<h4 id="cropSystemTitle"><h4 id="mainCropTitle"></h4></h4><br>
 		<h4>Crop Variety: &nbsp;&nbsp;&nbsp;</h4><input id="cropVariety" type="text" placeholder="Enter Crop Variety Here" required><br><br>
 		<h4>Planting Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE2" class="date" value=""><br><br>
 		<h4>Field Size - ha (numerical XXXX.X): &nbsp;&nbsp;&nbsp;</h4>
-        <h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY.</h5>
-        <input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.
-        <input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
+		<h5 style="color:#9d9d9d;">Note: There is no need to enter the decimals, etc. Please enter the number ONLY.</h5>
+		<input id="fieldSizeInteger" type="number" min="0" max="999999" placeholder="0000" onkeyup="limit()">.
+		<input id="fieldSizeDecimal" type="number" maxlength="1" min="0" max="9" placeholder="0" onkeyup="limit()"><br><br>
 		<h4>Date of Last RainFall: &nbsp;&nbsp;&nbsp;</h4><input id="DATE3" class="date" value=""><br><br>
 		<h4>Pest Species: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="pestSpeciesTitle"></h4><br>
+		<h4 id="pestSpeciesTitle"></h4><br>
 		<h4>Presence or Absence: &nbsp;&nbsp;&nbsp;</h4>
 		<input id="presence" type="radio" name="status" value="Presence"> Presence
 		<input id="absence" type="radio" name="status" value="Absence"> Absence <br><br>
@@ -101,20 +101,20 @@
 		<h4>Number (Numerical) per Trap: &nbsp;&nbsp;&nbsp;</h4><input id="numPerTrap" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
 		<h4>% Crop Infested (Numerical): &nbsp;&nbsp;&nbsp;</h4><input id="cropInfested" type="text" placeholder="Enter Number (Numerical) Here" required><br><br>
 		<h4>Control: &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="controlTitle"></h4><br><br>
+		<h4 id="controlTitle"></h4><br><br>
 		<h4>If pesticide: amount in litres (numerical, XX.X): &nbsp;&nbsp;&nbsp;</h4>
-        <h4 id="ifPesticideTitle"></h4><br><br>
+		<h4 id="ifPesticideTitle"></h4><br><br>
 
 		<form id = "uploadForm" enctype = "multipart/form-data" method = "post">
 			<h4>Photos of pest at different stages: &nbsp;&nbsp;&nbsp;</h4>
-            <input id="photoOfPest" type="file" name="photoOfPest" accept="image/*" onchange="previewFile()" multiple/><br>
-            <img id="photoOfPestImage" src="" alt="Image preview..."><br>
+			<input id="photoOfPest" type="file" name="photoOfPest" accept="image/*" onchange="previewFile()" multiple/><br>
+			<img id="photoOfPestImage" src="" alt="Image preview..."><br>
 			<h4>Photos maize at all stages of damage: &nbsp;&nbsp;&nbsp;</h4>
-            <input id="photoOfDamage" type="file" name="photoOfDamage" accept="image/*" onchange="previewFile()" multiple/><br>
-            <img id="photoOfDamageImage" src="" alt="Image preview..."><br><br>
+			<input id="photoOfDamage" type="file" name="photoOfDamage" accept="image/*" onchange="previewFile()" multiple/><br>
+			<img id="photoOfDamageImage" src="" alt="Image preview..."><br><br>
 			<input type="submit" value="Submit the Form">
 		</form>
-    </div>
+	</div>
 </div>
 
 <script>
@@ -161,17 +161,17 @@
 
     //Get geolocation and map preview
     function getLocation() {
-        $("#locationNote").append($("<h4 id='latitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latitude: </h4><h4 id='latitudeStatus'>Locating......</h4><h4 id='longitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude: </h4><h4 id='longitudeStatus'>Locating......</h4>"));
+        $("#locationNote").append($("<h4 id='latitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Latitude:&nbsp;&nbsp;&nbsp;&nbsp;</h4><h4 id='latitudeStatus'>Locating......</h4><h4 id='longitudeTitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude: </h4><h4 id='longitudeStatus'>Locating......</h4>"));
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);
         } else {
             $("#latitudeStatus").remove();
             $("#longitudeStatus").remove();
-			document.getElementById("errorMessage").innerHTML = "ERROR: Geolocation is not supported by this browser."
+            document.getElementById("errorMessage").innerHTML = "ERROR: Geolocation is not supported by this browser."
             alert("Geolocation is not supported by this browser.");
 
-			createInputBox();
+            createInputBox();
         }
     }
 
@@ -209,7 +209,7 @@
             longDirection = "W";
             longDD = longDD * -1;
         }
-		// convert latitude from Decimal Degree to Degrees Minutes Seconds
+        // convert latitude from Decimal Degree to Degrees Minutes Seconds
         var latiDegrees = Math.floor(latiDD);
         var latiMinutes = Math.floor((latiDD - latiDegrees) * 60);
         var latiSeconds = ((latiDD - latiDegrees) * 60 - latiMinutes) * 60;
@@ -226,14 +226,14 @@
 
     function createInputBox(lati, long) {
         // [0] = direction; [1] = degrees; [2] = minutes; [3] = seconds
-		var latitude = [];
-		var longitude = [];
-		if (lati && long) {
+        var latitude = [];
+        var longitude = [];
+        if (lati && long) {
             latitude = lati.split(" ");
             longitude = long.split(" ");
         }
 
-		var latitudeTitle = $("#latitudeTitle");
+        var latitudeTitle = $("#latitudeTitle");
         var latitudeSelect = $("<select id='latitudeDirection'>");
         latitudeTitle.append(latitudeSelect);
         if (latitude[0] === "N") {
@@ -242,7 +242,7 @@
             latitudeSelect.append($("<option>S</option><option>N</option>"));
         } else {
             latitudeSelect.append($("<option value=''>Select a Direction</option><option>N</option><option>S</option>"));
-		}
+        }
         latitudeTitle.append(endSelectTag);
 
         var longitudeTitle = $("#longitudeTitle");
@@ -254,14 +254,14 @@
             longitudeSelect.append($("<option>W</option><option>E</option>"));
         } else {
             longitudeSelect.append($("<option value=''>Select a Direction</option><option>E</option><option>W</option>"));
-		}
+        }
         longitudeTitle.append(endSelectTag);
 
-		latitudeTitle.append($("<input id='latitudeDegree' type='number' value='" + latitude[1] + "'>°" + " <input id='latitudeMinute' type='number' value='" + latitude[2] + "'>'" + " <input id='latitudeSecond' type='number' value='" + Math.round(latitude[3] * 1000) / 1000 + "'>''" + "<p></p>"));
+        latitudeTitle.append($("<input id='latitudeDegree' type='number' value='" + latitude[1] + "'>°" + " <input id='latitudeMinute' type='number' value='" + latitude[2] + "'>'" + " <input id='latitudeSecond' type='number' value='" + Math.round(latitude[3] * 1000) / 1000 + "'>''" + "<p></p>"));
         longitudeTitle.append($("<input id='longitudeDegree' type='number' value='" + longitude[1] + "'>°" + " <input id='longitudeMinute' type='number' value='" + longitude[2] + "'>'" + " <input id='longitudeSecond' type='number' value='" + Math.round(longitude[3] * 1000) / 1000 + "'>''" + "<p></p>"));
 
-		$("#locationNote").append($("<input type='button' onclick='refresh()' value='Click here to refresh the map'>"))
-	}
+        $("#locationNote").append($("<input type='button' onclick='refresh()' value='Click here to refresh the map'>"))
+    }
 
     function refresh() {
         var latiDirection = document.getElementById("latitudeDirection").value;

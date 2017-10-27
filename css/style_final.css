@@ -168,9 +168,12 @@ input[type='text'], select {
     right:48px;
 }
 #latitudeDirection{
-    width:14.8%;
+    padding: 0 0 1px 5px;
+    width:8%;
 }
+
 #latitudeDegree,#latitudeMinute,#latitudeSecond{
+    margin-left: 20px;
     width:18%;
 }
 #longitudeTitle{
@@ -178,9 +181,11 @@ input[type='text'], select {
     right:48px;
 }
 #longitudeDirection{
-    width:13%;
+    padding: 0 0 1px 5px;
+    width:8%;
 }
 #longitudeDegree,#longitudeMinute,#longitudeSecond{
+    margin-left: 20px;
     width:18%;
 }
 .floatingBox {
