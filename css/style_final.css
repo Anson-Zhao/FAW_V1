@@ -165,20 +165,22 @@ input[type='text'], select {
 
 #latitudeTitle{
     position:relative;
-    right:48px;
+    right:49px;
 }
 #latitudeDirection{
-    width:14.8%;
+    width:15.3%;
+    padding:3px;
 }
 #latitudeDegree,#latitudeMinute,#latitudeSecond{
     width:18%;
 }
 #longitudeTitle{
     position:relative;
-    right:48px;
+    right:49px;
 }
 #longitudeDirection{
     width:13%;
+    padding:1px;
 }
 #longitudeDegree,#longitudeMinute,#longitudeSecond{
     width:18%;
