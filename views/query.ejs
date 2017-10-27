@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="containerBox">
-        <h4 class="floatingBox">Start Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker" placeholder="Select Date here" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4 class="floatingBox">Start Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE" class="datePicker"required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <h4 class="floatingBox">End Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker" placeholder="Select Date here" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
         <input type="submit" onclick="query()" value="Click here to continue">
         <div id=dataDisplayDiv class='container'>
@@ -60,6 +60,10 @@
 
 <script type='text/javascript'>
 
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    document.getElementById("DATE").value = date;
+
     flatpickr(".datePicker", {
         dateFormat: "Y-m-d",
         time_24hr: true
@@ -75,7 +79,7 @@
 
             queryAndDisplay(startDate, endDate);
         } else {
-            alert("Please Select both Date !");
+            alert("Please Select both Date!");
         }
     }
 
