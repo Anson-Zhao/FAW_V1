@@ -2,14 +2,14 @@
 <!doctype html>
 <html>
 <head>
-    <title>FAW/Locust -  Data Query</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/style_query.css" type="text/css">
+	<title>FAW/Locust -  Data Query</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/style_query.css" type="text/css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body 		{ padding-top:80px; word-wrap:break-word; }
-    </style>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
     <link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">
     <script src="//unpkg.com/flatpickr"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -18,13 +18,14 @@
 <body>
 <div class="container">
 
-    <div class="page-header text-center">
+	<div class="page-header text-center">
         <a href="//aworldbridge.com"><img class="banner" src="/pic/NewWBBanner.jpg" style="height:147px" /></a>
-        <h1><span class="fa fa-anchor"></span> FAW Project -  Data Query </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
-        <a href="/profile" class="btn btn-default btn-sm"> User Home </a>
-        <a href="/dataEntry" class="btn btn-default btn-sm"> Data Entry </a>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
+		<h1><span class="fa fa-anchor"></span> FAW Project -  Data Query </h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
+		<a href="/profile" class="btn btn-default btn-sm"> User Home </a>
+		<a href="/dataEntry" class="btn btn-default btn-sm"> Data Entry </a>
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        <a href="/signup" class="btn btn-default btn-sm">Sign Up</a>
+	</div>
 
     <div id="modal" class="modal">
         <!-- Modal content -->
@@ -61,13 +62,35 @@
 </div>
 
 <script type='text/javascript'>
-
-    $(function() {
-        flatpickr(".date", {
-            dateFormat: "Y-m-d",
-            time_24hr: true
-        });
+//    $(function() {
+//        flatpickr(".datePicker", {
+//            dateFormat: "Y-m-d",
+//            time_24hr: true
+//        });
+////    var markers = [];
+////    var map;
+////
+////    var today = new Date();
+////    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+////    document.getElementsByClassName("date")[0].value = date;
+////    document.getElementsByClassName("date")[1].value = date;
+//
+//        initForm();
+//    });
+//
+//    function initForm() {
+//        var today = new Date();
+//        var todayDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+//        var todayDateV = document.getElementsByClassName("date");
+//        for (i = 0; i < todayDateV.length; i++) {
+//            todayDateV[i].value = todayDate;
+//        }
+$(function() {
+    flatpickr(".date", {
+        dateFormat: "Y-m-d",
+        time_24hr: true
     });
+});
 
     var markers = [];
     var map;
@@ -88,7 +111,7 @@
 
             queryAndDisplay(startDate, endDate);
         } else {
-            alert("Please Select Both Dates!");
+            alert("Please Select both Date!");
         }
     }
 
@@ -132,35 +155,8 @@
 
                     var table = $("#dataDisplay");
                     table.append($("<tr id='title'>"));
-                    var field = [
-                        "Username",
-                        "Title",
-                        "Date",
-                        "Location",
-                        "GPS Location (Latitude)",
-                        "GPS Location (Longitude)",
-                        "Crop Variety",
-                        "Cropping System",
-                        "Main Crop",
-                        "Planting Date",
-                        "Field Size",
-                        "Date of Last Rainfall",
-                        "Pest Species",
-                        "Presence or Absence",
-                        "Crop Damage",
-                        "Stage",
-                        "Number per Plant (Crops)",
-                        "Number per m2 (Pastures)",
-                        "Number per Trap",
-                        "% Crop Infested",
-                        "Control",
-                        "If Pesticide: Amount in Litres",
-                        "Photos of Pest (Path)",
-                        "Photos of Pest (Preview)",
-                        "Photos of Damage (Path)",
-                        "Photos of Damage (Preview)"
-                    ];
-
+                    var field = ["Username", "Title", "Date", "Location", "GPS Location (Latitude)", "GPS Location (Longitude)", "Crop Variety", "Cropping System", "Main Crop", "Planting Date", "Field Size", "Date of Last Rainfall", "Pest Species", "Presence or Absence", "Crop Damage", "Stage", "Number per Plant (Crops)", "Number per m2 (Pastures)", "Number per Trap", "% Crop Infested", "Control", "If Pesticide: Amount in Litres", "Photos of Pest (Path)", "Photos of Pest (Preview)", "Photos of Damage (Path)", "Photos of Damage (Preview)"];
+//                    var field = ["Username", "Date", "Location", "GPS Location (Latitude)", "GPS Location (Longitude)", "Main Crop", "Crop Variety", "Cropping System", "Planting Date", "Field Size", "Date of Last Rainfall", "Pest Species", "Presence or Absence", "Stage", "Number per Plant (Crops)", "Number per m2 (Pastures)", "Number per Trap", "% Crop Infested", "Control", "If Pesticide: Amount in Litres", "Photos of Pest (Path)", "Photos of Pest (Preview)", "Photos of Damage (Path)", "Photos of Damage (Preview)"];
                     for (var i = 0; i < field.length; i++) {
                         $("#title").append($("<th>" + field[i] + "</th>"));
                     }
@@ -201,6 +197,7 @@
 
                             var podWidth = document.getElementById("d" + i + b).naturalWidth;
                             var podHeight = document.getElementById("d" + i + b).naturalHeight;
+//                            alert("weight: " + podWidth + "     height: " + podHeight);
                             if (podWidth > podHeight) {
                                 document.getElementById("d" + i + b).setAttribute("class", "x");
                             } else if (podWidth < podHeight) {
@@ -209,6 +206,16 @@
                                 document.getElementById("d" + i + b).setAttribute("class", "z");
                             }
                         }
+
+//                        var selectedStages = document.getElementById('stageTitle').value;
+//
+//                        var stageArray = selectedStages.Stage.split(",");
+//
+//                        for (var c = 0; c < stageArray.length; c++) {
+//                            stageArray[i] = stageArray[i].replace(/^\s*/, "").replace(/\s*$/, "");
+//                        }
+//
+//                        $("#stageTitle").val(stageArray).trigger("chosen:updated");
 
                         table.append($("</tr>"));
 
@@ -303,6 +310,7 @@
                 };
             }
         };
+
 
         var querystring = "?startDate=" + startDate + "&endDate=" + endDate;
         ajaxRequest.open("GET", "/query" + querystring, true);
