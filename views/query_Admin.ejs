@@ -2,14 +2,14 @@
 <!doctype html>
 <html>
 <head>
-	<title>FAW/Locust -  Data Query</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/style_query.css" type="text/css">
+    <title>FAW/Locust -  Data Query</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style_query.css" type="text/css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
-	</style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body 		{ padding-top:80px; word-wrap:break-word; }
+    </style>
     <link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">
     <script src="//unpkg.com/flatpickr"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -45,52 +45,29 @@
         <h4 class="floatingBox">Start Date: &nbsp;&nbsp;&nbsp;</h4><input class="date datePicker"required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <h4 class="floatingBox">End Date: &nbsp;&nbsp;&nbsp;</h4><input class="date datePicker" placeholder="Select Date here" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
         <input type="submit" onclick="query()" value="Click here to continue">
+        <div id="map"></div>
         <div id=dataDisplayDiv class='container'>
             <div id="dvData">
                 <h4 id="description">Please click on row(s) content to export.</h4>
                 <table id="example">
                 </table>
-                <div id="map"></div>
             </div>
             <br>
             <div class='button'>
                 <button onclick="exportTableToCSV('<%= user.username %>.csv')">Export .CSV File</button>
-
             </div>
         </div>
     </div>
 </div>
 
 <script type='text/javascript'>
-//    $(function() {
-//        flatpickr(".datePicker", {
-//            dateFormat: "Y-m-d",
-//            time_24hr: true
-//        });
-////    var markers = [];
-////    var map;
-////
-////    var today = new Date();
-////    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-////    document.getElementsByClassName("date")[0].value = date;
-////    document.getElementsByClassName("date")[1].value = date;
-//
-//        initForm();
-//    });
-//
-//    function initForm() {
-//        var today = new Date();
-//        var todayDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-//        var todayDateV = document.getElementsByClassName("date");
-//        for (i = 0; i < todayDateV.length; i++) {
-//            todayDateV[i].value = todayDate;
-//        }
-$(function() {
-    flatpickr(".date", {
-        dateFormat: "Y-m-d",
-        time_24hr: true
+
+    $(function() {
+        flatpickr(".date", {
+            dateFormat: "Y-m-d",
+            time_24hr: true
+        });
     });
-});
 
     var markers = [];
     var map;
@@ -111,7 +88,7 @@ $(function() {
 
             queryAndDisplay(startDate, endDate);
         } else {
-            alert("Please Select both Date!");
+            alert("Please Select Both Dates!");
         }
     }
 
@@ -155,8 +132,35 @@ $(function() {
 
                     var table = $("#dataDisplay");
                     table.append($("<tr id='title'>"));
-                    var field = ["Username", "Title", "Date", "Location", "GPS Location (Latitude)", "GPS Location (Longitude)", "Crop Variety", "Cropping System", "Main Crop", "Planting Date", "Field Size", "Date of Last Rainfall", "Pest Species", "Presence or Absence", "Crop Damage", "Stage", "Number per Plant (Crops)", "Number per m2 (Pastures)", "Number per Trap", "% Crop Infested", "Control", "If Pesticide: Amount in Litres", "Photos of Pest (Path)", "Photos of Pest (Preview)", "Photos of Damage (Path)", "Photos of Damage (Preview)"];
-//                    var field = ["Username", "Date", "Location", "GPS Location (Latitude)", "GPS Location (Longitude)", "Main Crop", "Crop Variety", "Cropping System", "Planting Date", "Field Size", "Date of Last Rainfall", "Pest Species", "Presence or Absence", "Stage", "Number per Plant (Crops)", "Number per m2 (Pastures)", "Number per Trap", "% Crop Infested", "Control", "If Pesticide: Amount in Litres", "Photos of Pest (Path)", "Photos of Pest (Preview)", "Photos of Damage (Path)", "Photos of Damage (Preview)"];
+                    var field = [
+                        "Username",
+                        "Title",
+                        "Date",
+                        "Location",
+                        "GPS Location (Latitude)",
+                        "GPS Location (Longitude)",
+                        "Crop Variety",
+                        "Cropping System",
+                        "Main Crop",
+                        "Planting Date",
+                        "Field Size",
+                        "Date of Last Rainfall",
+                        "Pest Species",
+                        "Presence or Absence",
+                        "Crop Damage",
+                        "Stage",
+                        "Number per Plant (Crops)",
+                        "Number per m2 (Pastures)",
+                        "Number per Trap",
+                        "% Crop Infested",
+                        "Control",
+                        "If Pesticide: Amount in Litres",
+                        "Photos of Pest (Path)",
+                        "Photos of Pest (Preview)",
+                        "Photos of Damage (Path)",
+                        "Photos of Damage (Preview)"
+                    ];
+
                     for (var i = 0; i < field.length; i++) {
                         $("#title").append($("<th>" + field[i] + "</th>"));
                     }
@@ -164,7 +168,7 @@ $(function() {
 
                     var center = {lat: 0, lng: 0};
                     map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 3,
+                        zoom: 2,
                         center: center,
                         mapTypeId: 'hybrid'
                     });
@@ -197,7 +201,6 @@ $(function() {
 
                             var podWidth = document.getElementById("d" + i + b).naturalWidth;
                             var podHeight = document.getElementById("d" + i + b).naturalHeight;
-//                            alert("weight: " + podWidth + "     height: " + podHeight);
                             if (podWidth > podHeight) {
                                 document.getElementById("d" + i + b).setAttribute("class", "x");
                             } else if (podWidth < podHeight) {
@@ -206,16 +209,6 @@ $(function() {
                                 document.getElementById("d" + i + b).setAttribute("class", "z");
                             }
                         }
-
-//                        var selectedStages = document.getElementById('stageTitle').value;
-//
-//                        var stageArray = selectedStages.Stage.split(",");
-//
-//                        for (var c = 0; c < stageArray.length; c++) {
-//                            stageArray[i] = stageArray[i].replace(/^\s*/, "").replace(/\s*$/, "");
-//                        }
-//
-//                        $("#stageTitle").val(stageArray).trigger("chosen:updated");
 
                         table.append($("</tr>"));
 
@@ -294,7 +287,6 @@ $(function() {
                     }
                     document.body.scrollTop = 0;
                     document.documentElement.scrollTop = 0;
-
                 };
 
                 // When the user clicks anywhere outside of the modal, close it
