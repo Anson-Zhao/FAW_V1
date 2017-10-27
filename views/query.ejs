@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">
     <script src="//unpkg.com/flatpickr"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX94wEDdQ52lCDhKAhcfR-flIw1NyLTMA"></script>
 </head>
 <body>
 <div class="container">
@@ -57,8 +58,11 @@
         </div>
     </div>
 </div>
-
+<div id="map"></div>
 <script type='text/javascript'>
+
+    var markers = [];
+    var map;
 
     flatpickr(".datePicker", {
         dateFormat: "Y-m-d",
@@ -126,6 +130,13 @@
                     }
                     table.append($("</tr>"));
 
+                    var center = {lat: 0, lng: 0};
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 3,
+                        center: center,
+                        mapTypeId: 'hybrid'
+                    });
+
                     for (var i = 0; i < ajaxReturn.length; i++){
 
                         table.append($("<tr id='dataColumn" + (i + 1) + "' onmousedown='RowClick(this,false);'>"));
@@ -174,10 +185,45 @@
 //
 //                        $("#stageTitle").val(stageArray).trigger("chosen:updated");
 
-
                         table.append($("</tr>"));
-                    }
 
+                        // array
+                        var latiDMS = ajaxReturn[i].GPS_Location_Latitude.split(" ");
+                        var longDMS = ajaxReturn[i].GPS_Location_Longitude.split(" ");
+                        // convert latitude & longitude from Degrees Minutes Seconds to Decimal Degree
+                        var latiDD = parseFloat(latiDMS[1].substring(0,latiDMS[1].length - 1)) + (parseFloat(latiDMS[2].substring(0,latiDMS[2].length - 1)) / 60) + (parseFloat(latiDMS[3].substring(0,latiDMS[3].length - 1)) / 3600);
+                        var longDD = parseFloat(longDMS[1].substring(0,longDMS[1].length - 1)) + (parseFloat(longDMS[2].substring(0,longDMS[2].length - 1)) / 60) + (parseFloat(longDMS[3].substring(0,longDMS[3].length - 1)) / 3600);
+                        // change to negative if S or W
+                        if (latiDMS[0] === "S") {
+                            latiDD = latiDD * -1;
+                        }
+                        if (longDMS[0] === "W") {
+                            longDD = longDD * -1;
+                        }
+
+                        var pinColor = "FE7569";
+                        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                            new google.maps.Size(21, 34),
+                            new google.maps.Point(0,0),
+                            new google.maps.Point(10, 34));
+                        var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+                            new google.maps.Size(40, 37),
+                            new google.maps.Point(0, 0),
+                            new google.maps.Point(12, 35));
+
+                        //alert(latiDD + " / " + longDD);
+                        var position = {lat: latiDD, lng: longDD};
+                        var marker = new google.maps.Marker({
+                            position: position,
+                            map: map,
+                            icon: pinImage,
+                            shadow: pinShadow
+                        });
+                        marker.DMS = ajaxReturn[i].GPS_Location_Latitude + "; " + ajaxReturn[i].GPS_Location_Longitude;
+                        //marker.status = "red";
+                        markers.push(marker);
+                        //alert("a");
+                    }
 
                     document.getElementById("modal").style.display = "block";
 
@@ -309,8 +355,11 @@
     }
 
     function toggleRow(row) {
-        row.className = row.className === 'selected' ? '' : 'selected';
+        row.className = row.className === 'selected' ? 'change' : 'selected change';
         lastSelectedRow = row;
+        //alert(row);
+
+        changeColor();
     }
 
     function selectRowsBetweenIndexes(indexes) {
@@ -327,6 +376,48 @@
         for (var i = 0; i < trs.length; i++) {
             trs[i].className = '';
         }
+    }
+
+    function changeColor() {
+        //alert(document.getElementsByClassName("change")[0].innerHTML);
+        var row = document.getElementsByClassName("change")[0].innerHTML.trim().split("</td>");
+//        for (var i = 0; i < row.length; i++) {
+//            alert(row[i]);
+//        }
+        var latiLong = row[4].substring(4, row[4].length) + "; " + row[5].substring(4, row[5].length);
+        //alert(latiLong + " / " + markers[0].DMS);
+
+        for (var i = 0; i < markers.length; i++) {
+            if (markers[i].DMS === latiLong) {
+                markers[i].setMap(null);
+
+                if (document.getElementsByClassName("change")[0].className === "selected change") {
+                    document.getElementsByClassName("change")[0].className = "selected";
+
+                    var pinColor = "ffff00";
+                    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                        new google.maps.Size(21, 34),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(10, 34));
+                    markers[i].icon = pinImage;
+                    markers[i].setMap(map);
+                } else if (document.getElementsByClassName("change")[0].className === "change") {
+                    document.getElementsByClassName("change")[0].className = "";
+
+                    var pinColor = "FE7569";
+                    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+                        new google.maps.Size(21, 34),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(10, 34));
+                    markers[i].icon = pinImage;
+                    markers[i].setMap(map);
+                }
+
+                break
+            }
+        }
+
+        //alert(markers.length)
     }
 </script>
 </body>

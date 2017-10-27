@@ -193,6 +193,20 @@
         var longDD = position.coords.longitude;
         // convert latitude from Decimal Degree to Degrees Minutes Seconds
         var latiDirection;
+        // check direction
+        if (latiDD >= 0) {
+            latiDirection = "N";
+        } else if (latiDD < 0) {
+            latiDirection = "S";
+            latiDD = latiDD * -1;
+        }
+        if (longDD >= 0) {
+            longDirection = "E";
+        } else if (longDD < 0) {
+            longDirection = "W";
+            longDD = longDD * -1;
+        }
+
         var latiDegrees = Math.floor(latiDD);
         var latiMinutes = Math.floor((latiDD - latiDegrees) * 60);
         var latiSeconds = ((latiDD - latiDegrees) * 60 - latiMinutes) * 60;
@@ -201,17 +215,6 @@
         var longDegrees = Math.floor(longDD);
         var longMinutes = Math.floor((longDD - longDegrees) * 60);
         var longSeconds = ((longDD - longDegrees) * 60 - longMinutes) * 60;
-        // check direction
-        if (latiDD >= 0) {
-            latiDirection = "N";
-        } else if (latiDD < 0) {
-            latiDirection = "S";
-        }
-        if (longDD >= 0) {
-            longDirection = "E";
-        } else if (longDD < 0) {
-            longDirection = "W";
-        }
 
         var latitudeTitle = $("#latitudeTitle");
         var latitudeSelect = $("<select id='latitudeDirection'>");
