@@ -41,8 +41,8 @@
         </div>
     </div>
     <div class="containerBox">
-        <h4 class="floatingBox">Start Date: &nbsp;&nbsp;&nbsp;</h4><input id="DATE" class="datePicker"required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <h4 class="floatingBox">End Date: &nbsp;&nbsp;&nbsp;</h4><input class="datePicker" placeholder="Select Date here" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        <h4 class="floatingBox">Start Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" class="datePicker"required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4 class="floatingBox">End Date: &nbsp;&nbsp;&nbsp;</h4><input class="date" class="datePicker" placeholder="Select Date here" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
         <input type="submit" onclick="query()" value="Click here to continue">
         <div id=dataDisplayDiv class='container'>
             <div id="dvData">
@@ -61,17 +61,19 @@
 <div id="map"></div>
 <script type='text/javascript'>
 
+    flatpickr(".datePicker", {
+        dateFormat: "Y-m-d",
+        time_24hr: true
+    });
     var markers = [];
     var map;
 
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    document.getElementById("DATE").value = date;
+    document.getElementsByClassName("date")[0].value = date;
+    document.getElementsByClassName("date")[1].value = date;
 
-    flatpickr(".datePicker", {
-        dateFormat: "Y-m-d",
-        time_24hr: true
-    });
+
 
     function query() {
         var startDate = document.getElementsByClassName("datePicker")[0].value;

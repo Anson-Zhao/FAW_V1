@@ -170,7 +170,8 @@
             $("#longitudeStatus").remove();
 			document.getElementById("errorMessage").innerHTML = "ERROR: Geolocation is not supported by this browser."
             alert("Geolocation is not supported by this browser.");
-            createInputBox();
+
+			createInputBox();
         }
     }
 
@@ -219,6 +220,7 @@
 
         var latitude = latiDirection + " " + latiDegrees + " " + latiMinutes + " " + latiSeconds;
         var longitude = longDirection + " " + longDegrees + " " + longMinutes + " " + longSeconds;
+
         createInputBox(latitude, longitude);
     }
 
